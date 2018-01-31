@@ -1,7 +1,11 @@
 package com.tsyrulik.dmitry.model.command;
 
+import com.tsyrulik.dmitry.model.entity.User;
+import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
+import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.UserReceiver;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
+import com.tsyrulik.dmitry.model.validator.SignUpValdator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,23 +21,30 @@ public class LoginCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) throws CommandFitnessException {
        String page = null;
        String loginValue = request.getParameter(PARAM_LOGIN);
        String passValue = request.getParameter(PARAM_PASSWORD);
-       //validation
-        if (loginValue != null && !loginValue.isEmpty() && passValue != null && !passValue.isEmpty()){
-            if (receiver.checkUser(loginValue, passValue)){
-                request.setAttribute("user", loginValue);
-                page = PATH_PAGE_MAIN;
-            }
-            else{
-                request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("message.loginerror"));
-                page = PATH_PAGE_LOGIN;
+
+       // дописать SignUpValdator.isUserEmailCorrect(loginValue)
+        if (SignUpValdator.isUserPasswordCorrect(passValue)){
+            try {
+                    User user = receiver.checkUser(loginValue, passValue);
+                    if (user != null){
+                        request.getSession(true).setAttribute("user", user);//???????
+                        //request.setAttribute("user", loginValue);
+                        page = PATH_PAGE_MAIN;
+                    }
+                else{
+                    request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("messages.login.error"));
+                    page = PATH_PAGE_LOGIN;
+                }
+            } catch (LogicFitnessException e) {
+                throw new CommandFitnessException(e);
             }
         }
         else{
-            request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("message.loginempty"));
+            request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("messages.login.empty"));
         }
         return page;
     }

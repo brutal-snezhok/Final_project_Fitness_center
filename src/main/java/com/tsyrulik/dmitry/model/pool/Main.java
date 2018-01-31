@@ -1,56 +1,61 @@
 package com.tsyrulik.dmitry.model.pool;
 
 
-import com.mysql.fabric.jdbc.FabricMySQLDriver;
+import com.mysql.jdbc.PreparedStatement;
 
-import java.sql.*;
-import java.util.Properties;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Main {
 
-    private final static String USERNAME = "root";
-    private final static String PASSWORD = "12345";
-    private final static String URL = "jdbc:mysql://localhost:3306/mysql?useSSL=false";
-    private static final String PROPERTY_PATH = "src/main/resources/dbConfig.properties";
+//    private final static String USERNAME = "root";
+//    private final static String PASSWORD = "12345";
+//    private final static String URL = "jdbc:mysql://localhost:3306/mysql?useSSL=false";
+//    private static final String PROPERTY_PATH = "src/main/resources/dbConfig.properties";
 
-    public static void main(String[ ] args) {
+    public static void main(String[ ] args)  {
+        System.out.println("start connection pool");
+        ConnectionPool pool = ConnectionPool.getInstance();
+        System.out.println("start proxyconnection");
+        ProxyConnection connection = (ProxyConnection) pool.getConnection();
+        System.out.println("We have got connection from the connection class");
+        PreparedStatement statement = null;
+        try{
+            statement = (PreparedStatement) connection.prepareStatement("SELECT `name`, `surname` FROM new_fitness_center.user ");
+            System.out.println("statement select");
+            ResultSet rs = statement.executeQuery();
+            System.out.println("result set сформирован");
+            while(rs.next()){
+                System.out.println(rs.getString(1) + " " + rs.getString("surname") + " " + rs.getString("name"));
+            }
 
-       Driver driver = null;
-        try {
-            driver = new FabricMySQLDriver();
-            DriverManager.registerDriver(driver);
+            if (rs != null) {
+                rs.close();
+            }
+            if(statement != null){
+                statement.close();
+            }
+            pool.closeConnection(connection);
         } catch (SQLException e) {
-            System.out.println("Error of registration driver");
+            System.out.println("SQLExcepstion!!!");
         }
 
-        try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            Statement statement = connection.createStatement()){
-
-//            statement.execute("insert into new_fitness_center.user(iduser, name, surname, years_old, sex, email, password, role_idrole) " +
-//                    "values (20, \"Alex\", \"Zapatylok\", 26, \"M\", \"zapatylok@mail.ru\", \"c24a542f884e144451f9063b79e7994e\", 3 )");
-
-            //statement.executeUpdate("UPDATE new_fitness_center.user set user.name = \"Dimasik\" where user.iduser = 12 ");
-
-//            statement.addBatch("insert into new_fitness_center.user(iduser, name, surname, years_old, sex, email, password, role_idrole) " +
-//                   "values (21, \"Alex\", \"Zapatylok\", 26, \"M\", \"zapatylok@mail.ru\", \"c24a542f884e144451f9063b79e7994e\", 3 )");
-//
-//            statement.addBatch("insert into new_fitness_center.user(iduser, name, surname, years_old, sex, email, password, role_idrole) " +
-//                    "values (22, \"Alex\", \"Zapatylok\", 26, \"M\", \"zapatylok@mail.ru\", \"c24a542f884e144451f9063b79e7994e\", 3 )");
-//
-//            statement.executeBatch();
-//            statement.clearBatch();
-
-            //ResultSet resultSet = statement.executeQuery("SELECT * FROM new_fitness_center.user");
-            Properties properties = new Properties();
-         //   properties.load(getClass().getClassLoader().getResource(PROPERTY_PATH));
-            System.out.println(PROPERTY_PATH);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
 
     }
 
+//    MD5 encrypt = new MD5();
+//        System.out.println("1: " + encrypt.encrypt("password1"));
+//        System.out.println("2: " + encrypt.encrypt("password2"));
+//        System.out.println("3: " +  encrypt.encrypt("password3"));
+//        System.out.println("4: " + encrypt.encrypt("password4"));
+//        System.out.println("5: " + encrypt.encrypt("password5"));
+//        System.out.println("6: " + encrypt.encrypt("password6"));
+//        System.out.println("7: " + encrypt.encrypt("password7"));
+//        System.out.println("8: " + encrypt.encrypt("password8"));
+//        System.out.println("9: " + encrypt.encrypt("password9"));
+//        System.out.println("10: " + encrypt.encrypt("password10"));
+//        System.out.println("11: " + encrypt.encrypt("password11"));
 
 
 }

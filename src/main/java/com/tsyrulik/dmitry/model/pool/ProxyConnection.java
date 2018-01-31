@@ -11,10 +11,10 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection{
-    private static final Logger LOGGER =LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getLogger("ProxyConnection");
     private Connection connection;
 
-    public ProxyConnection(Connection connection) {
+    ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 
@@ -65,6 +65,9 @@ public class ProxyConnection implements Connection{
         catch (PoolFitnessException exception){
             LOGGER.log(Level.INFO, "Can't close this connection", exception);
         }
+    }
+    void closeConnection() throws SQLException {
+        connection.close();
     }
 
     @Override

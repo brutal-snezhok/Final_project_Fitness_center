@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="Maven: org.apache.logging.log4j:log4j-core:unknown">
-    <CLASSES />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/unknown/log4j-core-unknown.jar!/" />
+    </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/unknown/log4j-core-unknown-javadoc.jar!/" />
     </JAVADOC>

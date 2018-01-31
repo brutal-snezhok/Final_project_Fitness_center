@@ -1,40 +1,42 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admindi
-  Date: 24.12.2017
-  Time: 14:15
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<%@ page isELIgnored="false" %>
+<fmt:setBundle basename="locale"/>
+<!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/login.css"/>">
     <title>Login</title>
+    <%@ include file="header.jsp" %>
 </head>
 <body>
-<form name = "loginForm" method="POST" action="controller">
-    <input type="hidden" name="command" value="login" />
-    <b>Login:</b><br/>
-    <input type="text" name="login" value=""/>
-    <br/><b>Password:</b><br/>
-    <input type="password" name="password" value=""/>
-    <br/>
-    ${errorLoginPassMessage}
-    <br/>
-    ${wrongAction}
-    <br/>
-    ${nullPage}
-    <br/>
-    <input type="submit" value="Log in"/>
+
+
+<form name="loginForm" method="POST" action="controller">
+    <input type="hidden" name="command" value="login"/>
+    <fmt:message key = "jsp.login.login"/><br/>
+    <label>
+        <input type="text" name="login" value=""/>
+    </label>
+    <br/><fmt:message key = "jsp.login.password" /><br/>
+    <label>
+        <input type="password" name="password" value=""/>
+    </label>
+    <br/><input type="submit" value="<fmt:message key = "jsp.login.submit" />">
+
+    <lablel>
+    <a href="${pageContext.request.contextPath}/jsp/register.jsp"><fmt:message key = "jsp.login.signup" /></a>
+    </lablel>
+    <%--<select class="select-lang" name="locale_language" onchange="this.form.submit()">--%>
+        <%--<option value="en_US" selected="">Language</option>--%>
+        <%--<option value="en_US">English</option>--%>
+        <%--<option value="ru_RU">Русский</option>--%>
+    <%--</select>--%>
+
+    <br/> ${successMessage} <br/> ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} <br/>
 </form>
-
-<%--<h1><span>Contact Me</span></h1>--%>
-<%--<form>--%>
-    <%--<input name="name" type="text" /><br/>--%>
-    <%--<textarea name="message"></textarea>--%>
-    <%--<input type="submit" value="SEND" class="submit" />--%>
-<%--</form>--%>
-<hr/>
+    <c:import url="${pageContext.request.contextPath}/jsp/footer.jsp"/>
 </body>
-
-
 </html>

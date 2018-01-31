@@ -4,11 +4,13 @@ import java.util.ResourceBundle;
 
 public class PropertyManager {
     private ResourceBundle resourceBundle;
-    //извлекает инфу из файла
-    public PropertyManager(String path, String filename){
-        resourceBundle = ResourceBundle.getBundle(path + "," + filename);
+    private PropertyManager() { }
+
+    public PropertyManager(String filename){
+        resourceBundle = ResourceBundle.getBundle(filename);
     }
-    public String getProperty(String key){
+
+    public  String getProperty(String key){
         return resourceBundle.getString(key);
     }
 }

@@ -4,6 +4,7 @@ package com.tsyrulik.dmitry.controller;
 import com.tsyrulik.dmitry.model.command.ActionFactory;
 import com.tsyrulik.dmitry.model.command.Command;
 import com.tsyrulik.dmitry.model.command.EmptyCommand;
+import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -27,19 +29,24 @@ public class Controller extends HttpServlet {
         processRequest(request, response);
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Optional<Command> commandOptional =
-                ActionFactory.defineCommand(request.getParameter("command"));
-        Command command = commandOptional.orElse(new EmptyCommand());
-        String page = command.execute(request);
 
-        if (page != null){
-            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-            dispatcher.forward(request, response);
+        try {
+            Optional<Command> commandOptional = ActionFactory.defineCommand(request.getParameter("command"));
+            Command command = commandOptional.orElse(new EmptyCommand());
+            String page = command.execute(request);
+
+            if (page != null){
+                RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+                dispatcher.forward(request, response);
+            }
+            else{
+                request.getSession().setAttribute("nullPage", MessageManager.getMessage("messages.nullpage"));
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+            }
+        } catch (CommandFitnessException e) {
+            e.printStackTrace();
         }
-        else{
-            request.getSession().setAttribute("nullPage", MessageManager.getMessage("message.nullpage"));
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-        }
+
 
 }
 }

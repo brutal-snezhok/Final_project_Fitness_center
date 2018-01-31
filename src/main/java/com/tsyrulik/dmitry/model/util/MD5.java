@@ -10,7 +10,7 @@ public class MD5 {
     private static String UTF_8 = "utf-8";
     private static String ZERO = "0";
 
-    public static String md5(String string) {
+    public String encrypt(String string) {
         StringBuilder result = new StringBuilder();
         byte[] digest = new byte[0];
         try {

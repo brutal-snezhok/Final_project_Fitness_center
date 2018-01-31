@@ -3,32 +3,35 @@ package com.tsyrulik.dmitry.model.entity;
 import java.io.Serializable;
 
 public class User implements Serializable,Cloneable{
-    private long id;
+    private long idUser;
     private String name;
     private String surname;
     private int yearOld;
     private String sex;
     private String email;
     private String password;
-    private String role;
+    private Long idRole;
 
-    public User(long id, String name, String surname, int yearOld, String sex, String email, String password, String role) {
-        this.id = id;
+    public User() {
+    }
+
+    public User(long idUser, String name, String surname, int yearOld, String sex, String email, String password, Long role) {
+        this.idUser = idUser;
         this.name = name;
         this.surname = surname;
         this.yearOld = yearOld;
         this.sex = sex;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.idRole = role;
     }
 
     public long getId() {
-        return id;
+        return idUser;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {
@@ -79,12 +82,12 @@ public class User implements Serializable,Cloneable{
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Long getRole() {
+        return idRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(Long role) {
+        this.idRole = role;
     }
 
     @Override
@@ -94,40 +97,40 @@ public class User implements Serializable,Cloneable{
 
         User user = (User) o;
 
-        if (id != user.id) return false;
+        if (idUser != user.idUser) return false;
         if (yearOld != user.yearOld) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
         if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return role != null ? role.equals(user.role) : user.role == null;
+        return idRole != null ? idRole.equals(user.idRole) : user.idRole == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = (int) (idUser ^ (idUser >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + yearOld;
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (idRole != null ? idRole.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "idUser=" + idUser +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", yearOld=" + yearOld +
                 ", sex='" + sex + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
+                ", idRole=" + idRole +
                 '}';
     }
 }

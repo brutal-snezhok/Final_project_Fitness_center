@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admindi
-  Date: 21.01.2018
-  Time: 12:39
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page import="java.sql.ResultSet" %>
@@ -32,65 +25,60 @@
     </div>
 
     <c:choose>
-        <c:when test="${fn:length(contactsList) == 0}">
-            <h1>Contacts are not found!</h1>
-        </c:when>
-        <%--<c:otherwise>--%>
-            <%--<form method="post" action="/main/delete" name="deleteForm" id="main-form">--%>
-                <%--<table class="table table-margin">--%>
-                    <%--<thead>--%>
-                    <%--<tr>--%>
-                        <%--<th></th>--%>
-                        <%--<th><strong class="lab">Name</strong></th>--%>
-                        <%--<th><strong class="letter">Date</strong></th>--%>
-                        <%--<th><strong class="letter">Address</strong></th>--%>
-                        <%--<th><strong class="letter">Work Place</strong></th>--%>
-                        <%--<th></th>--%>
-                    <%--</tr>--%>
-                    <%--</thead>--%>
-                    <%--<tbody>--%>
-                    <%--<c:forEach items="${contactsList}" var="contact">--%>
-                        <%--<tr>--%>
-                            <%--<td><input type="checkbox" name="selectedContacts" value="${contact.id}"></td>--%>
-                            <%--<td><a href="/main/edit?contact=${contact.id}"><strong class="lab"><c:out value="${contact.name} "/><c:out--%>
-                                    <%--value="${contact.surname}"/></strong></a></td>--%>
-                            <%--<td><strong class="letter"><c:out value="${contact.date}"/></strong></td>--%>
-                            <%--<td><strong class="letter"><c:out value="${contact.address}"/></strong></td>--%>
-                            <%--<td><strong class="letter"><c:out value="${contact.workPlace}"/></strong></td>--%>
-                            <%--<td><input type="button" class="btn2" value="Edit" name="${contact.id}"--%>
-                                       <%--onclick="document.location.href='/main/edit?contact=${contact.id}'"></td>--%>
-                        <%--</tr>--%>
-                    <%--</c:forEach>--%>
-                    <%--</tbody>--%>
-                <%--</table>--%>
-                <%--<div class="row">--%>
-                    <%--<div class="col-md-offset-3 col-md-4">--%>
-                        <%--<input type="button" name="button" class="btn1" value="Delete" onclick="setDeleteAction(${flag})"/>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-md-4"><input type="button" class="btn1" name="button1" value="Send"--%>
-                                                 <%--onclick="setSendAction()"/>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</form>--%>
-            <%--<div class="row">--%>
-                <%--<div class="col-md-3">--%>
-                    <%--<ul class="pagination">--%>
-                        <%--<c:forEach items="${pageNumbers}" var="page">--%>
-                        <%--<c:if test="${flag == 'true'}">--%>
-                        <%--<li><a href="/main/info?page=${page+1}&search=true" value=""><c:out value="${page+1}"/></a>--%>
-                            <%--</c:if>--%>
-                            <%--<c:if test="${flag != 'true'}">--%>
-                        <%--<li><a href="/main/info?page=${page+1}" value=""><c:out value="${page+1}"/></a>--%>
-                            <%--</c:if>--%>
-                            <%--</c:forEach>--%>
-                    <%--</ul>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</c:otherwise>--%>
+
+        <c:otherwise>
+            <form method="post" action="/main/delete" name="deleteForm" id="main-form">
+                <table class="table table-margin">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th><strong class="lab">Name</strong></th>
+                        <th><strong class="letter">Date</strong></th>
+                        <th><strong class="letter">Address</strong></th>
+                        <th><strong class="letter">Work Place</strong></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${contactsList}" var="contact">
+                        <tr>
+                            <td><input type="checkbox" name="selectedContacts" value="${contact.id}"></td>
+                            <td><a href="/main/edit?contact=${contact.id}"><strong class="lab"><c:out value="${contact.name} "/><c:out
+                                    value="${contact.surname}"/></strong></a></td>
+                            <td><strong class="letter"><c:out value="${contact.date}"/></strong></td>
+                            <td><strong class="letter"><c:out value="${contact.address}"/></strong></td>
+                            <td><strong class="letter"><c:out value="${contact.workPlace}"/></strong></td>
+                            <td><input type="button" class="btn2" value="Edit" name="${contact.id}"
+                                       onclick="document.location.href='/main/edit?contact=${contact.id}'"></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-4">
+                        <input type="button" name="button" class="btn1" value="Delete" onclick="setDeleteAction(${flag})"/>
+                    </div>
+                    <div class="col-md-4"><input type="button" class="btn1" name="button1" value="Send"
+                                                 onclick="setSendAction()"/>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="pagination">
+
+                        <li><a href="/main/info?page=${page+1}&search=true" value=""><c:out value="${page+1}"/></a>
+
+                        <li><a href="/main/info?page=${page+1}" value=""><c:out value="${page+1}"/></a>
+
+                    </ul>
+                </div>
+            </div>
+        </c:otherwise>
     </c:choose>
 </div>
 
 
 </body>
-<script src="/js/main.js"></script>
+
 </html>

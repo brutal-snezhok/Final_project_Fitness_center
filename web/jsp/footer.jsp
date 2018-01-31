@@ -1,14 +1,37 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admindi
-  Date: 20.01.2018
-  Time: 11:40
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div
-        style="background: #E0E0E0; text-align: center; padding: 5px; margin-top: 10px;">
-
-    @Copyright com.tsyrulik.dmitry
-
-</div>
+<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="locale"/>
+<%@ page isELIgnored="false"%>
+<html>
+<head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/social_icon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+    <style>
+        @import "/css/footer.css" screen;
+    </style>
+</head>
+<body>
+<footer class="end_footer footer navbar-inverse">
+    <div class="container">
+        <div class="col-md-6">
+            <footer class="footer-centered">
+                <p class="footer-name">Dmitry Tsyrulik, Fitness center &copy; 2018</p>
+            </footer>
+        </div>
+        <div class="col-md-6">
+            <div class="icons">
+                <ul class="social-icons">
+                    <li><a href="" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
+                    <li><a href="" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
+                    <li><a href="" class="social-icon"> <i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+</body>
+</html>

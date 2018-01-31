@@ -1,110 +1,109 @@
 package com.tsyrulik.dmitry.model.pool;
 
-import com.tsyrulik.dmitry.model.exception.LoaderFitnessException;
 import com.tsyrulik.dmitry.model.exception.PoolFitnessException;
-import com.tsyrulik.dmitry.model.loader.DbConfig;
-import com.tsyrulik.dmitry.model.loader.DbConfigReader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
-    private static final Logger LOGGER = LogManager.getLogger("ConnectionPool");
-    private static ConnectionPool INSTANCE ;
-    private static final BlockingDeque<ProxyConnection> POOL = new LinkedBlockingDeque<>();
-    private static final ConnectionCreator CREATOR = new ConnectionCreator();
-    private static AtomicBoolean isInitialized = new AtomicBoolean(false);
+    private final static Logger LOGGER = LogManager.getLogger("ConnectionPool");
+    private static ConnectionPool instance;
     private static ReentrantLock lock = new ReentrantLock();
+    private final int POOL_SIZE = Integer.parseInt(ConnectionCreator.poolSize);
+    private BlockingQueue<ProxyConnection> pool;
 
     private ConnectionPool() {
+        try {
+            pool = new ArrayBlockingQueue<>(POOL_SIZE);
+            for (int i = 0; i < POOL_SIZE; i++) {
+                ProxyConnection connection =
+                        new ProxyConnection(ConnectionCreator.createConnection());
+                pool.put(connection);
+            }
+        } catch (SQLException | InterruptedException exc) {
+            LOGGER.log(Level.FATAL, exc.getMessage());
+            throw new RuntimeException();
+        }
+    }
+    private ConnectionPool(int poolSize) {
+        try {
+            pool = new ArrayBlockingQueue<>(poolSize);
+            for (int i = 0; i < poolSize; i++) {
+                ProxyConnection connection =
+                        new ProxyConnection(ConnectionCreator.createConnection());
+                pool.put(connection);
+            }
+        } catch (SQLException | InterruptedException exc) {
+            LOGGER.log(Level.FATAL, exc.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
+    public static ConnectionPool getInstance(int poolSize) {
+        lock.lock();
+        try {
+            if (instance == null) {
+                instance = new ConnectionPool(poolSize);
+            }
+        } finally {
+            lock.unlock();
+        }
+        return instance;
     }
 
     public static ConnectionPool getInstance() {
         lock.lock();
         try {
-            if (INSTANCE == null) {
-                INSTANCE = new ConnectionPool();
+            if (instance == null) {
+                instance = new ConnectionPool();
             }
         } finally {
             lock.unlock();
         }
-        return INSTANCE;
+        return instance;
     }
 
-
-    public static void initPool() throws PoolFitnessException {
-        if (!isInitialized.get()) {
-            try {
-                DbConfigReader reader = new DbConfigReader();
-                DbConfig dbConfig = reader.readProperties();
-                int poolSize = dbConfig.getPoolSize();
-
-                for (int i = 0; i < poolSize; i++) {
-                    ProxyConnection connection = (ProxyConnection) CREATOR.getConnection();
-                    POOL.push(connection);
-                }
-
-                isInitialized.set(true);
-            } catch (LoaderFitnessException e) {
-                LOGGER.log(Level.ERROR, e.getMessage());
-                throw new PoolFitnessException(e.getMessage(), e.getCause());
-            }
-        }
+    public int poolSize() {
+        return pool.size();
     }
 
-
-    public static void destroyPool() throws PoolFitnessException {
-        if (isInitialized.get()) {
-            try {
-                for (int i = 0; i < POOL.size(); i++) {
-                    Connection connection = POOL.poll();
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.log(Level.ERROR, e.getMessage());
-                throw new PoolFitnessException(e.getMessage(), e.getCause());
-            }
-        }
-    }
-
-
-    public Connection getConnection() throws PoolFitnessException {
+    public ProxyConnection getConnection() throws PoolFitnessException{
+        ProxyConnection connection;
         try {
-            Connection connection = POOL.take();
-            if (!connection.isValid(1)) {
-                connection = CREATOR.getConnection();
-            }
-            return connection;
-        } catch (InterruptedException | SQLException e) {
-            LOGGER.log(Level.ERROR, e.getMessage());
-            throw new PoolFitnessException(e.getMessage(), e.getCause());
+            connection = pool.take();
+        } catch ( InterruptedException exc) {
+            throw new PoolFitnessException(exc);
         }
+        return connection;
     }
+
     public void releaseConnection(ProxyConnection connection) throws PoolFitnessException {
         try {
-            POOL.put(connection);
+            pool.put(connection);
         } catch (InterruptedException exc) {
             throw new PoolFitnessException(exc);
         }
     }
 
-    public void recycleConnection(Connection connection) throws PoolFitnessException {
-        try {
-            if (connection == null || !connection.isValid(1)) {
-                connection = CREATOR.getConnection();
-            }
-            POOL.put((ProxyConnection) connection);
-        } catch (InterruptedException | SQLException e) {
-            LOGGER.log(Level.ERROR, e.getMessage());
-            throw new PoolFitnessException(e.getMessage(), e.getCause());
-        }
+    public void closeConnection(ProxyConnection connection) {
+        pool.offer(connection);
     }
 
+    public void closeConnections(){
+        try {
+            for (Connection connection : pool) {
+                ProxyConnection proxyConnection = (ProxyConnection) connection;
+                proxyConnection.closeConnection();
+            }
+            pool = new ArrayBlockingQueue<>(POOL_SIZE);
+        } catch (SQLException e) {
+            throw new PoolFitnessException(e);
+        }
+    }
 }
