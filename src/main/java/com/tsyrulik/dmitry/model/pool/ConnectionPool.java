@@ -21,6 +21,11 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException e) {
+            System.out.println("SQLException" + e);
+        }
+        try {
             pool = new ArrayBlockingQueue<>(POOL_SIZE);
             for (int i = 0; i < POOL_SIZE; i++) {
                 ProxyConnection connection =
