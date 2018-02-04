@@ -12,8 +12,12 @@ public class ConnectionCreator {
     private static String userName = manager.getProperty("user");
     private static String password = manager.getProperty("password");
     public  static String poolSize = manager.getProperty("pool_size");
+    public  static String database = manager.getProperty("testdatabase");
 
     public  static Connection createConnection() throws SQLException {
+        return DriverManager.getConnection(url, userName, password);
+    }
+    public  static Connection createConnection(String database) throws SQLException {
         return DriverManager.getConnection(url, userName, password);
     }
 }

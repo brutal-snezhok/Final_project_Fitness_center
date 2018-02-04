@@ -10,12 +10,13 @@ public class User implements Serializable,Cloneable{
     private String sex;
     private String email;
     private String password;
-    private Long idRole;
+    private String Role;
 
-    public User() {
+    public User(){
+
     }
 
-    public User(long idUser, String name, String surname, int yearOld, String sex, String email, String password, Long role) {
+    public User(long idUser, String name, String surname, int yearOld, String sex, String email, String password, String role) {
         this.idUser = idUser;
         this.name = name;
         this.surname = surname;
@@ -23,14 +24,14 @@ public class User implements Serializable,Cloneable{
         this.sex = sex;
         this.email = email;
         this.password = password;
-        this.idRole = role;
+        Role = role;
     }
 
-    public long getId() {
+    public long getIdUser() {
         return idUser;
     }
 
-    public void setId(long idUser) {
+    public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
 
@@ -82,12 +83,12 @@ public class User implements Serializable,Cloneable{
         this.password = password;
     }
 
-    public Long getRole() {
-        return idRole;
+    public String getRole() {
+        return Role;
     }
 
-    public void setRole(Long role) {
-        this.idRole = role;
+    public void setRole(String role) {
+        Role = role;
     }
 
     @Override
@@ -104,7 +105,7 @@ public class User implements Serializable,Cloneable{
         if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return idRole != null ? idRole.equals(user.idRole) : user.idRole == null;
+        return Role != null ? Role.equals(user.Role) : user.Role == null;
     }
 
     @Override
@@ -116,7 +117,7 @@ public class User implements Serializable,Cloneable{
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (idRole != null ? idRole.hashCode() : 0);
+        result = 31 * result + (Role != null ? Role.hashCode() : 0);
         return result;
     }
 
@@ -130,7 +131,7 @@ public class User implements Serializable,Cloneable{
                 ", sex='" + sex + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", idRole=" + idRole +
+                ", Role='" + Role + '\'' +
                 '}';
     }
 }

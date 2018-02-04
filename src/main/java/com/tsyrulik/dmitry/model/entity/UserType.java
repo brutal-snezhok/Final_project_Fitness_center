@@ -1,7 +1,7 @@
 package com.tsyrulik.dmitry.model.entity;
 
 public enum UserType {
-    USER("user"), ADMIN("admin"), GUEST("guest"), TRAINER("trainer");
+    CLIENT("user"), ADMIN("admin"), GUEST("guest"), TRAINER("trainer");
 
     private String typeName;
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDAO {
-    boolean create(User user) throws  DAOFitnessException;
+    void create(User user) throws  DAOFitnessException;
 
     List<User> findAll() throws DAOFitnessException;
 
@@ -17,11 +17,11 @@ public interface UserDAO {
 
     public User findUserByEmailAndPassword(String username, String password) throws DAOFitnessException;
 
-    boolean updateByUser(User user) throws  DAOFitnessException;
+    User updateByUser(User user) throws  DAOFitnessException;
 
     boolean updateByAdmin(User user) throws  DAOFitnessException;
 
-    boolean delete(long id);
+    void delete(long id) throws DAOFitnessException;
 
 
 }

@@ -14,36 +14,57 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
-    private static final String FIND_ALL_USERS_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `user`.`role_idrole`, " +
-            " FROM `user` LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` ORDER BY `user`.`iduser`;";
+    private static final String FIND_ALL_USERS_SQL = "SELECT `iduser`,`name`,`surname`,`years_old`,`sex`,`email`,`password`,`role_name` AS `role` FROM `user` LEFT JOIN `role` ON `user`.`role_idrole` = `role`.`idrole` ORDER BY `user`.`iduser`;";
 
     private static final String CREATE_USER_SQL = "INSERT INTO `user` (`iduser`,`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?,?);";
 
-    private static final String FIND_USER_BY_ID_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `user`.`role_idrole`," +
-            "LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`id` = ?;";
+    private static final String FIND_USER_BY_ID_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user`\n" +
+            "  LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`iduser` = ?;";
 
-    private static final String FIND_USER_BY_LOGIN_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `user`.`role_idrole`," +
+    private static final String FIND_USER_BY_LOGIN_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user` " +
             "LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`email` = ?;";
 
-    private static final String UPDATE_BY_USER_SQL = "UPDATE `user` SET `name`=?, `surname`=?, `years_old`=?,`sex`=?, `email`=?, `password`=?," +
-            "`role_idrole`=? WHERE `id`=?;";
+    private static final String UPDATE_BY_USER= "UPDATE `user` SET `iduser`=?, `name`=?, `surname`=?, `years_old`=?,`sex`=?, `email`=?, `password`=?," +
+            "`role_idrole`=? WHERE `iduser`=?;";
 
     private static final String FIND_ROLE_SQL = "SELECT `user`.`role_idrole` FROM `user` WHERE `user`.`id` = ?;";
 
     private static final String UPDATE_BY_ADMIN_SQL = "UPDATE `user` SET `password`=?, `role`=? WHERE `id`=?;";
 
-    private static final String SQL_SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT `id`, `name`, `surname`, `years_old`, `sex`, `email`, `password`,`role_idrole`" +
-            "    FROM user JOIN role" +
+    private static final String SQL_SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT `iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`,`role_name` AS `role`" +
+            "    FROM user LEFT JOIN role ON `user`.`role_idrole` = `role`.`idrole`" +
             "    WHERE email = ? AND password = ?";
 
-    private static final String SQL_SELECT_ROLE_NAME = "SELECT role_name FROM new_fitness_center.user JOIN role WHERE idrole=user.role_idrole";
+    private static final String DELETE_USER_BY_ID = "DELETE FROM `test`.`user` WHERE `iduser`=?;";
+
+
+    @Override
+    public void create(User user) throws DAOFitnessException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER_SQL)) {
+
+            preparedStatement.setLong(1, user.getIdUser());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getSurname());
+            preparedStatement.setInt(4, user.getYearOld());
+            preparedStatement.setString(5, user.getSex());
+            preparedStatement.setString(6, user.getEmail());
+            preparedStatement.setString(7, user.getPassword());
+            preparedStatement.setString(8, user.getRole());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
 
     @Override
     public List<User> findAll() throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
-            statement.execute(FIND_ALL_USERS_SQL);
+            statement.executeQuery(FIND_ALL_USERS_SQL);
             ResultSet resultSet = statement.getResultSet();
             List<User> users = new ArrayList<>();
             while (resultSet.next()) {
@@ -55,30 +76,6 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    @Override
-    public boolean create(User user) throws DAOFitnessException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER_SQL)) {
-
-            preparedStatement.setLong(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getSurname());
-            preparedStatement.setInt(4, user.getYearOld());
-            preparedStatement.setString(5, user.getSex());
-            preparedStatement.setString(6, user.getEmail());
-            preparedStatement.setString(7, user.getPassword());
-            preparedStatement.setLong(8, user.getRole());
-
-            if (findByEmail(user.getEmail()) == null) {
-                //TODO
-                preparedStatement.execute();
-                return true;
-            }
-            return false;
-        } catch (SQLException | PoolFitnessException e) {
-            throw new DAOFitnessException(e);
-        }
-    }
 
     @Override
     public Optional<User> findById(long id) throws DAOFitnessException {
@@ -100,7 +97,7 @@ public class UserDAOImpl implements UserDAO {
     private User createUserFromResult(ResultSet resultSet) throws SQLException {
         User user = new User(resultSet.getLong(DAOConstant.ID), resultSet.getString(DAOConstant.NAME), resultSet.getString(DAOConstant.SURNAME),
                 resultSet.getInt(DAOConstant.YEARS_OLD), resultSet.getString(DAOConstant.SEX), resultSet.getString(DAOConstant.EMAIL),
-                resultSet.getString(DAOConstant.PASSWORD), resultSet.getLong(DAOConstant.ROLE));
+                resultSet.getString(DAOConstant.PASSWORD), resultSet.getString(DAOConstant.ROLE));
         return user;
     }
 
@@ -121,53 +118,56 @@ public class UserDAOImpl implements UserDAO {
         }
     }
     public User findUserByEmailAndPassword(String username, String password) throws DAOFitnessException{
-        ProxyConnection connection = null;
-        PreparedStatement statement = null;
-        ConnectionPool connectionPool = null;
-        User user = null;
-        try {
-            connectionPool = ConnectionPool.getInstance().getInstance();
-            connection = (ProxyConnection) connectionPool.getConnection();
-            statement = connection.prepareStatement(SQL_SELECT_USER_BY_EMAIL_AND_PASSWORD);
+
+        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_BY_EMAIL_AND_PASSWORD)){
+            User user = null;
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            if (resultSet.next()){
                 user = new User();
                 setUserFromResultSet(resultSet, user);
             }
-        } catch (PoolFitnessException | SQLException exc){
-            throw new DAOFitnessException(exc);
-        } finally {
-
-            try {
-                connection.close();
-                connectionPool.getConnection().close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            //close(statement, connectionPool, connection);
+            return user;
+        } catch (SQLException e) {
+            throw new DAOFitnessException(e);
         }
-        return user;
     }
 
     void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException{
-        user.setId(resultSet.getInt("id"));
+        user.setIdUser(resultSet.getLong("iduser"));
         user.setName(resultSet.getString("name"));
         user.setSurname(resultSet.getString("surname"));
         user.setYearOld(resultSet.getInt("years_old"));
         user.setSex(resultSet.getString("sex"));
         user.setEmail(resultSet.getString("email"));
         user.setPassword(resultSet.getString("password"));
-        user.setRole(resultSet.getLong("role_idrole"));
+        user.setRole(resultSet.getString("role"));
 
     }
 
     @Override
-    public boolean updateByUser(User user) throws DAOFitnessException {
-        ///!!!!!!!!!!!!!!!!!!!!!111
-        return false;
+    public User updateByUser(User user) throws DAOFitnessException {
+        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+         PreparedStatement st = connection.prepareStatement(UPDATE_BY_USER)){
+            User currentUser = null;
+            st.setLong(1, user.getIdUser());
+            st.setString(2, user.getName());
+            st.setString(3,user.getSurname());
+            st.setInt(4, user.getYearOld());
+            st.setString(5, user.getSex());
+            st.setString(6, user.getEmail());
+            st.setString(7, user.getPassword());
+            st.setString(8, user.getRole());
+            st.setLong(9, user.getIdUser());
+            st.executeUpdate();
+            return user;
+
+        } catch (SQLException e) {
+            throw new DAOFitnessException(e);
+        }
+
     }
 
     @Override
@@ -175,7 +175,7 @@ public class UserDAOImpl implements UserDAO {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BY_ADMIN_SQL);
              PreparedStatement userRolePreparedStatement = connection.prepareStatement(FIND_ROLE_SQL)) {
-            userRolePreparedStatement.setLong(1, user.getId());
+            userRolePreparedStatement.setString(1, user.getRole());
             ResultSet userRoleResultSet = userRolePreparedStatement.executeQuery();
 
             if (userRoleResultSet.next()) {
@@ -194,8 +194,18 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean delete(long id) {
-        return false;
+    public void delete(long id) throws DAOFitnessException {
+
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_BY_ID)) {
+            preparedStatement.setLong(1, id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
+
     }
 
 

@@ -50,7 +50,7 @@ public class ConnectionPoolTest {
     }
 
     @Test
-    public void initializeConnectionPoolTest() throws PoolFitnessException {
+    public void getConnectionPoolTest() throws PoolFitnessException {
         ConnectionPool.getInstance().getConnection();//2
         assertTrue(ConnectionPool.getInstance().poolSize() == 3);
     }

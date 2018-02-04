@@ -1,15 +1,17 @@
 package com.tsyrulik.dmitry.model.constant;
 
 public class DAOConstant {
-    public static final String ID = "id";
-    public static final String USER_ID = "user_id";
+    public static final String ID = "iduser";
+    //public static final String USER_ID = "user_id";
     public static final String NAME = "name";
-    public static final String SURNAME = "last_name";
+    public static final String SURNAME = "surname";
     public static final String YEARS_OLD = "years_old";
     public static final String SEX = "sex";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String ROLE = "role";
+    public static final String ROLE_NAME = "role";
+
 
     public static final String USER_PASSWORD = "user.password";
     public static final String BIRTH_DATE = "birth_date";

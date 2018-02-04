@@ -5,8 +5,7 @@ public class Client extends User {
     private Double discount;
     private Long clientIdUser;
 
-    public Client(long idUser, String name, String surname, int yearOld, String sex, String email, String password, Long role,
-                  Long idClient, Double discount, Long clientIdUser) {
+    public Client(long idUser, String name, String surname, int yearOld, String sex, String email, String password, String role, Long idClient, Double discount, Long clientIdUser) {
         super(idUser, name, surname, yearOld, sex, email, password, role);
         this.idClient = idClient;
         this.discount = discount;

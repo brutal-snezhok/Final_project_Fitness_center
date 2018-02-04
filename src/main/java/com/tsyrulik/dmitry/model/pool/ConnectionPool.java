@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -43,6 +44,31 @@ public class ConnectionPool {
             LOGGER.log(Level.FATAL, exc.getMessage());
             throw new RuntimeException();
         }
+    }
+    private ConnectionPool(String database, String user, String password, int poolSize){
+        try{
+
+            pool = new ArrayBlockingQueue<>(poolSize);
+            for (int i = 0; i < poolSize; i++) {
+                ProxyConnection connection =
+                        new ProxyConnection(DriverManager.getConnection(database, user, password));
+                pool.put(connection);
+            }
+        } catch (SQLException | InterruptedException exc) {
+            LOGGER.log(Level.FATAL, exc.getMessage());
+            throw new RuntimeException();
+        }
+    }
+    public static ConnectionPool getInstance(String database, String user, String password, int poolSize) {
+        lock.lock();
+        try {
+            if (instance == null) {
+                instance = new ConnectionPool(database, user, password, poolSize);
+            }
+        } finally {
+            lock.unlock();
+        }
+        return instance;
     }
 
     public static ConnectionPool getInstance(int poolSize) {
