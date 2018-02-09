@@ -3,10 +3,13 @@ package com.tsyrulik.dmitry.model.command;
 import com.tsyrulik.dmitry.model.logic.UserReceiver;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
 import com.tsyrulik.dmitry.model.validator.RegisterValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class RegistrationCommand implements Command {
+    private final static Logger LOGGER = LogManager.getLogger("RegistrationCommand");
     private static final String PARAM_NAME = "name";
     private static final String PARAM_SURNAME = "surname";
     private static final String PARAM_YEARS_OLD = "years_old";
@@ -37,6 +40,7 @@ public class RegistrationCommand implements Command {
             request.setAttribute("successMessage", MessageManager.getMessage("messages.registration.success"));
             //page = PropertyManager.getProperty("path.page.login");
             page = "/jsp/login.jsp";
+            LOGGER.info(nameValue + " is registered now");
         } else {
             request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("messages.login.error"));
             //page = PropertyManager.getProperty("path.page.register");

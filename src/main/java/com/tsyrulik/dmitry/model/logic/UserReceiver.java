@@ -35,14 +35,14 @@ public class UserReceiver {
 
 
 
-//    public User findUserByEmail(String email) throws LogicFitnessException{
-//        UserDAO dao = new UserDAO();
-//        try {
-//            return dao.findByEmail(email);
-//        } catch (DAOFitnessException e) {
-//            throw new LogicFitnessException(e);
-//        }
-//    }
+    public User findUserByEmail(String email) throws LogicFitnessException{
+        UserDAO dao = new UserDAOImpl();
+        try {
+            return dao.findByEmail(email).get();
+        } catch (DAOFitnessException e) {
+            throw new LogicFitnessException(e);
+        }
+    }
 
     public List<User> findAllUsers()  throws LogicFitnessException {
         UserDAO dao = new UserDAOImpl();
@@ -54,14 +54,14 @@ public class UserReceiver {
     }
 
 
-//    public User findUserById(int id)  throws LogicFitnessException {
-//        UserDAO userDAO = new UserDAOImpl();
-//        try {
-//            return userDAO.findById(id);
-//        } catch (DAOFitnessException e) {
-//            throw new LogicFitnessException(e);
-//        }
-//    }
+    public User findUserById(int id)  throws LogicFitnessException {
+        UserDAO userDAO = new UserDAOImpl();
+        try {
+            return userDAO.findById(id).get();
+        } catch (DAOFitnessException e) {
+            throw new LogicFitnessException(e);
+        }
+    }
     //обращение к dao
     //select user
     //find user by id

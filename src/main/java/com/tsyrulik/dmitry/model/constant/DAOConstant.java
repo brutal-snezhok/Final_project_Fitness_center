@@ -13,9 +13,9 @@ public class DAOConstant {
     public static final String ROLE_NAME = "role";
 
 
-    public static final String USER_PASSWORD = "user.password";
-    public static final String BIRTH_DATE = "birth_date";
-    public static final String USER_LOGIN = "user.login";
+    public static final String ID_CLIENT = "idclient";
+    public static final String DISCOUNT = "discount";
+    public static final String USER_ID_USER = "user_iduser";
 
     public static final String PHONE_NUMBER = "phone_number";
     public static final String ARCHIVED = "archived";

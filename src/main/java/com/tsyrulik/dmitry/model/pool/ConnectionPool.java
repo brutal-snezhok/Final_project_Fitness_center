@@ -39,6 +39,11 @@ public class ConnectionPool {
     }
     private ConnectionPool(int poolSize) {
         try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException e) {
+            System.out.println("SQLException" + e);
+        }
+        try {
             pool = new ArrayBlockingQueue<>(poolSize);
             for (int i = 0; i < poolSize; i++) {
                 ProxyConnection connection =
@@ -51,6 +56,11 @@ public class ConnectionPool {
         }
     }
     private ConnectionPool(String database, String user, String password, int poolSize){
+        try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException e) {
+            System.out.println("SQLException" + e);
+        }
         try{
 
             pool = new ArrayBlockingQueue<>(poolSize);
@@ -65,6 +75,7 @@ public class ConnectionPool {
         }
     }
     public static ConnectionPool getInstance(String database, String user, String password, int poolSize) {
+
         lock.lock();
         try {
             if (instance == null) {

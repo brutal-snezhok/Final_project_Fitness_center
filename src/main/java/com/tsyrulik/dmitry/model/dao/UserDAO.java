@@ -15,7 +15,7 @@ public interface UserDAO {
 
     Optional<User> findByEmail(String login) throws  DAOFitnessException;
 
-    public User findUserByEmailAndPassword(String username, String password) throws DAOFitnessException;
+    User findUserByEmailAndPassword(String username, String password) throws DAOFitnessException;
 
     User updateByUser(User user) throws  DAOFitnessException;
 

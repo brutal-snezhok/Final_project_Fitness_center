@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
 
         MD5 encrypt = new MD5();
-//        System.out.println("1: " + encrypt.encrypt("password1"));
+//      System.out.println("1: " + encrypt.encrypt("password1"));
 //        System.out.println("2: " + encrypt.encrypt("password2"));
 //        System.out.println("3: " + encrypt.encrypt("password3"));
 //        System.out.println("4: " + encrypt.encrypt("password4"));
@@ -37,8 +37,8 @@ public class Main {
 //        System.out.println("15: " + encrypt.encrypt("password15"));
 //        System.out.println("16: " + encrypt.encrypt("password16"));
 //        System.out.println("17: " + encrypt.encrypt("password17"));
-
-//        System.out.println("18: " + encrypt.encrypt("password18"));
+//
+//       System.out.println("18: " + encrypt.encrypt("password18"));
     //    System.out.println("19: " + encrypt.encrypt("password19"));
 //        System.out.println("20: " + encrypt.encrypt("password20"));
 //        System.out.println("21: " + encrypt.encrypt("password21"));
@@ -55,13 +55,16 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Object mas;
+        int[] mass= new int[10];
+        mas= mass;
 
         try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                 Statement statement = connection.createStatement()) {
 
 
-            statement.execute("insert into user(iduser, name, surname, years_old, sex, email, password, role_idrole )  " +
-                    "values (19, \"Федор\", \"Емельянов\", 43, \"M\", \"emelynov@mail.ru\", \"e532ae6f28f4c2be70b500d3d34724eb\", 2)");
+//            statement.execute("insert into user(iduser, name, surname, years_old, sex, email, password, role_idrole )  " +
+//                    "values (19, \"Федор\", \"Емельянов\", 43, \"M\", \"emelynov@mail.ru\", \"e532ae6f28f4c2be70b500d3d34724eb\", 2)");
 
 //            //statement.executeUpdate("UPDATE new_fitness_center.user set user.name = \"Dimasik\" where user.iduser = 12 ");
 //
@@ -81,6 +84,7 @@ public class Main {
          catch (SQLException e) {
              System.out.println("Exception " + e);
         }
+
 
 
     }
