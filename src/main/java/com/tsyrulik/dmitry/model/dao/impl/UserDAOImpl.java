@@ -61,7 +61,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> findAll() throws DAOFitnessException {
+    public List<User> findAllUsers() throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeQuery(FIND_ALL_USERS_SQL);
@@ -78,7 +78,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public Optional<User> findById(long id) throws DAOFitnessException {
+    public Optional<User> findUserById(long id) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_ID_SQL)) {
             statement.setLong(1, id);
@@ -95,14 +95,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
     private User createUserFromResult(ResultSet resultSet) throws SQLException {
-        User user = new User(resultSet.getLong(DAOConstant.ID), resultSet.getString(DAOConstant.NAME), resultSet.getString(DAOConstant.SURNAME),
+        User user = new User(resultSet.getLong(DAOConstant.ID_USER), resultSet.getString(DAOConstant.NAME), resultSet.getString(DAOConstant.SURNAME),
                 resultSet.getInt(DAOConstant.YEARS_OLD), resultSet.getString(DAOConstant.SEX), resultSet.getString(DAOConstant.EMAIL),
-                resultSet.getString(DAOConstant.PASSWORD), resultSet.getString(DAOConstant.ROLE));
+                resultSet.getString(DAOConstant.PASSWORD), resultSet.getString(DAOConstant.ROLE_ID_ROLE));
         return user;
     }
 
     @Override
-    public Optional<User> findByEmail(String email) throws DAOFitnessException {
+    public Optional<User> findUserByEmail(String email) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN_SQL)) {
             statement.setString(1, email);
@@ -148,10 +148,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User updateByUser(User user) throws DAOFitnessException {
+    public User updateUserByUser(User user) throws DAOFitnessException {
         try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-         PreparedStatement st = connection.prepareStatement(UPDATE_BY_USER)){
-            User currentUser = null;
+            PreparedStatement st = connection.prepareStatement(UPDATE_BY_USER)){
             st.setLong(1, user.getIdUser());
             st.setString(2, user.getName());
             st.setString(3,user.getSurname());
@@ -163,7 +162,6 @@ public class UserDAOImpl implements UserDAO {
             st.setLong(9, user.getIdUser());
             st.executeUpdate();
             return user;
-
         } catch (SQLException e) {
             throw new DAOFitnessException(e);
         }
@@ -179,7 +177,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet userRoleResultSet = userRolePreparedStatement.executeQuery();
 
             if (userRoleResultSet.next()) {
-                if (!userRoleResultSet.getString(DAOConstant.ROLE).equals(user.getRole())) {
+                if (!userRoleResultSet.getString(DAOConstant.ROLE_ID_ROLE).equals(user.getRole())) {
                    //TODO
                 }
                 //TODO
@@ -194,7 +192,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void delete(long id) throws DAOFitnessException {
+    public void deleteUser(long id) throws DAOFitnessException {
 
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_BY_ID)) {

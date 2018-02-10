@@ -135,6 +135,11 @@ public class ConnectionPool {
 
     public void closeConnection(ProxyConnection connection) {
         pool.offer(connection);
+        try {
+            connection.closeConnection();
+        }catch (SQLException exc){
+            throw new PoolFitnessException(exc);
+        }
     }
 
     public void closeConnections(){

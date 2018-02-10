@@ -9,6 +9,13 @@ public class Trainer extends User{
     private int trainerIdUser;
 
 
+    public Trainer(User user,int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser){
+        super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
+        this.idTrainer = idTrainer;
+        this.education = education;
+        this.costPerHour = costPerHour;
+        this.trainerIdUser = trainerIdUser;
+    }
     public Trainer(long idUser, String name, String surname, int yearOld, String sex, String email, String password, String role, int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser) {
         super(idUser, name, surname, yearOld, sex, email, password, role);
         this.idTrainer = idTrainer;

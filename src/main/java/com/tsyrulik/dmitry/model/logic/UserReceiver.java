@@ -38,7 +38,7 @@ public class UserReceiver {
     public User findUserByEmail(String email) throws LogicFitnessException{
         UserDAO dao = new UserDAOImpl();
         try {
-            return dao.findByEmail(email).get();
+            return dao.findUserByEmail(email).get();
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);
         }
@@ -47,7 +47,7 @@ public class UserReceiver {
     public List<User> findAllUsers()  throws LogicFitnessException {
         UserDAO dao = new UserDAOImpl();
         try {
-            return dao.findAll();
+            return dao.findAllUsers();
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);
         }
@@ -57,7 +57,7 @@ public class UserReceiver {
     public User findUserById(int id)  throws LogicFitnessException {
         UserDAO userDAO = new UserDAOImpl();
         try {
-            return userDAO.findById(id).get();
+            return userDAO.findUserById(id).get();
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);
         }

@@ -40,15 +40,15 @@ public class UserDAOImplTest {
     }
 
     @Test
-    public void findAll() throws DAOFitnessException {
-        List<User> actual = userDAO.findAll();
+    public void findAllUsers() throws DAOFitnessException {
+        List<User> actual = userDAO.findAllUsers();
         Assert.assertEquals(actual, allUsers);
     }
 
     @Test
-    public void findById() throws DAOFitnessException  {
+    public void findUserById() throws DAOFitnessException  {
         int id = 2;
-        Optional<User> user = userDAO.findById(id);
+        Optional<User> user = userDAO.findUserById(id);
         Assert.assertEquals(allUsers.get(id -1), user.get());
     }
 
@@ -77,7 +77,7 @@ public class UserDAOImplTest {
     public void findUserByEmail() throws DAOFitnessException {
         String email = "pyshhyk@gmail.com";
         User expectedUser = allUsers.get(2);
-        Optional<User> actualUser = userDAO.findByEmail(email);
+        Optional<User> actualUser = userDAO.findUserByEmail(email);
         Assert.assertEquals(actualUser.get(), expectedUser);
     }
     @Test
@@ -89,18 +89,18 @@ public class UserDAOImplTest {
         userDAO.create(user);
         Assert.assertEquals(user, expectedUser);
         allUsers.remove(3);
-        userDAO.delete(4);
+        userDAO.deleteUser(4);
     }
 
     @Test
-    public void updateByUser() throws DAOFitnessException {
+    public void updateUserByUser() throws DAOFitnessException {
         User expectedUser = new User(2, "PetyPety", "Saplov", 32, "F",
                 "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "3");
-        User actualUser = userDAO.updateByUser(expectedUser);
+        User actualUser = userDAO.updateUserByUser(expectedUser);
         Assert.assertEquals(actualUser, expectedUser);
         User expectedUserTwo = new User(2, "Pety", "Saplov", 23, "M",
                 "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "3");
-        User actualUserTwo = userDAO.updateByUser(expectedUserTwo);
+        User actualUserTwo = userDAO.updateUserByUser(expectedUserTwo);
         Assert.assertEquals(actualUserTwo, expectedUserTwo);
     }
 }

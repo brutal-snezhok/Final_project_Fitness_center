@@ -1,28 +1,21 @@
 package com.tsyrulik.dmitry.model.dao;
 
 import com.tsyrulik.dmitry.model.entity.Client;
-import com.tsyrulik.dmitry.model.entity.User;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ClientDAO {
-    void create(User user) throws DAOFitnessException;
+    void createClient(Client client) throws DAOFitnessException;
 
-    List<User> findAll() throws DAOFitnessException;
+    List<Client> findAllClients() throws DAOFitnessException;
 
-    Optional<Client> findById(long id) throws  DAOFitnessException;
+    Optional<Client> findClientById(long id) throws DAOFitnessException;
 
-    Optional<User> findByEmail(String login) throws  DAOFitnessException;
+    Optional<Client> findClientByEmail(String email) throws DAOFitnessException;
 
-    List<User> findUsersWithDiscount();
+    Client updateClient(Client client) throws DAOFitnessException;
 
-    User findUserByEmailAndPassword(String username, String password) throws DAOFitnessException;
-
-    User updateByUser(User user) throws  DAOFitnessException;
-
-    boolean updateByAdmin(User user) throws  DAOFitnessException;
-
-    void delete(long id) throws DAOFitnessException;
+    void deleteClient(long id) throws DAOFitnessException;
 }

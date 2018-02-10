@@ -9,19 +9,19 @@ import java.util.Optional;
 public interface UserDAO {
     void create(User user) throws  DAOFitnessException;
 
-    List<User> findAll() throws DAOFitnessException;
+    List<User> findAllUsers() throws DAOFitnessException;
 
-    Optional<User> findById(long id) throws  DAOFitnessException;
+    Optional<User> findUserById(long id) throws DAOFitnessException;
 
-    Optional<User> findByEmail(String login) throws  DAOFitnessException;
+    Optional<User> findUserByEmail(String email) throws DAOFitnessException;
 
     User findUserByEmailAndPassword(String username, String password) throws DAOFitnessException;
 
-    User updateByUser(User user) throws  DAOFitnessException;
+    User updateUserByUser(User user) throws  DAOFitnessException;
 
     boolean updateByAdmin(User user) throws  DAOFitnessException;
 
-    void delete(long id) throws DAOFitnessException;
+    void deleteUser(long id) throws DAOFitnessException;
 
 
 }
