@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String FIND_USER_BY_ID_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user`\n" +
             "  LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`iduser` = ?;";
 
-    private static final String FIND_USER_BY_LOGIN_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user` " +
+    private static final String FIND_USER_BY_EMAIL_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user` " +
             "LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`email` = ?;";
 
     private static final String UPDATE_BY_USER= "UPDATE `user` SET `iduser`=?, `name`=?, `surname`=?, `years_old`=?,`sex`=?, `email`=?, `password`=?," +
@@ -36,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
             "    FROM user LEFT JOIN role ON `user`.`role_idrole` = `role`.`idrole`" +
             "    WHERE email = ? AND password = ?";
 
-    private static final String DELETE_USER_BY_ID = "DELETE FROM `test`.`user` WHERE `iduser`=?;";
+    private static final String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE `iduser`=?;";
 
 
     @Override
@@ -104,7 +104,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Optional<User> findUserByEmail(String email) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN_SQL)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_EMAIL_SQL)) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             Optional<User> userOptional = Optional.empty();

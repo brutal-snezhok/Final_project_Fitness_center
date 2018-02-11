@@ -1,6 +1,8 @@
 package com.tsyrulik.dmitry.model.dao.impl;
 
 import com.tsyrulik.dmitry.model.entity.Client;
+import com.tsyrulik.dmitry.model.entity.Exercises;
+import com.tsyrulik.dmitry.model.entity.Food;
 import com.tsyrulik.dmitry.model.entity.User;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 import com.tsyrulik.dmitry.model.pool.ConnectionPool;
@@ -8,6 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +23,8 @@ public class ClientDAOImplTest {
 
     private List<User> allClients;
     private ClientDAOImpl clientDAO = new ClientDAOImpl();
+    private Food examplefood;
+    private Exercises exampleExercises;
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -28,6 +34,11 @@ public class ClientDAOImplTest {
         ConnectionPool.getInstance(URL, USERNAME, PASSWORD, poolSize);
 
         ConnectionPool.getInstance(1);
+        examplefood = new Food((long)7, "Шоколад 100 гр",  LocalDate.of(2017,9, 20), LocalTime.of(15,0,0));
+        exampleExercises = new Exercises((long) 6, "широчайшие мышцы спины",
+                "тяга верхнего блока перед собой; тяга гантели одной рукой; тяга гантели к поясу; отжимания стоя на руках; подтягивания широким хватом",
+                "гантели, турник, тренажер");
+
         allClients.add(new Client(2, "Pety", "Saplov", 23, "M",
                 "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long)1, (double)15, (long)2));
         allClients.add(new Client(4, "Danila", "Letov", 21, "M",
@@ -35,26 +46,26 @@ public class ClientDAOImplTest {
     }
 
     @Test
-    public void findAllClients() throws DAOFitnessException {
+    public void findAllClientsTest() throws DAOFitnessException {
         List<Client> actual = clientDAO.findAllClients();
         Assert.assertEquals(actual.get(0), allClients.get(0));
     }
 
     @Test
-    public void findClientById() throws DAOFitnessException {
+    public void findClientByIdTest() throws DAOFitnessException {
         int id = 1;
         Optional<Client> client = clientDAO.findClientById(id);
         Assert.assertEquals(allClients.get(id - 1), client.get());
     }
 
     @Test
-    public void findClientByEmail() throws DAOFitnessException {
+    public void findClientByEmailTest() throws DAOFitnessException {
         String email = "goodmail@gmail.com";
         Optional<Client> client = clientDAO.findClientByEmail(email);
         Assert.assertEquals(allClients.get(0), client.get());
     }
     @Test
-    public void testCreateAndDeleteClient() throws Exception {
+    public void CreateAndDeleteClientTest() throws Exception {
         Client client = new Client(4, "Kirill", "Pavlov", 23, "M",
                 "vavl@gmail.com", "58bad6b697dff48f4927941962f23e90", "3", (long)2, (double)20, (long)4);
         allClients.add(client);
@@ -77,4 +88,17 @@ public class ClientDAOImplTest {
         Assert.assertEquals(actualClientTwo, expectedClientTwo);
     }
 
+    @Test
+    public void findFoodForClientTest() throws DAOFitnessException {
+        int id = 1;
+        Optional<Food> food = clientDAO.findFoodForClient(id);
+        Assert.assertEquals(examplefood, food.get());
+    }
+
+    @Test
+    public void findExercisesForClientTest() throws DAOFitnessException {
+        int id = 1;
+        Optional<Exercises> exercises = clientDAO.findExercisesForClient(id);
+        Assert.assertEquals(exampleExercises, exercises.get());
+    }
 }

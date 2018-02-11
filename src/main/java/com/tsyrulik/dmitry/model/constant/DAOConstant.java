@@ -19,62 +19,24 @@ public class DAOConstant {
     public static final String EDUCATION_OR_LEVEL = "education_or_level";
     public static final String COST_PER_LESSON = "cost_per_lesson";
 
+    public static final String ID_ORDER = "idorder";
+    public static final String TYPE_OF_TRAINING = "type_of_training";
+    public static final String COST_OF_LESSONS = "cost_of_lessons";
+    public static final String NUMBER_OF_LESSONS = "number_of_lessons";
+    public static final String CLIENT_ID_CLIENT = "client_idclient";
+    public static final String TRAINER_ID_TRAINER = "trainer_idtrainer";
+
     public static final String ROLE_CLIENT = "client";
     public static final String ROLE_TRAINER = "trainer";
 
-    public static final String PHONE_NUMBER = "phone_number";
-    public static final String ARCHIVED = "archived";
-    public static final String CITY = "city";
-    public static final String COUNTRY = "country";
-    public static final String SKILL = "skill";
+    public static final String ID_FOOD = "idfood";
+    public static final String NAME_OF_DISH = "name_of_dish";
+    public static final String DATA_RECEIPT = "data_receipt";
+    public static final String TIME_OF_RECEIPT = "time_of_receipt";
 
-
-    public static final String JOB_SEEKER_ID = "job_seeker_id";
-    public static final String JOB_SEEKER_NAME = "job_seeker_name";
-    public static final String JOB_SEEKER_PASSWORD = "job_seeker_password";
-    public static final String JOB_SEEKER_LOGIN = "job_seeker_login";
-    public static final String JOB_SEEKER_LAST_NAME = "job_seeker_last_name";
-    public static final String JOB_SEEKER_BIRTH_DATE = "job_seeker_birth_date";
-    public static final String JOB_SEEKER_EMAIL = "job_seeker_email";
-    public static final String JOB_SEEKER_ROLE = "job_seeker_role";
-    public static final String JOB_SEEKER_PHONE_NUMBER = "job_seeker_phone_number";
-    public static final String JOB_SEEKER_ARCHIVED = "job_seeker_archived";
-    public static final String JOB_SEEKER_CITY = "job_seeker_city";
-    public static final String JOB_SEEKER_COUNTRY = "job_seeker_country";
-    public static final String JOB_SEEKER_SKILL = "job_seeker_skill";
-    public static final String JOB_SEEKER_TITLE = "job_seeker_title";
-
-    public static final String HR_ID = "hr_id";
-    public static final String HR_NAME = "hr_name";
-    public static final String HR_PASSWORD = "hr_password";
-    public static final String HR_LOGIN = "hr_login";
-    public static final String HR_LAST_NAME = "hr_last_name";
-    public static final String HR_BIRTH_DATE = "hr_birth_date";
-    public static final String HR_EMAIL = "hr_email";
-    public static final String HR_ROLE = "hr_role";
-    public static final String HR_PHONE_NUMBER = "hr_phone_number";
-    public static final String HR_ARCHIVED = "hr_archived";
-    public static final String HR_CITY = "hr_city";
-    public static final String HR_COUNTRY = "hr_country";
-    public static final String HR_SKILL = "hr_skill";
-    public static final String HR_TITLE = "hr_title";
-
-    public static final String ID_VACANCY = "id_vacancy";
-    public static final String VACANCY_CITY = "vacancy_city";
-    public static final String VACANCY_COUNTRY = "vacancy_country";
-    public static final String VACANCY_SKILL = "vacancy_skill";
-    public static final String VACANCY_TITLE = "vacancy_title";
-    public static final String SALARY = "salary";
-    public static final String REQUIREMENT = "requirement";
-    public static final String CONDITION = "condition";
-    public static final String DUTY = "duty";
-    public static final String EMPLOYMENT = "employment";
-    public static final String IMAGE_PATH = "image_path";
-
-    public static final String DOCUMENTS = "documents";
-    public static final String DATE = "date";
-    public static final String ADDRESS = "address";
-    public static final String FEEDBACK = "feedback";
-    public static final String TYPE = "type";
+    public static final String ID_EXERCISES = "idexercises";
+    public static final String MUSCLE_GROUP = "muscle_group";
+    public static final String NAMES_OF_EXERCISES = "names_of_exercises";
+    public static final String EQUIPMET = "equipment";
     public static final String TIME_ZONE = "GMT+3";
 }

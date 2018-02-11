@@ -1,14 +1,19 @@
 package com.tsyrulik.dmitry.model.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Food {
     private Long idFood;
     private String NameOfDish;
-    private Date dateReceipt;
-    private String timeOfReceipt;
+    private LocalDate dateReceipt;
+    private LocalTime timeOfReceipt;
 
-    public Food(Long idFood, String nameOfDish, Date dateReceipt, String timeOfReceipt) {
+    public Food(){
+
+    }
+
+    public Food(Long idFood, String nameOfDish, LocalDate dateReceipt, LocalTime timeOfReceipt) {
         this.idFood = idFood;
         NameOfDish = nameOfDish;
         this.dateReceipt = dateReceipt;
@@ -31,19 +36,19 @@ public class Food {
         NameOfDish = nameOfDish;
     }
 
-    public Date getDateReceipt() {
+    public LocalDate getDateReceipt() {
         return dateReceipt;
     }
 
-    public void setDateReceipt(Date dateReceipt) {
+    public void setDateReceipt(LocalDate dateReceipt) {
         this.dateReceipt = dateReceipt;
     }
 
-    public String getTimeOfReceipt() {
+    public LocalTime getTimeOfReceipt() {
         return timeOfReceipt;
     }
 
-    public void setTimeOfReceipt(String timeOfReceipt) {
+    public void setTimeOfReceipt(LocalTime timeOfReceipt) {
         this.timeOfReceipt = timeOfReceipt;
     }
 
@@ -75,7 +80,7 @@ public class Food {
                 "idFood=" + idFood +
                 ", NameOfDish='" + NameOfDish + '\'' +
                 ", dateReceipt=" + dateReceipt +
-                ", timeOfReceipt='" + timeOfReceipt + '\'' +
+                ", timeOfReceipt=" + timeOfReceipt +
                 '}';
     }
 }

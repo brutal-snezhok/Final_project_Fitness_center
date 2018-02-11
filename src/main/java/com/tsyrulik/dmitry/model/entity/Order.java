@@ -1,16 +1,24 @@
 package com.tsyrulik.dmitry.model.entity;
 
-public class ClientOrder {
+import java.math.BigDecimal;
+
+public class Order {
     private Long idOrder;
     private String typeOfTraining;
-    private Double costOfLessons;
+    private BigDecimal costOfLessons;
+    private int number_of_lessons;
     private Long idClient;
-    private Long idTrainer;
+    private int idTrainer;
 
-    public ClientOrder(Long idOrder, String typeOfTraining, Double costOfLessons, Long idClient, Long idTrainer) {
+    public Order() {
+    }
+
+    public Order(Long idOrder, String typeOfTraining, BigDecimal costOfLessons,
+                 int number_of_lessons, Long idClient, int idTrainer) {
         this.idOrder = idOrder;
         this.typeOfTraining = typeOfTraining;
         this.costOfLessons = costOfLessons;
+        this.number_of_lessons = number_of_lessons;
         this.idClient = idClient;
         this.idTrainer = idTrainer;
     }
@@ -31,12 +39,20 @@ public class ClientOrder {
         this.typeOfTraining = typeOfTraining;
     }
 
-    public Double getCostOfLessons() {
+    public BigDecimal getCostOfLessons() {
         return costOfLessons;
     }
 
-    public void setCostOfLessons(Double costOfLessons) {
+    public void setCostOfLessons(BigDecimal costOfLessons) {
         this.costOfLessons = costOfLessons;
+    }
+
+    public int getNumber_of_lessons() {
+        return number_of_lessons;
+    }
+
+    public void setNumber_of_lessons(int number_of_lessons) {
+        this.number_of_lessons = number_of_lessons;
     }
 
     public Long getIdClient() {
@@ -47,11 +63,11 @@ public class ClientOrder {
         this.idClient = idClient;
     }
 
-    public Long getIdTrainer() {
+    public int getIdTrainer() {
         return idTrainer;
     }
 
-    public void setIdTrainer(Long idTrainer) {
+    public void setIdTrainer(int idTrainer) {
         this.idTrainer = idTrainer;
     }
 
@@ -60,15 +76,16 @@ public class ClientOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ClientOrder that = (ClientOrder) o;
+        Order that = (Order) o;
 
+        if (number_of_lessons != that.number_of_lessons) return false;
+        if (idTrainer != that.idTrainer) return false;
         if (idOrder != null ? !idOrder.equals(that.idOrder) : that.idOrder != null) return false;
         if (typeOfTraining != null ? !typeOfTraining.equals(that.typeOfTraining) : that.typeOfTraining != null)
             return false;
         if (costOfLessons != null ? !costOfLessons.equals(that.costOfLessons) : that.costOfLessons != null)
             return false;
-        if (idClient != null ? !idClient.equals(that.idClient) : that.idClient != null) return false;
-        return idTrainer != null ? idTrainer.equals(that.idTrainer) : that.idTrainer == null;
+        return idClient != null ? idClient.equals(that.idClient) : that.idClient == null;
     }
 
     @Override
@@ -76,17 +93,19 @@ public class ClientOrder {
         int result = idOrder != null ? idOrder.hashCode() : 0;
         result = 31 * result + (typeOfTraining != null ? typeOfTraining.hashCode() : 0);
         result = 31 * result + (costOfLessons != null ? costOfLessons.hashCode() : 0);
+        result = 31 * result + number_of_lessons;
         result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
-        result = 31 * result + (idTrainer != null ? idTrainer.hashCode() : 0);
+        result = 31 * result + idTrainer;
         return result;
     }
 
     @Override
     public String toString() {
-        return "ClientOrder{" +
+        return "Order{" +
                 "idOrder=" + idOrder +
                 ", typeOfTraining='" + typeOfTraining + '\'' +
                 ", costOfLessons=" + costOfLessons +
+                ", number_of_lessons=" + number_of_lessons +
                 ", idClient=" + idClient +
                 ", idTrainer=" + idTrainer +
                 '}';
