@@ -28,7 +28,7 @@ public class ClientDAOImpl implements ClientDAO {
             "FROM `user` INNER JOIN `client` ON client.user_iduser=user.iduser WHERE `user`.`email`=?;";
     private static final String UPDATE_CLIENT= "UPDATE `client` SET `client`.idclient=?, `client`.discount=?  WHERE `user_iduser`=?;";
     private static final String DELETE_CLIENT_BY_ID = "DELETE FROM `client` WHERE `idclient`=?;";
-    private static final String SELECT_USER_FROM_CLIENT_TABLE = "SELECT `user_iduser` FROM `client` WHERE `idclient`=?;";
+    private static final String SELECT_USER_FROM_CLIENT_TABLE = "SELECT `user_iduser` FROM `client` WHERE `idclient`=?";
     private static final String FIND_FOOD_FOR_CLIENT = "SELECT `idfood`, `name_of_dish`,`data_receipt`,`time_of_receipt`" +
             "FROM `user` LEFT JOIN client ON `client`.`user_iduser`=`user`.`iduser` " +
             "LEFT JOIN `appointments` ON `appointments`.`client_idclient`=`client`.`idclient` " +
@@ -37,8 +37,14 @@ public class ClientDAOImpl implements ClientDAO {
             "FROM `user` LEFT JOIN client ON `client`.`user_iduser`=`user`.`iduser` " +
             "LEFT JOIN `appointments` ON `appointments`.`client_idclient`=`client`.`idclient` " +
             "LEFT JOIN `exercises` ON `exercises`.`idexercises`=`appointments`.`exercises_idexercises` WHERE `client`.`idclient`=?;";
-
-
+    private static final String FIND_ALL_FOOD_FOR_CLIENT_BY_ID = "SELECT `idfood`, `name_of_dish`, `data_receipt`, `time_of_receipt` " +
+            "FROM `user` LEFT JOIN client ON `client`.`user_iduser`=`user`.`iduser`" +
+            "LEFT JOIN `appointments` ON `appointments`.`client_idclient`=`client`.`idclient`" +
+            "LEFT JOIN `food` ON `food`.`idfood`=`appointments`.`food_idfood` WHERE `client`.`idclient`=?;";
+    private static final String FIND_ALL_EXERCISES_FOR_CLIENT_BY_ID = "SELECT `idexercises`, `muscle_group`, `names_of_exercises`, `equipment` " +
+            "FROM `user` LEFT JOIN client ON `client`.`user_iduser`=`user`.`iduser` " +
+            "LEFT JOIN `appointments` ON `appointments`.`client_idclient`=`client`.`idclient` " +
+            "LEFT JOIN `exercises` ON `exercises`.`idexercises`=`appointments`.`exercises_idexercises` WHERE `client`.`idclient`=?;";
 
 
     @Override
@@ -212,6 +218,37 @@ public class ClientDAOImpl implements ClientDAO {
                                             resultSet.getString(DAOConstant.EQUIPMET));
         return exercises;
     }
+
+    public List<Food> findAllFoodForClientById(long idClient) throws DAOFitnessException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeQuery(FIND_ALL_FOOD_FOR_CLIENT_BY_ID);
+            ResultSet resultSet = statement.getResultSet();
+            List<Food> foods = new ArrayList<>();
+            while (resultSet.next()) {
+                foods.add(createFoodFromResult(resultSet));
+            }
+            return foods;
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
+
+    public List<Exercises> findAllExercisesForClientById(long idClient) throws DAOFitnessException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeQuery(FIND_ALL_EXERCISES_FOR_CLIENT_BY_ID);
+            ResultSet resultSet = statement.getResultSet();
+            List<Exercises> exercises = new ArrayList<>();
+            while (resultSet.next()) {
+                exercises.add(createExercisesFromResult(resultSet));
+            }
+            return exercises;
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
+
 
 
 
