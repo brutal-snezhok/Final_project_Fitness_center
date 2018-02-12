@@ -33,6 +33,22 @@ public class UserReceiver {
         }
     }
 
+    ///!!!!!!!!!!!!!!!!!!!!
+    public User addUser(String name, String surname, int years_old, String sex, String email,
+                        String password, String role) throws LogicFitnessException {
+        UserDAO daoUser = new UserDAOImpl();
+        try {
+            MD5 encryptor = new MD5();
+            String encryptedPassword = encryptor.encrypt(password);
+            User user = new User(0,  name,  surname, years_old, sex, email,
+                     password, role);
+            daoUser.create(user);
+            return user;
+        } catch (DAOFitnessException exc) {
+            throw new LogicFitnessException(exc);
+        }
+    }
+
 
 
     public User findUserByEmail(String email) throws LogicFitnessException{
@@ -58,6 +74,24 @@ public class UserReceiver {
         UserDAO userDAO = new UserDAOImpl();
         try {
             return userDAO.findUserById(id).get();
+        } catch (DAOFitnessException e) {
+            throw new LogicFitnessException(e);
+        }
+    }
+
+    public User updateUser(User user) throws LogicFitnessException {
+        UserDAO userDAO = new UserDAOImpl();
+        try {
+            return userDAO.updateUserByUser(user);
+        } catch (DAOFitnessException e) {
+            throw new LogicFitnessException(e);
+        }
+    }
+
+    public void deleteUser(long id) throws LogicFitnessException{
+        UserDAO userDAO = new UserDAOImpl();
+        try {
+            userDAO.deleteUser(id);
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);
         }

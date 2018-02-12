@@ -10,7 +10,7 @@ public class User implements Serializable,Cloneable{
     private String sex;
     private String email;
     private String password;
-    private String Role;
+    private String role;
 
     public User(){
 
@@ -24,7 +24,7 @@ public class User implements Serializable,Cloneable{
         this.sex = sex;
         this.email = email;
         this.password = password;
-        Role = role;
+        this.role = role;
     }
 
     public long getIdUser() {
@@ -84,11 +84,11 @@ public class User implements Serializable,Cloneable{
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(String role) {
-        Role = role;
+        role = role;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class User implements Serializable,Cloneable{
         if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return Role != null ? Role.equals(user.Role) : user.Role == null;
+        return role != null ? role.equals(user.role) : user.role == null;
     }
 
     @Override
@@ -117,7 +117,7 @@ public class User implements Serializable,Cloneable{
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (Role != null ? Role.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 
@@ -131,7 +131,7 @@ public class User implements Serializable,Cloneable{
                 ", sex='" + sex + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", Role='" + Role + '\'' +
+                ", Role='" + role + '\'' +
                 '}';
     }
 }

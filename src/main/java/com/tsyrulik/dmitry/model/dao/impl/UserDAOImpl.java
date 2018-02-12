@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String FIND_ALL_USERS_SQL = "SELECT `iduser`,`name`,`surname`,`years_old`,`sex`,`email`,`password`,`role_name` AS `role` FROM `user` LEFT JOIN `role` ON `user`.`role_idrole` = `role`.`idrole` ORDER BY `user`.`iduser`;";
 
     private static final String CREATE_USER_SQL = "INSERT INTO `user` (`iduser`,`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
-            " VALUES (?, ?, ?, ?, ?, ?, ?,?);";
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String FIND_USER_BY_ID_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user`\n" +
             "  LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`iduser` = ?;";
@@ -54,7 +54,6 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(8, user.getRole());
 
             preparedStatement.executeUpdate();
-
         } catch (SQLException | PoolFitnessException e) {
             throw new DAOFitnessException(e);
         }
@@ -75,7 +74,6 @@ public class UserDAOImpl implements UserDAO {
             throw new DAOFitnessException(e);
         }
     }
-
 
     @Override
     public Optional<User> findUserById(long id) throws DAOFitnessException {
@@ -193,7 +191,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteUser(long id) throws DAOFitnessException {
-
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_BY_ID)) {
             preparedStatement.setLong(1, id);
@@ -203,7 +200,6 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException | PoolFitnessException e) {
             throw new DAOFitnessException(e);
         }
-
     }
 
 

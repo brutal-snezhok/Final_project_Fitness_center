@@ -172,6 +172,7 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
 
+    @Override
     public Optional<Food> findFoodForClient(long id) throws DAOFitnessException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(FIND_FOOD_FOR_CLIENT)) {
@@ -195,6 +196,7 @@ public class ClientDAOImpl implements ClientDAO {
         return food;
     }
 
+    @Override
     public Optional<Exercises> findExercisesForClient(long id) throws DAOFitnessException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_EXERCISES_FOR_CLEINT)){
@@ -219,6 +221,7 @@ public class ClientDAOImpl implements ClientDAO {
         return exercises;
     }
 
+    @Override
     public List<Food> findAllFoodForClientById(long idClient) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
@@ -234,6 +237,7 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    @Override
     public List<Exercises> findAllExercisesForClientById(long idClient) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
