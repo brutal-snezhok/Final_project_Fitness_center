@@ -16,6 +16,16 @@ public class User implements Serializable,Cloneable{
 
     }
 
+    public User(String name, String surname, int yearOld, String sex, String email, String password, String role) {
+        this.name = name;
+        this.surname = surname;
+        this.yearOld = yearOld;
+        this.sex = sex;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public User(long idUser, String name, String surname, int yearOld, String sex, String email, String password, String role) {
         this.idUser = idUser;
         this.name = name;
@@ -26,6 +36,7 @@ public class User implements Serializable,Cloneable{
         this.password = password;
         this.role = role;
     }
+
 
     public long getIdUser() {
         return idUser;

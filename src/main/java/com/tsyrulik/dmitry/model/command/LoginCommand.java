@@ -40,6 +40,7 @@ public class LoginCommand implements Command {
                     page = PATH_PAGE_LOGIN;
                 }
             } catch (LogicFitnessException e) {
+                request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("messages.login.error"));
                 throw new CommandFitnessException(e);
             }
         }

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admindi
-  Date: 27.01.2018
-  Time: 18:02
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -19,54 +12,51 @@
 <body>
 <h4><b><fmt:message key="jsp.register.registration" /> </b></h4>
 <hr/>
-<form name="signForm" method="POST" action="controller">
+<form name="signForm" method="POST" action = "<c:url value="/jsp/controller"/>">
     <input type="hidden" name="command" value="signup"/>
-
-    <fmt:message key="jsp.register.firstname" /></fmt><br/>
+    <fmt:message key="jsp.register.firstname" /><br/>
     <label>
-        <input type="text" name="first_name" value=""/>
+        <input type="text" name="first_name" value="" required pattern="^([A-Z][a-z]{0,15})|([А-Я][а-я]{0,20})$"/>
     </label>
 
-    <br/> <fmt:message key="jsp.register.secondname"/><br/>
-    <label>
-        <input type="text" name="second_name" value=""/>
-    </label>
+    <%--<br/> <fmt:message key="jsp.register.secondname" /><br/>--%>
+    <%--<label>--%>
+        <%--<input type="text" name="second_name" value="" required pattern="^([A-Z][a-z]{0,15})|([А-Я][а-я]{0,15})$"/>--%>
+    <%--</label>--%>
 
-    <br/><fmt:message key="jsp.register.years_old"/><br/>
-    <label>
-        <input type="text" name="years_old" value=""/>
-    </label>
+    <%--<br/><fmt:message key="jsp.register.years_old"/><br/>--%>
+    <%--<label>--%>
+        <%--<input type="text" name="years_old" value="" required pattern=""/>--%>
+    <%--</label>--%>
 
-    <br/><fmt:message key="jsp.register.sex"/><br/>
-    <label>
-        <%--<input type="text" name="sex" value=""/>--%>
-            <input type="radio" name="radio-sex" value="Male" checked>
-            M
-            <input type="radio" name="radio-sex" value="Female">
-            F
-    </label>
+    <%--<br/><fmt:message key="jsp.register.sex"/><br/>--%>
+    <%--<label>--%>
+            <%--<input type="radio" name="radio-sex" value="Male" checked>--%>
+            <%--M--%>
+            <%--<input type="radio" name="radio-sex" value="Female">--%>
+            <%--F--%>
+    <%--</label>--%>
 
-    <br/><fmt:message key="jsp.register.email"/><br/>
-    <label>
-        <input type="text" name="e-mail" value=""/>
-    </label>
+    <%--<br/><fmt:message key="jsp.register.email"/><br/>--%>
+    <%--<label>--%>
+        <%--<input type="text" name="email" value="" required pattern="^([a-z0-9_.-]+)@([a-z0-9_.-]+)\.([a-z.]{2,6})$"/>--%>
+    <%--</label>--%>
 
-    <br/><fmt:message key="jsp.register.password"/><br/>
-    <label>
-        <input type="password" name="password" value=""/>
-    </label>
+    <%--<br/><fmt:message key="jsp.register.password"/><br/>--%>
+    <%--<label>--%>
+        <%--<input type="password" name="password" value="" required pattern="\\w+"/>--%>
+    <%--</label>--%>
+    <%--<br/>--%>
+    <%--<label>--%>
+        <%--<input type="radio" name="radio-role" value="Client" checked>--%>
+        <%--Client--%>
+        <%--<input type="radio" name="radio-role" value="Trainer">--%>
+        <%--Trainer--%>
+    <%--</label>--%>
     <br/>
-    <label>
-        <input type="radio" name="radio-role" value="Client" checked>
-        Client
-        <input type="radio" name="radio-role" value="Trainer">
-        Trainer
-    </label>
-    <br>
-
-
-
+    <lable>
     <input type="submit" value="<fmt:message key = "jsp.login.submit" />">
+    </lable>
     <br/>
     ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} <br/>
 </form>

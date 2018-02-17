@@ -28,7 +28,7 @@ public class ClientDAOImpl implements ClientDAO {
             "FROM `user` INNER JOIN `client` ON client.user_iduser=user.iduser WHERE `user`.`email`=?;";
     private static final String UPDATE_CLIENT= "UPDATE `client` SET `client`.idclient=?, `client`.discount=?  WHERE `user_iduser`=?;";
     private static final String DELETE_CLIENT_BY_ID = "DELETE FROM `client` WHERE `idclient`=?;";
-    private static final String SELECT_USER_FROM_CLIENT_TABLE = "SELECT `user_iduser` FROM `client` WHERE `idclient`=?";
+    private static final String SELECT_USER_FROM_CLIENT_TABLE_SQL = "SELECT `user_iduser` FROM `client` WHERE `idclient`=?;";
     private static final String FIND_FOOD_FOR_CLIENT = "SELECT `idfood`, `name_of_dish`,`data_receipt`,`time_of_receipt`" +
             "FROM `user` LEFT JOIN client ON `client`.`user_iduser`=`user`.`iduser` " +
             "LEFT JOIN `appointments` ON `appointments`.`client_idclient`=`client`.`idclient` " +
@@ -158,7 +158,7 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public void deleteClient(long id) throws DAOFitnessException {
-        User user = selectUserFromClientTable(id, SELECT_USER_FROM_CLIENT_TABLE);
+        User user = selectUserFromClientTable(id, SELECT_USER_FROM_CLIENT_TABLE_SQL);
         new UserDAOImpl().deleteUser(user.getIdUser());
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CLIENT_BY_ID)) {

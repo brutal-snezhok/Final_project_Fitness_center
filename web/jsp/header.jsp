@@ -1,11 +1,3 @@
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--
-  Created by IntelliJ IDEA.
-  User: admindi
-  Date: 20.01.2018
-  Time: 11:39
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html lang="en">
@@ -26,7 +18,7 @@
         <ul class="nav navbar-nav">
             <li><a href="/main/info?page=1">Home</a> </li>
             <li><a href="/main/new">Fitness directions</a></li>
-            <li><a href="/main/search">Shares</a></li>
+            <li><a href="/main">Contact</a></li>
         </ul>
     </div>
 </nav>

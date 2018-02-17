@@ -73,7 +73,7 @@ public class ClientDAOImplTest {
         clientDAO.createClient(client);
         Assert.assertEquals(client, expectedClient);
         allClients.remove(2);
-        clientDAO.deleteClient(2);
+        clientDAO.deleteClient(client.getIdClient());
     }
 
     @Test

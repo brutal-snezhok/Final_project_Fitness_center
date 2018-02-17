@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 
-@WebServlet("/controller")
+@WebServlet("/jsp/controller")
 public class Controller extends HttpServlet {
     private final static Logger LOGGER = LogManager.getLogger("Controller");
 

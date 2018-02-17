@@ -8,6 +8,10 @@ public class Client extends User {
     public Client() {
     }
 
+    public Client(User user, Double discount){
+        super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
+        this.discount = discount;
+    }
     public Client(User user, Long idClient, Double discount, Long clientIdUser){
         super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
         this.idClient = idClient;

@@ -96,6 +96,7 @@
       <Position>2</Position>
       <Comment>скидка, если есть</Comment>
       <DataType>smallint(6)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <column id="33" parent="11" name="user_iduser">
       <Position>3</Position>

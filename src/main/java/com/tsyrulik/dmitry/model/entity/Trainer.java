@@ -9,6 +9,16 @@ public class Trainer extends User{
     private int trainerIdUser;
 
 
+    public Trainer(User user){
+        super(user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
+    }
+    public Trainer(User user, String education, BigDecimal costPerHour){
+        super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
+        this.idTrainer = idTrainer;
+        this.education = education;
+        this.costPerHour = costPerHour;
+        this.trainerIdUser = trainerIdUser;
+    }
     public Trainer(User user,int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser){
         super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
         this.idTrainer = idTrainer;
