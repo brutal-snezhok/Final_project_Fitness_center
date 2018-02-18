@@ -55,7 +55,6 @@ public class Controller extends HttpServlet {
             LOGGER.log(Level.ERROR, e.getMessage());
         }
 
-
     }
 
 

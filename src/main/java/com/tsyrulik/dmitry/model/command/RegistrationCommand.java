@@ -27,7 +27,7 @@ public class RegistrationCommand implements Command {
     private static final String PARAM_ROLE = "radio-role";
 
     private static final String PATH_PAGE_LOGIN = "/jsp/login.jsp";
-    private static final String PATH_PAGE_MAIN = "/jsp/main.jsp";
+    private static final String PATH_PAGE_REGISTER = "/jsp/register.jsp";
 
     private UserReceiver receiver;
     private ClientReceiver clientReceiver = new ClientReceiver();
@@ -52,6 +52,7 @@ public class RegistrationCommand implements Command {
             if (clientOrTrainer.equals("Client")){
                 Client client = new Client(new User(nameValue, surnameValue, Integer.parseInt(yersOldValue),
                         sex, emailValue, passValue, String.valueOf(UserType.CLIENT.ordinal())),(double)0);
+                request.getSession(true).setAttribute("client", client);
                 try {
                     clientReceiver.addClient(client);
                 } catch (LogicFitnessException e) {
@@ -61,6 +62,7 @@ public class RegistrationCommand implements Command {
             else {
                 Trainer trainer = new Trainer(new User(nameValue, surnameValue, Integer.parseInt(yersOldValue),
                         sex, emailValue, passValue, String.valueOf(UserType.TRAINER.ordinal())));
+                request.getSession(true).setAttribute("trainer", trainer);
                 try {
                     trainerReceiver.addTrainer(trainer);
                 } catch (LogicFitnessException e) {
@@ -68,12 +70,11 @@ public class RegistrationCommand implements Command {
                 }
             }
             request.setAttribute("successMessage", MessageManager.getMessage("messages.registration.success"));
-            page = "/jsp/login.jsp";
+            page = PATH_PAGE_LOGIN;
             LOGGER.info(nameValue + " is registered now");
         } else {
             request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("messages.login.error"));
-            //page = PropertyManager.getProperty("path.page.register");
-            page = "/jsp/register.jsp";
+            page = PATH_PAGE_REGISTER;
         }
         return page;
     }

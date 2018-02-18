@@ -36,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
 
     private static final String SQL_SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT `iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`,`role_name` AS `role`" +
             "    FROM user LEFT JOIN role ON `user`.`role_idrole` = `role`.`idrole`" +
-            "    WHERE email = ? AND password = ?";
+            "    WHERE email=? AND password=?;";
 
     private static final String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE `iduser`=?;";
 

@@ -31,7 +31,7 @@ public class LoginCommand implements Command {
             try {
                     User user = receiver.checkUser(loginValue, passValue);
                     if (user != null){
-                        request.getSession(true).setAttribute("user", user);//???????
+                        request.getSession(true).setAttribute("user", user);
                         //request.setAttribute("user", loginValue);
                         page = PATH_PAGE_MAIN;
                     }
