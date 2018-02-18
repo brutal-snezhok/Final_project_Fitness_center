@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<form name="loginForm" method="POST" action="${servletContext.request.contextPath}/jsp/controller">
+<form name="loginForm" method="POST" action="/jsp/controller">
     <input type="hidden" name="command" value="login"/>
     <fmt:message key = "jsp.login.login"/><br/>
     <label>
@@ -25,7 +25,7 @@
     </label>
     <br/><input type="submit" value="<fmt:message key = "jsp.login.submit" />">
     <lablel>
-    <a href="${pageContext.request.contextPath}/jsp/register.jsp"><fmt:message key = "jsp.login.signup" /></a>
+    <a href="/jsp/register.jsp"><fmt:message key = "jsp.login.signup" /></a>
     </lablel>
     <%--<select class="select-lang" name="locale_language" onchange="this.form.submit()">--%>
         <%--<option value="en_US" selected="">Language</option>--%>

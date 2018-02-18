@@ -13,7 +13,7 @@
 <body>
     <h3>Welcome</h3>
     <hr/> ${user}, hello! <hr/>
-    <form name="loginForm" method="POST" action="controller">
+    <form name="loginForm" method="POST" action="/jsp/controller">
     <input type="hidden" name="command" id="logout"/>
     <br/>
     <input type="submit" value="Logout"/>
