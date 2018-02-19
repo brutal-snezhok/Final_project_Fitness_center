@@ -19,13 +19,13 @@
     <label>
         <input type="text" name="login" value=""/>
     </label>
-    <br/><fmt:message key = "jsp.login.password" /><br/>
+    <br/><fmt:message key = "jsp.login.password"/><br/>
     <label>
         <input type="password" name="password" value=""/>
     </label>
-    <br/><input type="submit" value="<fmt:message key = "jsp.login.submit" />">
+    <br/><input type="submit" value="<fmt:message key = "jsp.login.submit"/>">
     <lablel>
-    <a href="/jsp/register.jsp"><fmt:message key = "jsp.login.signup" /></a>
+    <a href="/jsp/register.jsp"><fmt:message key = "jsp.login.signup"/></a>
     </lablel>
     <%--<select class="select-lang" name="locale_language" onchange="this.form.submit()">--%>
         <%--<option value="en_US" selected="">Language</option>--%>

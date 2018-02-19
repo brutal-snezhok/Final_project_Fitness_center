@@ -99,7 +99,7 @@ public class User implements Serializable,Cloneable{
     }
 
     public void setRole(String role) {
-        role = role;
+        this.role = role;
     }
 
     @Override
