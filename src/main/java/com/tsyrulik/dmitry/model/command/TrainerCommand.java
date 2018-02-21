@@ -94,15 +94,17 @@ public class TrainerCommand implements Command {
                         case "Update Food": {
                             trainerReceiver.updateFood(food);
                             trainerReceiver.updateAppointmets(appointment);
-
                         }
                     }
                 }
 
-                if (actionButtonFood != null) {
+                if (actionButtonExercise != null) {
                     switch (actionButtonExercise) {
                         case "Add Exercise": {
                             exercises = trainerReceiver.createExercisesForClient(exercises);
+                            if(food.getIdFood() == null){
+                                food.setIdFood((long)0);
+                            }
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(),
                                     food.getIdFood(), clients.get(i).getIdClient()));
                         }

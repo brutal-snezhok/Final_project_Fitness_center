@@ -188,7 +188,7 @@ public class ClientDAOImpl implements ClientDAO {
         }
 
     }
-    private Food createFoodFromResult(ResultSet resultSet) throws SQLException, DAOFitnessException {
+   public Food createFoodFromResult(ResultSet resultSet) throws SQLException, DAOFitnessException {
         Food food = new Food(resultSet.getLong(DAOConstant.ID_FOOD),
                              resultSet.getString(DAOConstant.NAME_OF_DISH),
                              resultSet.getDate(DAOConstant.DATA_RECEIPT).toLocalDate(),
@@ -213,7 +213,7 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
-    private Exercises createExercisesFromResult(ResultSet resultSet) throws SQLException {
+    public Exercises createExercisesFromResult(ResultSet resultSet) throws SQLException {
         Exercises exercises = new Exercises(resultSet.getLong(DAOConstant.ID_EXERCISES),
                                             resultSet.getString(DAOConstant.MUSCLE_GROUP),
                                             resultSet.getString(DAOConstant.NAMES_OF_EXERCISES),

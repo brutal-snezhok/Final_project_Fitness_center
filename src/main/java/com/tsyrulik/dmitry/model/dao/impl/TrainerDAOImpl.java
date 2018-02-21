@@ -22,14 +22,15 @@ public class TrainerDAOImpl implements TrainerDAO {
     private static final String SELECT_USER_FROM_TRAINER_TABLE = "SELECT `user_iduser` FROM `trainer` WHERE idtrainer=?;";
     private static final String DELETE_TRAINER_BY_ID = "DELETE FROM `trainer` WHERE `idtrainer`=?;";
     private static final String CREATE_FOOD_FOR_CLIENT = "INSERT INTO `food` (`name_of_dish`, `data_receipt`, `time_of_receipt`) VALUES (?, ?, ?);";
-    private static final String CREATE_EXERCISES_FOR_CLIENT = "INSERT INTO `exercises` (`muscle_group`,`names_of_exercises`,`equipment`) VALUES (?, ?, ?)";
-    private static final String CREATE_APPOINTMET_FOR_CLIENT = "INSERT INTO `appointments` (`idappointmets`, `exercises_idexercises`,`food_idfood`, `client_idclient`) VALUES (?, ?, ?, ?)";
+    private static final String CREATE_EXERCISES_FOR_CLIENT = "INSERT INTO `exercises` (`muscle_group`,`names_of_exercises`,`equipment`) VALUES (?, ?, ?);";
+    private static final String CREATE_APPOINTMET_FOR_CLIENT = "INSERT INTO `appointments` (`idappointmets`, `exercises_idexercises`,`food_idfood`, `client_idclient`) VALUES (?, ?, ?, ?);";
     private static final String UPDATE_EXERCISES= "UPDATE `exercises` SET `exercises`.`idexercises`=?, `exercises`.`muscle_group`=?, `exercises`.`names_of_exercises`=?, `exercises`.`equipment`=?  WHERE `idexercises`=?;";
     private static final String UPDATE_FOOD= "UPDATE `food` SET `food`.`name_of_dish`=?, `food`.`data_receipt`=?, `food`.`time_of_receipt`=?  WHERE `idfood`=?;";
     private static final String UPDATE_APPOINTMENTS= "UPDATE `appointments` SET `appointments`.`idappointments`=?, `appointments`.`exercises_idexercises`=?, `appointments`.`food_idfood`=?, `appointments`.`client_idclient`=?  WHERE `idappointments`=?;";
     private static final String DELETE_FOOD_BY_ID = "DELETE FROM `food` WHERE `idfood`=?;";
     private static final String DELETE_EXERCISES_BY_ID = "DELETE FROM `exercises` WHERE `idexercises`=?;";
     private static final String DELETE_APPOINTMENTS_BY_ID = "DELETE FROM `appointments` WHERE `idappointments`=?;";
+    private static final String SELECT_MAX_ID_EXERCISE = "SELECT max(`idexercises`) FROM `exercises`;";
 
     @Override
     public void createTrainer(Trainer trainer) throws DAOFitnessException {
@@ -153,7 +154,6 @@ public class TrainerDAOImpl implements TrainerDAO {
         } catch (SQLException e) {
             throw new DAOFitnessException(e);
         }
-
     }
 
     @Override
@@ -164,12 +164,17 @@ public class TrainerDAOImpl implements TrainerDAO {
     @Override
     public Exercises createExercisesForClient(Exercises exercises) throws DAOFitnessException{
         try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_EXERCISES_FOR_CLIENT)){
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_EXERCISES_FOR_CLIENT);
+            PreparedStatement prestatement = connection.prepareStatement(SELECT_MAX_ID_EXERCISE)){
             preparedStatement.setString(1, exercises.getMuscleGroup());
             preparedStatement.setString(2, exercises.getNameOfExercises());
             preparedStatement.setString(3, exercises.getEquipment());
             preparedStatement.executeUpdate();
-
+            ResultSet resultSet = prestatement.executeQuery();
+            System.out.println(resultSet);
+            if (resultSet.next()){
+                exercises.setIdExercises(resultSet.getLong(1));
+            }
             return exercises;
         } catch (SQLException e) {
             throw new DAOFitnessException(e);

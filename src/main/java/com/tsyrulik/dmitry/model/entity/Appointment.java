@@ -7,7 +7,6 @@ public class Appointment {
     private Long appIdClient;
 
 
-
     public Appointment(Long appIdExercises, Long appIdFood, Long appIdClient) {
         this.appIdExercises = appIdExercises;
         this.appIdFood = appIdFood;

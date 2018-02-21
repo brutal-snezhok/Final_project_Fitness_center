@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`role` (
   `idrole` INT NOT NULL,
   `role_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idrole`))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`user` (
   `password` VARCHAR(45) NOT NULL,
   `role_idrole` INT NOT NULL,
   PRIMARY KEY (`iduser`))
-ENGINE = InnoDB
-COMMENT = 'пользователь';
+  ENGINE = InnoDB
+  COMMENT = 'пользователь';
 
 
 -- -----------------------------------------------------
@@ -64,10 +64,9 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`client` (
   `idclient` INT NOT NULL AUTO_INCREMENT,
   `discount` SMALLINT NULL COMMENT 'скидка, если есть',
   `user_iduser` INT NOT NULL,
-  `user_role_idrole` INT NOT NULL,
-  PRIMARY KEY (`idclient`, `user_iduser`, `user_role_idrole`))
-ENGINE = InnoDB
-COMMENT = 'клиент';
+  PRIMARY KEY (`idclient`))
+  ENGINE = InnoDB
+  COMMENT = 'клиент';
 
 
 -- -----------------------------------------------------
@@ -76,14 +75,13 @@ COMMENT = 'клиент';
 DROP TABLE IF EXISTS `new_fitness_center`.`trainer` ;
 
 CREATE TABLE IF NOT EXISTS `new_fitness_center`.`trainer` (
-  `idtrainer` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `idtrainer` INT NOT NULL AUTO_INCREMENT,
   `education_or_level` VARCHAR(45) NOT NULL,
   `cost_per_lesson` DECIMAL NOT NULL DEFAULT 0,
   `user_iduser` INT NOT NULL,
-  `user_role_idrole` INT NOT NULL,
-  PRIMARY KEY (`idtrainer`, `user_iduser`, `user_role_idrole`))
-ENGINE = InnoDB
-COMMENT = 'тренер';
+  PRIMARY KEY (`idtrainer`))
+  ENGINE = InnoDB
+  COMMENT = 'тренер';
 
 
 -- -----------------------------------------------------
@@ -97,9 +95,9 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`order_client` (
   `cost_of_lessons` DECIMAL NULL COMMENT 'итоговая сумма,сколько клиент должен заплатить фитнесс-центру.высчитывается автоматически',
   `client_idclient` INT NOT NULL,
   `trainer_idtrainer` INT NOT NULL,
-  PRIMARY KEY (`idorder`, `client_idclient`, `trainer_idtrainer`))
-ENGINE = InnoDB
-COMMENT = 'таблица заказа клиента';
+  PRIMARY KEY (`idorder`))
+  ENGINE = InnoDB
+  COMMENT = 'таблица заказа клиента';
 
 
 -- -----------------------------------------------------
@@ -113,8 +111,8 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`exercises` (
   `names_of_exercises` TEXT NULL COMMENT 'описание упражнения',
   `equipment` VARCHAR(45) NULL COMMENT 'снаряды,которые могут понадобиться для данного упражнения, а могут не понадобиться',
   PRIMARY KEY (`idexercises`))
-ENGINE = InnoDB
-COMMENT = 'таблица упражнений.здесь указано какие упражнения делать,их описание и снаряды,которые понадобятся';
+  ENGINE = InnoDB
+  COMMENT = 'таблица упражнений.здесь указано какие упражнения делать,их описание и снаряды,которые понадобятся';
 
 
 -- -----------------------------------------------------
@@ -123,13 +121,13 @@ COMMENT = 'таблица упражнений.здесь указано как�
 DROP TABLE IF EXISTS `new_fitness_center`.`food` ;
 
 CREATE TABLE IF NOT EXISTS `new_fitness_center`.`food` (
-  `idfood` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `idfood` INT NOT NULL AUTO_INCREMENT,
   `name_of_dish` VARCHAR(45) NOT NULL COMMENT 'название блюда',
   `data_receipt` DATE NOT NULL COMMENT 'дата приема',
   `time_of_receipt` TIME NOT NULL COMMENT 'время приема',
   PRIMARY KEY (`idfood`))
-ENGINE = InnoDB
-COMMENT = 'пища,в этой таблице указано какое блюдо когда принимать';
+  ENGINE = InnoDB
+  COMMENT = 'пища,в этой таблице указано какое блюдо когда принимать';
 
 
 -- -----------------------------------------------------
@@ -142,9 +140,9 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`appointments` (
   `exercises_idexercises` INT NOT NULL,
   `food_idfood` INT NOT NULL,
   `client_idclient` INT NOT NULL,
-  PRIMARY KEY (`idappointments`, `exercises_idexercises`, `food_idfood`, `client_idclient`))
-ENGINE = InnoDB
-COMMENT = 'таблица назначений';
+  PRIMARY KEY (`idappointments`))
+  ENGINE = InnoDB
+  COMMENT = 'таблица назначений';
 
 
 -- -----------------------------------------------------
@@ -164,8 +162,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `new_fitness_center`;
-INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (1, 'admin', 'admin', 27, 'M', 'adm@mail.ru', 'dcd12818de7948a00fe2c0fbea017ef9', 1);
-INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (2, 'Егор', 'Комиссаров', 23, 'M', 'komisarov@mail.ru', 'cd0acfe085eeb0f874391fb9b8009bed', 3);
+INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (1, 'admin', 'admin', 27, 'M', 'adm@mail.ru', '7c6a180b36896a0a8c02787eeafb0e4c', 1);
+INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (2, 'Егор', 'Комиссаров', 23, 'M', 'komisarov@mail.ru', '6cb75f652a9b52798eb6cf2201057c73', 3);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (3, 'Святослав ', 'Фомин', 35, 'M', 'fomin23@yandex.ru', '819b0643d6b89dc9b579fdfc9094f28e', 3);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (4, 'Данила ', 'Куликов', 42, 'M', 'kulikov42@gmail.com', '34cc93ece0ba9e3f6f235d4af979b16c', 3);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (5, 'Владислав', 'Исаев', 18, 'M', 'isaev.gmail.com', 'db0edd04aaac4506f7edab03ac855d56', 3);
@@ -173,7 +171,7 @@ INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (7, 'Борис', 'Гурьев', 37, 'M', 'gyrev37@yandex.ru', '00cdb7bb942cf6b290ceb97d6aca64a3', 3);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (8, 'Евгений', 'Соболев', 33, 'M', 'sobolev@gamil.com', 'b25ef06be3b6948c0bc431da46c2c738', 3);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (9, 'Федор', 'Макаров', 27, 'M', 'makarov@gmail.com', '5d69dd95ac183c9643780ed7027d128a', 2);
-INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (10, 'Алексей ', 'Артемьев', 24, 'M', 'artemiev@yandex.ru', '5d69dd95ac183c9643780ed7027d128a', 2);
+INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (10, 'Алексей ', 'Артемьев', 24, 'M', 'artemiev@yandex.ru', '87e897e3b54a405da144968b2ca19b45', 2);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (11, 'Эдуард', 'Туров', 34, 'M', 'turov@mail.ru', '1e5c2776cf544e213c3d279c40719643', 2);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (12, 'Михаил', 'Александров', 45, 'М', 'aleksadrov@mail.ru', 'c24a542f884e144451f9063b79e7994e', 2);
 INSERT INTO `new_fitness_center`.`user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`) VALUES (13, 'Николай', 'Силин', 56, 'М', 'silsin@gmail.ru', 'ee684912c7e588d03ccb40f17ed080c9', 2);
@@ -191,14 +189,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `new_fitness_center`;
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (1, 0, 2, 3);
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (2, 0, 3, 3);
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (3, 30, 4, 3);
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (4, 5, 5, 3);
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (5, 5, 6, 3);
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (6, 0, 7, 3);
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (7, 0, 8, 3);
-INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`, `user_role_idrole`) VALUES (8, 0, 9, 3);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (1, 0, 2);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (2, 0, 3);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (3, 30, 4);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (4, 5, 5);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (5, 5, 6);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (6, 0, 7);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (7, 0, 8);
+INSERT INTO `new_fitness_center`.`client` (`idclient`, `discount`, `user_iduser`) VALUES (8, 0, 9);
 
 COMMIT;
 
@@ -208,16 +206,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `new_fitness_center`;
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (1, 'кмс', 10, 9, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (2, 'кмс', 10, 10, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (3, 'кмс', 10, 11, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (4, 'мс', 12, 12, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (5, 'кмс', 10, 13, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (6, 'мс', 12, 14, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (7, 'мсмк', 20, 15, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (8, 'кмс', 10, 16, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (9, 'мс', 12, 17, 2);
-INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`, `user_role_idrole`) VALUES (10, 'мсмк(чемпион мира)', 25, 18, 2);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (1, 'кмс', 10, 9);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (2, 'кмс', 10, 10);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (3, 'кмс', 10, 11);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (4, 'мс', 12, 12);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (5, 'кмс', 10, 13);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (6, 'мс', 12, 14);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (7, 'мсмк', 20, 15);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (8, 'кмс', 10, 16);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (9, 'мс', 12, 17);
+INSERT INTO `new_fitness_center`.`trainer` (`idtrainer`, `education_or_level`, `cost_per_lesson`, `user_iduser`) VALUES (10, 'мсмк(чемпион мира)', 25, 18);
 
 COMMIT;
 

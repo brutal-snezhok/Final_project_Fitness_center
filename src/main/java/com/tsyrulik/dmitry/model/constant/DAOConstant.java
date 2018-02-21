@@ -35,6 +35,7 @@ public class DAOConstant {
     public static final String TIME_OF_RECEIPT = "time_of_receipt";
 
     public static final String ID_EXERCISES = "idexercises";
+    public static final String MAX_ID_EXERCISES = "max(idexercises)";
     public static final String MUSCLE_GROUP = "muscle_group";
     public static final String NAMES_OF_EXERCISES = "names_of_exercises";
     public static final String EQUIPMET = "equipment";

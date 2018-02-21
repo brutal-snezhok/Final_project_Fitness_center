@@ -69,7 +69,7 @@
             <c:forEach items="${foods}" var="food" begin="${loop.index}" end="${loop.index}">
                 <c:forEach items="${exercises}" var="exercise" begin="${loop.index}" end="${loop.index}">
             <tr>
-                <td><input type="checkbox" name="selectClient" value="${client.email}"/></td>
+                <td><input type="checkbox" name="selectClient" value="${client.email}" id=""/></td>
                 <td>${client.name}</td>
                 <td>${client.surname}</td>
                 <td>${client.yearOld}</td>
