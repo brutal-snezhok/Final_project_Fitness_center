@@ -5,6 +5,7 @@ import com.mysql.fabric.jdbc.FabricMySQLDriver;
 import com.tsyrulik.dmitry.model.util.MD5;
 
 import java.sql.*;
+import java.time.LocalTime;
 
 
 public class Main {
@@ -16,8 +17,22 @@ public class Main {
     public Main() throws SQLException {
     }
 
+    public static LocalTime parse(String string){
+        String[] strings = string.split(":");
+        LocalTime localTime = LocalTime.of(Integer.parseInt(strings[0]), Integer.parseInt(strings[1]));
+        return localTime;
+
+    }
     public static void main(String[] args) {
 
+        String nameOfDish = "Чипсоны";
+        String dataOfReceipt = "2017-04-20";
+        String timeOfReceipt = "17:00";
+        System.out.println(nameOfDish);
+        System.out.println(Date.valueOf(dataOfReceipt).toLocalDate());
+        System.out.println(parse(timeOfReceipt));
+       //Food food = new Food( nameOfDish, Date.valueOf(dataOfReceipt).toLocalDate(), Time.valueOf(timeOfReceipt).toLocalTime());
+       // System.out.println(food);
           MD5 encrypt = new MD5();
 //        System.out.println("1: " + encrypt.encrypt("password1"));
 //        System.out.println("2: " + encrypt.encrypt("password2"));

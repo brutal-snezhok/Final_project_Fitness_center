@@ -21,11 +21,11 @@ public class TrainerDAOImpl implements TrainerDAO {
     private static final String UPDATE_TRAINER_SQL= "UPDATE `trainer` SET `trainer`.`idtrainer`=?, `education_or_level`=?, `cost_per_lesson`=?  WHERE `user_iduser`=?;";
     private static final String SELECT_USER_FROM_TRAINER_TABLE = "SELECT `user_iduser` FROM `trainer` WHERE idtrainer=?;";
     private static final String DELETE_TRAINER_BY_ID = "DELETE FROM `trainer` WHERE `idtrainer`=?;";
-    private static final String CREATE_FOOD_FOR_CLIENT = "INSERT INTO `food` (`idfood`,`name_of_dish`, `data_receipt`, `time_of_receipt`) VALUES (?, ?, ?, ?);";
-    private static final String CREATE_EXERCISES_FOR_CLIENT = "INSERT INTO `exercises` (`idexercises`,`muscle_group`,`names_of_exercises`,`equipment`) VALUES (?, ?, ?, ?)";
+    private static final String CREATE_FOOD_FOR_CLIENT = "INSERT INTO `food` (`name_of_dish`, `data_receipt`, `time_of_receipt`) VALUES (?, ?, ?);";
+    private static final String CREATE_EXERCISES_FOR_CLIENT = "INSERT INTO `exercises` (`muscle_group`,`names_of_exercises`,`equipment`) VALUES (?, ?, ?)";
     private static final String CREATE_APPOINTMET_FOR_CLIENT = "INSERT INTO `appointments` (`idappointmets`, `exercises_idexercises`,`food_idfood`, `client_idclient`) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_EXERCISES= "UPDATE `exercises` SET `exercises`.`idexercises`=?, `exercises`.`muscle_group`=?, `exercises`.`names_of_exercises`=?, `exercises`.`equipment`=?  WHERE `idexercises`=?;";
-    private static final String UPDATE_FOOD= "UPDATE `food` SET `food`.`idfood`=?, `food`.`name_of_dish`=?, `food`.`data_receipt`=?, `food`.`time_of_receipt`=?  WHERE `idfood`=?;";
+    private static final String UPDATE_FOOD= "UPDATE `food` SET `food`.`name_of_dish`=?, `food`.`data_receipt`=?, `food`.`time_of_receipt`=?  WHERE `idfood`=?;";
     private static final String UPDATE_APPOINTMENTS= "UPDATE `appointments` SET `appointments`.`idappointments`=?, `appointments`.`exercises_idexercises`=?, `appointments`.`food_idfood`=?, `appointments`.`client_idclient`=?  WHERE `idappointments`=?;";
     private static final String DELETE_FOOD_BY_ID = "DELETE FROM `food` WHERE `idfood`=?;";
     private static final String DELETE_EXERCISES_BY_ID = "DELETE FROM `exercises` WHERE `idexercises`=?;";
@@ -125,7 +125,6 @@ public class TrainerDAOImpl implements TrainerDAO {
         }
     }
     private User selectUserFromTrainerTable(long idTrainer) throws DAOFitnessException {
-
        return  new ClientDAOImpl().selectUserFromClientTable(idTrainer, SELECT_USER_FROM_TRAINER_TABLE);
     }
     @Override
@@ -143,31 +142,35 @@ public class TrainerDAOImpl implements TrainerDAO {
         }
     }
 
-    @Override
-    public void createFoodForClient(Food food) throws DAOFitnessException {
+    public Food executeFood(Food food, String str) throws DAOFitnessException{
         try(Connection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_FOOD_FOR_CLIENT)){
-            preparedStatement.setLong(1, food.getIdFood());
-            preparedStatement.setString(2, food.getNameOfDish());
-            preparedStatement.setDate(3, Date.valueOf(food.getDateReceipt()));
-            preparedStatement.setTime(4, Time.valueOf(food.getTimeOfReceipt()));
+            PreparedStatement preparedStatement = connection.prepareStatement(str)){
+            preparedStatement.setString(1, food.getNameOfDish());
+            preparedStatement.setDate(2, Date.valueOf(food.getDateReceipt()));
+            preparedStatement.setTime(3, Time.valueOf(food.getTimeOfReceipt()));
             preparedStatement.executeUpdate();
-
+            return food;
         } catch (SQLException e) {
             throw new DAOFitnessException(e);
         }
+
     }
 
     @Override
-    public void createExercisesForClient(Exercises exercises) throws DAOFitnessException{
+    public Food createFoodForClient(Food food) throws DAOFitnessException {
+        return  executeFood(food, CREATE_FOOD_FOR_CLIENT);
+    }
+
+    @Override
+    public Exercises createExercisesForClient(Exercises exercises) throws DAOFitnessException{
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_EXERCISES_FOR_CLIENT)){
-            preparedStatement.setLong(1, exercises.getIdExercises());
-            preparedStatement.setString(2, exercises.getMuscleGroup());
-            preparedStatement.setString(3, exercises.getNameOfExercises());
-            preparedStatement.setString(4, exercises.getEquipment());
+            preparedStatement.setString(1, exercises.getMuscleGroup());
+            preparedStatement.setString(2, exercises.getNameOfExercises());
+            preparedStatement.setString(3, exercises.getEquipment());
             preparedStatement.executeUpdate();
 
+            return exercises;
         } catch (SQLException e) {
             throw new DAOFitnessException(e);
         }
@@ -207,10 +210,10 @@ public class TrainerDAOImpl implements TrainerDAO {
     public Food updateFood(Food food) throws DAOFitnessException {
         try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement st = connection.prepareStatement(UPDATE_FOOD)){
-            st.setLong(1, food.getIdFood());
-            st.setString(2, food.getNameOfDish());
-            st.setDate(3, Date.valueOf(food.getDateReceipt()));
-            st.setTime(4, Time.valueOf(food.getTimeOfReceipt()));
+            st.setString(1, food.getNameOfDish());
+            st.setDate(2, Date.valueOf(food.getDateReceipt()));
+            st.setTime(3, Time.valueOf(food.getTimeOfReceipt()));
+            st.setLong(4, food.getIdFood());
             st.executeUpdate();
             return food;
         } catch (SQLException e) {

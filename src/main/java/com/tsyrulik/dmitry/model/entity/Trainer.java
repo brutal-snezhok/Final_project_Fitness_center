@@ -26,6 +26,8 @@ public class Trainer extends User{
         this.costPerHour = costPerHour;
         this.trainerIdUser = trainerIdUser;
     }
+
+
     public Trainer(long idUser, String name, String surname, int yearOld, String sex, String email, String password, String role, int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser) {
         super(idUser, name, surname, yearOld, sex, email, password, role);
         this.idTrainer = idTrainer;

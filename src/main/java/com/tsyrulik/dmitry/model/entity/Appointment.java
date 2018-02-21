@@ -6,6 +6,14 @@ public class Appointment {
     private Long appIdFood;
     private Long appIdClient;
 
+
+
+    public Appointment(Long appIdExercises, Long appIdFood, Long appIdClient) {
+        this.appIdExercises = appIdExercises;
+        this.appIdFood = appIdFood;
+        this.appIdClient = appIdClient;
+    }
+
     public Appointment(Long appIdAppointment, Long appIdExercises, Long appIdFood, Long appIdClient) {
         this.appIdAppointment = appIdAppointment;
         this.appIdExercises = appIdExercises;

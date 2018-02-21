@@ -22,9 +22,9 @@ public interface TrainerDAO {
 
     void deleteTrainer(long id) throws DAOFitnessException;
 
-    void createFoodForClient(Food food) throws DAOFitnessException;
+    Food createFoodForClient(Food food) throws DAOFitnessException;
 
-    void createExercisesForClient(Exercises exercises) throws DAOFitnessException;
+    Exercises createExercisesForClient(Exercises exercises) throws DAOFitnessException;
 
     void createAppointmentForClient(Appointment appointment) throws DAOFitnessException;
 

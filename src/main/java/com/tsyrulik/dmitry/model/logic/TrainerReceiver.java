@@ -65,19 +65,19 @@ public class TrainerReceiver {
         }
     }
 
-    public void createFoodForClient(Food food) throws LogicFitnessException{
+    public Food createFoodForClient(Food food) throws LogicFitnessException{
         TrainerDAO trainerDAO = new TrainerDAOImpl();
         try {
-            trainerDAO.createFoodForClient(food);
+            return trainerDAO.createFoodForClient(food);
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);
         }
     }
 
-    public void createExercisesForClient(Exercises exercises) throws LogicFitnessException{
+    public Exercises createExercisesForClient(Exercises exercises) throws LogicFitnessException{
         TrainerDAO trainerDAO = new TrainerDAOImpl();
         try {
-            trainerDAO.createExercisesForClient(exercises);
+            return trainerDAO.createExercisesForClient(exercises);
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);
         }

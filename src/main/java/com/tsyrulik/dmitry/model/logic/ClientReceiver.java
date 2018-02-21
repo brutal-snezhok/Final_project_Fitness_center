@@ -41,6 +41,7 @@ public class ClientReceiver {
         }
     }
 
+
     public Client findClientById(int idClient)  throws LogicFitnessException {
         ClientDAO clientDAO = new ClientDAOImpl();
         try {

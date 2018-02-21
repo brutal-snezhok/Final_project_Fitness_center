@@ -17,6 +17,7 @@
     <title>Client cabinet</title>
 </head>
 <body>
+<strong><h1>Client Cabinet</h1></strong>
 <div class="container">
     <div class="sidebar">
 
@@ -56,6 +57,7 @@
     </div>
     <form name="clientCabinet" method="POST" action = "/jsp/controller">
         <input type="hidden" name="command" value="clientCabinet"/>
+
         <table border="1" width="70%" cellpadding="5">
             <tr>
                 <th><fmt:message key="jsp.nameOfDish" bundle="${var}"/></th>
@@ -87,29 +89,18 @@
                 session.setAttribute("exercises", exercises);
             %>
 
-            <c:forEach items="${food}" var="food">
-            <tr>
+            <c:forEach items="${foods}" var="food" varStatus="loop">
+                <c:forEach items="${exercises}" var="exercise" begin="${loop.index}" end="${loop.index}" >
+               <tr>
                 <td>${food.nameOfDish}</td>
                 <td>${food.dateReceipt}</td>
                 <td>${food.timeOfReceipt}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            </c:forEach>
-
-
-            <c:forEach items="${exercises}" var="exercise">
-             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td>${exercise.muscleGroup}</td>
                 <td>${exercise.nameOfExercises}</td>
                 <td>${exercise.equipment}</td>
                 <td><input type="submit" value= "<fmt:message key="jsp.refusing" bundle="${var}"/>" ></td>
-             </tr>
+               </tr>
+                </c:forEach>
             </c:forEach>
 
         </table>

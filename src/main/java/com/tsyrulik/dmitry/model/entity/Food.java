@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 public class Food {
     private Long idFood;
-    private String NameOfDish;
+    private String nameOfDish;
     private LocalDate dateReceipt;
     private LocalTime timeOfReceipt;
 
@@ -13,9 +13,14 @@ public class Food {
 
     }
 
+    public Food(String nameOfDish, LocalDate dateReceipt, LocalTime timeOfReceipt) {
+        this.nameOfDish = nameOfDish;
+        this.dateReceipt = dateReceipt;
+        this.timeOfReceipt = timeOfReceipt;
+    }
     public Food(Long idFood, String nameOfDish, LocalDate dateReceipt, LocalTime timeOfReceipt) {
         this.idFood = idFood;
-        NameOfDish = nameOfDish;
+        this.nameOfDish = nameOfDish;
         this.dateReceipt = dateReceipt;
         this.timeOfReceipt = timeOfReceipt;
     }
@@ -29,11 +34,11 @@ public class Food {
     }
 
     public String getNameOfDish() {
-        return NameOfDish;
+        return nameOfDish;
     }
 
     public void setNameOfDish(String nameOfDish) {
-        NameOfDish = nameOfDish;
+        this.nameOfDish = nameOfDish;
     }
 
     public LocalDate getDateReceipt() {
@@ -60,7 +65,7 @@ public class Food {
         Food food = (Food) o;
 
         if (idFood != null ? !idFood.equals(food.idFood) : food.idFood != null) return false;
-        if (NameOfDish != null ? !NameOfDish.equals(food.NameOfDish) : food.NameOfDish != null) return false;
+        if (nameOfDish != null ? !nameOfDish.equals(food.nameOfDish) : food.nameOfDish != null) return false;
         if (dateReceipt != null ? !dateReceipt.equals(food.dateReceipt) : food.dateReceipt != null) return false;
         return timeOfReceipt != null ? timeOfReceipt.equals(food.timeOfReceipt) : food.timeOfReceipt == null;
     }
@@ -68,7 +73,7 @@ public class Food {
     @Override
     public int hashCode() {
         int result = idFood != null ? idFood.hashCode() : 0;
-        result = 31 * result + (NameOfDish != null ? NameOfDish.hashCode() : 0);
+        result = 31 * result + (nameOfDish != null ? nameOfDish.hashCode() : 0);
         result = 31 * result + (dateReceipt != null ? dateReceipt.hashCode() : 0);
         result = 31 * result + (timeOfReceipt != null ? timeOfReceipt.hashCode() : 0);
         return result;
@@ -78,7 +83,7 @@ public class Food {
     public String toString() {
         return "Food{" +
                 "idFood=" + idFood +
-                ", NameOfDish='" + NameOfDish + '\'' +
+                ", NameOfDish='" + nameOfDish + '\'' +
                 ", dateReceipt=" + dateReceipt +
                 ", timeOfReceipt=" + timeOfReceipt +
                 '}';

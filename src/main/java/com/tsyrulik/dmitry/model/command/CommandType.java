@@ -10,7 +10,8 @@ public enum CommandType {
     SIGNUP(new RegistrationCommand(new UserReceiver())),
     ADMINCLIENT(new ClientListCommand(new ClientReceiver(), new TrainerReceiver())),
     ADMINTRAINER(new ClientListCommand(new ClientReceiver(), new TrainerReceiver())),
-    CLIENTCABINET(new ListForClientCommand(new ClientReceiver()));
+    CLIENTCABINET(new ListForClientCommand(new ClientReceiver())),
+    TRAINERCABINET(new TrainerCommand(new ClientReceiver(), new TrainerReceiver()));
 
 
     private Command command;
