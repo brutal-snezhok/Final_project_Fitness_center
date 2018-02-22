@@ -23,7 +23,7 @@ public class TrainerDAOImpl implements TrainerDAO {
     private static final String DELETE_TRAINER_BY_ID = "DELETE FROM `trainer` WHERE `idtrainer`=?;";
     private static final String CREATE_FOOD_FOR_CLIENT = "INSERT INTO `food` (`name_of_dish`, `data_receipt`, `time_of_receipt`) VALUES (?, ?, ?);";
     private static final String CREATE_EXERCISES_FOR_CLIENT = "INSERT INTO `exercises` (`muscle_group`,`names_of_exercises`,`equipment`) VALUES (?, ?, ?);";
-    private static final String CREATE_APPOINTMET_FOR_CLIENT = "INSERT INTO `appointments` (`idappointmets`, `exercises_idexercises`,`food_idfood`, `client_idclient`) VALUES (?, ?, ?, ?);";
+    private static final String CREATE_APPOINTMET_FOR_CLIENT = "INSERT INTO `appointments` (`exercises_idexercises`,`food_idfood`, `client_idclient`) VALUES (?, ?, ?);";
     private static final String UPDATE_EXERCISES= "UPDATE `exercises` SET `exercises`.`idexercises`=?, `exercises`.`muscle_group`=?, `exercises`.`names_of_exercises`=?, `exercises`.`equipment`=?  WHERE `idexercises`=?;";
     private static final String UPDATE_FOOD= "UPDATE `food` SET `food`.`name_of_dish`=?, `food`.`data_receipt`=?, `food`.`time_of_receipt`=?  WHERE `idfood`=?;";
     private static final String UPDATE_APPOINTMENTS= "UPDATE `appointments` SET `appointments`.`idappointments`=?, `appointments`.`exercises_idexercises`=?, `appointments`.`food_idfood`=?, `appointments`.`client_idclient`=?  WHERE `idappointments`=?;";
@@ -185,10 +185,9 @@ public class TrainerDAOImpl implements TrainerDAO {
     public void createAppointmentForClient(Appointment appointment) throws DAOFitnessException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_APPOINTMET_FOR_CLIENT)){
-            preparedStatement.setLong(1, appointment.getAppIdAppointment());
-            preparedStatement.setLong(2, appointment.getAppIdExercises());
-            preparedStatement.setLong(3, appointment.getAppIdFood());
-            preparedStatement.setLong(4, appointment.getAppIdClient());
+            preparedStatement.setLong(1, appointment.getAppIdExercises());
+            preparedStatement.setLong(2, appointment.getAppIdFood());
+            preparedStatement.setLong(3, appointment.getAppIdClient());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

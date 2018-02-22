@@ -7,13 +7,13 @@ import com.tsyrulik.dmitry.model.logic.ClientReceiver;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ListForClientCommand implements Command {
+public class FoodExercisesCommand implements Command {
     private static final String PARAM_FOOD = "food";
     private static final String PARAM_EXERCISES = "exercises";
     private static final String CLIENT_CABINET = "/jsp/client/client_cabinet.jsp";
     private ClientReceiver receiver;
 
-    public ListForClientCommand(ClientReceiver receiver) {
+    public FoodExercisesCommand(ClientReceiver receiver) {
         this.receiver = receiver;
     }
 

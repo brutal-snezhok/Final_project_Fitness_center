@@ -2,10 +2,7 @@ package com.tsyrulik.dmitry.model.logic;
 
 import com.tsyrulik.dmitry.model.dao.ClientDAO;
 import com.tsyrulik.dmitry.model.dao.impl.ClientDAOImpl;
-import com.tsyrulik.dmitry.model.entity.Client;
-import com.tsyrulik.dmitry.model.entity.Exercises;
-import com.tsyrulik.dmitry.model.entity.Food;
-import com.tsyrulik.dmitry.model.entity.User;
+import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 
@@ -13,7 +10,6 @@ import java.util.List;
 
 public class ClientReceiver {
 
-    //!!!!!!!!!!!!!!!!
     public void addClient(Client client) throws LogicFitnessException{
         ClientDAO clientDAO = new ClientDAOImpl();
         try {
@@ -64,6 +60,24 @@ public class ClientReceiver {
         ClientDAO clientDAO = new ClientDAOImpl();
         try {
             clientDAO.deleteClient(idClient);
+        } catch (DAOFitnessException e) {
+            throw new LogicFitnessException(e);
+        }
+    }
+
+    public List<Appointment> findAllAppointmentForClient(long idClient) throws LogicFitnessException {
+        ClientDAO dao = new ClientDAOImpl();
+        try {
+            return dao.findAllAppointmentForClient(idClient);
+        } catch (DAOFitnessException e) {
+            throw new LogicFitnessException(e);
+        }
+    }
+
+    public Exercises findExerciseByName(String nameOfExercise) throws LogicFitnessException {
+        ClientDAO dao = new ClientDAOImpl();
+        try {
+            return dao.findExercisesForClientByIdEx(nameOfExercise);
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);
         }

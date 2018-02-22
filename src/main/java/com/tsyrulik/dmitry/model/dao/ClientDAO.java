@@ -1,5 +1,6 @@
 package com.tsyrulik.dmitry.model.dao;
 
+import com.tsyrulik.dmitry.model.entity.Appointment;
 import com.tsyrulik.dmitry.model.entity.Client;
 import com.tsyrulik.dmitry.model.entity.Exercises;
 import com.tsyrulik.dmitry.model.entity.Food;
@@ -25,7 +26,11 @@ public interface ClientDAO {
 
     Optional<Exercises> findExercisesForClient(long id) throws DAOFitnessException;
 
+    List<Appointment> findAllAppointmentForClient(long id) throws DAOFitnessException;
+
     List<Food> findAllFoodForClientById(long idClient) throws DAOFitnessException;
 
     List<Exercises> findAllExercisesForClientById(long idClient) throws DAOFitnessException;
+
+    Exercises findExercisesForClientByIdEx(String nameOfExercise) throws DAOFitnessException;
 }

@@ -40,4 +40,10 @@ public class DAOConstant {
     public static final String NAMES_OF_EXERCISES = "names_of_exercises";
     public static final String EQUIPMET = "equipment";
     public static final String TIME_ZONE = "GMT+3";
+
+    public static final String ID_APPOINTMENTS = "idappointments";
+    public static final String EXERCISES_IDEXERCISES = "exercises_idexercises";
+    public static final String FOOD_IDFOOD = "food_idfood";
+    public static final String CLIENT_IDCLIENT = "client_idclient";
+
 }

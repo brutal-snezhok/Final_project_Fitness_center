@@ -13,6 +13,7 @@ import com.tsyrulik.dmitry.model.util.ParserToLocalTime;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TrainerCommand implements Command {
     private static final String PARAM_FOOD = "food";
@@ -44,9 +45,6 @@ public class TrainerCommand implements Command {
         String[] checkbox = request.getParameterValues(PARAM_CHECKBOX);
         ArrayList<Client> clients = new ArrayList<>();
 
-
-//        Client client =
-//                (Client) request.getSession(true).getAttribute("client");
         String actionButtonFood = request.getParameter("actionFood");
         String actionButtonExercise = request.getParameter("actionExercise");
 
@@ -68,8 +66,8 @@ public class TrainerCommand implements Command {
             }
 
             for(int i = 0; i < clients.size(); i++) {
-                Food food = null;
-                Exercises exercises = null;
+                Food food = new Food();
+                Exercises exercises = new Exercises();
                 if (!nameOfDish.isEmpty() && !dataOfReceipt.isEmpty() && !timeOfReceipt.isEmpty()){
                     food = new Food(nameOfDish, Date.valueOf(dataOfReceipt).toLocalDate(), ParserToLocalTime.parse(timeOfReceipt));
                 }
@@ -77,7 +75,7 @@ public class TrainerCommand implements Command {
                    exercises = new Exercises(muscleGroup, nameOfExercises, equipment);
                }
 
-                Appointment appointment = null;
+                List<Appointment> appointment = clientReceiver.findAllAppointmentForClient(clients.get(i).getIdClient());
                         //new Appointment(exercises.getIdExercises(), food.getIdFood(), clients.get(i).getIdClient());
 
                 if (actionButtonFood != null) {
@@ -85,15 +83,17 @@ public class TrainerCommand implements Command {
                         case "Add Food": {
                             food = trainerReceiver.createFoodForClient(food);
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(), food.getIdFood(), clients.get(i).getIdClient()));
+                            break;
                         }
                         case "Delete Food": {
                             trainerReceiver.deleteFoodById(food.getIdFood());
                             // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
-
+                            break;
                         }
                         case "Update Food": {
+                            food.setIdFood(appointment.get(0).getAppIdFood());
                             trainerReceiver.updateFood(food);
-                            trainerReceiver.updateAppointmets(appointment);
+                            break;
                         }
                     }
                 }
@@ -102,20 +102,19 @@ public class TrainerCommand implements Command {
                     switch (actionButtonExercise) {
                         case "Add Exercise": {
                             exercises = trainerReceiver.createExercisesForClient(exercises);
-                            if(food.getIdFood() == null){
-                                food.setIdFood((long)0);
-                            }
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(),
                                     food.getIdFood(), clients.get(i).getIdClient()));
+                            break;
                         }
                         case "Delete Exercise": {
                             trainerReceiver.deleteExercisesById(exercises.getIdExercises());
-                            trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
+                           // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
+                            break;
                         }
                         case "Update Exercise": {
+                            exercises.setIdExercises(appointment.get(0).getAppIdExercises());
                             trainerReceiver.updateExercises(exercises);
-                            trainerReceiver.updateAppointmets(appointment);
-
+                            break;
                         }
                     }
                 }
@@ -126,7 +125,6 @@ public class TrainerCommand implements Command {
             page = TRAINER_CABINET;
             return page;
         } catch (LogicFitnessException e) {
-
             throw new CommandFitnessException(e.getMessage(), e);
         }
     }

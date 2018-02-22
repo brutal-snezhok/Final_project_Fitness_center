@@ -10,7 +10,7 @@ public class Food {
     private LocalTime timeOfReceipt;
 
     public Food(){
-
+        idFood = (long) 1;
     }
 
     public Food(String nameOfDish, LocalDate dateReceipt, LocalTime timeOfReceipt) {

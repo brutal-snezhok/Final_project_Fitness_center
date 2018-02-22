@@ -2,10 +2,7 @@ package com.tsyrulik.dmitry.model.dao.impl;
 
 import com.tsyrulik.dmitry.model.constant.DAOConstant;
 import com.tsyrulik.dmitry.model.dao.ClientDAO;
-import com.tsyrulik.dmitry.model.entity.Client;
-import com.tsyrulik.dmitry.model.entity.Exercises;
-import com.tsyrulik.dmitry.model.entity.Food;
-import com.tsyrulik.dmitry.model.entity.User;
+import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 import com.tsyrulik.dmitry.model.exception.PoolFitnessException;
 import com.tsyrulik.dmitry.model.pool.ConnectionPool;
@@ -45,8 +42,10 @@ public class ClientDAOImpl implements ClientDAO {
             "FROM `user` LEFT JOIN client ON `client`.`user_iduser`=`user`.`iduser` " +
             "LEFT JOIN `appointments` ON `appointments`.`client_idclient`=`client`.`idclient` " +
             "LEFT JOIN `exercises` ON `exercises`.`idexercises`=`appointments`.`exercises_idexercises` WHERE `client`.`idclient`=?;";
-
-
+    private static final String FIND_APPOINTMENT_FOR_CLIENT = "SELECT `idappointments`, `exercises_idexercises`, `food_idfood`, `client_idclient` " +
+            "FROM `appointments` WHERE client_idclient=?;";
+    private static final String FIND_EXERCISE_BY_NAME_EXERCISE = "SELECT `idexercises`, `muscle_group`, `names_of_exercises`, `equipment` " +
+            "FROM `exercises` WHERE `names_of_exercises`=?;";
     @Override
     public void createClient(Client client) throws DAOFitnessException {
         User user = createUserFromClient(client);
@@ -186,9 +185,34 @@ public class ClientDAOImpl implements ClientDAO {
         } catch (SQLException e) {
             throw new DAOFitnessException(e);
         }
-
     }
-   public Food createFoodFromResult(ResultSet resultSet) throws SQLException, DAOFitnessException {
+
+    @Override
+    public List<Appointment> findAllAppointmentForClient(long id) throws DAOFitnessException {
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(FIND_APPOINTMENT_FOR_CLIENT)) {
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            List<Appointment> appointments = new ArrayList<>();
+            while (resultSet.next()) {
+                appointments.add(createAppointmentFromResult(resultSet));
+            }
+            return appointments;
+        } catch (SQLException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
+
+    private Appointment createAppointmentFromResult(ResultSet resultSet)throws DAOFitnessException {
+        try {
+            return new Appointment(resultSet.getLong(DAOConstant.ID_APPOINTMENTS), resultSet.getLong(DAOConstant.EXERCISES_IDEXERCISES),
+                    resultSet.getLong(DAOConstant.FOOD_IDFOOD), resultSet.getLong(DAOConstant.CLIENT_IDCLIENT));
+        } catch (SQLException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
+
+    public Food createFoodFromResult(ResultSet resultSet) throws SQLException, DAOFitnessException {
         Food food = new Food(resultSet.getLong(DAOConstant.ID_FOOD),
                              resultSet.getString(DAOConstant.NAME_OF_DISH),
                              resultSet.getDate(DAOConstant.DATA_RECEIPT).toLocalDate(),
@@ -246,6 +270,22 @@ public class ClientDAOImpl implements ClientDAO {
             List<Exercises> exercises = new ArrayList<>();
             while (resultSet.next()) {
                 exercises.add(createExercisesFromResult(resultSet));
+            }
+            return exercises;
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
+
+    @Override
+    public Exercises findExercisesForClientByIdEx(String nameOfExercise) throws DAOFitnessException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_EXERCISE_BY_NAME_EXERCISE)) {
+            preparedStatement.setString(1, nameOfExercise);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Exercises exercises = null;
+            if (resultSet.next()) {
+                exercises = createExercisesFromResult(resultSet);
             }
             return exercises;
         } catch (SQLException | PoolFitnessException e) {

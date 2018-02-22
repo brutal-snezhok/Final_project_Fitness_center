@@ -177,7 +177,8 @@ public class UserDAOImpl implements UserDAO {
             st.setString(5, user.getSex());
             st.setString(6, user.getEmail());
             st.setString(7, user.getPassword());
-            st.setString(8, user.getRole());
+            String role = modifyRole(user.getRole());
+            st.setString(8, role);
             st.setLong(9, user.getIdUser());
             st.executeUpdate();
             return user;
@@ -187,6 +188,15 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
+    private static String modifyRole(String string){
+        switch (string){
+            case "client":
+                return String.valueOf(3);
+            case "trainer":
+                return String.valueOf(2);
+        }
+        return string;
+    }
     @Override
     public boolean updateByAdmin(User user) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();

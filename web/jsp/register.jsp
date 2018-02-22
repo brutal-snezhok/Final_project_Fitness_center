@@ -26,7 +26,7 @@
 
     <br/><fmt:message key="jsp.register.years_old"/><br/>
     <label>
-        <input type="text" name="years_old" value="" required pattern=""/>
+        <input type="text" name="years_old" value="" required pattern="\\d+"/>
     </label>
 
     <br/><fmt:message key="jsp.register.sex"/><br/>

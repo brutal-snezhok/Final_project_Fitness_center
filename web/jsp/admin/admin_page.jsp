@@ -6,28 +6,31 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmr" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="locale" var="var"/>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/admin_page.css"/>">
     <title>Admin page</title>
 </head>
 <body>
 <h1>Admin page</h1>
 
 <form name="adminPageClients" method="POST" action="/jsp/controller">
-    <input type="hidden" name="command" value="adminClient"/>
+    <input type="hidden" name="command" value="UpdateClient"/>
     <h3>List of clients: </h3>
     <table border="1" width="100%" cellpadding="5">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Years Old</th>
-            <th>Sex</th>
-            <th>Email</th>
-            <th>Role</th>
+            <th><fmt:message key="jsp.select" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.id" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.name" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.surname" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.yearsOld" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.sex" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.email" bundle="${var}"/></th>
         </tr>
         <% List<Client> clients = new ArrayList<>();
             clients.add(new Client(2, "Pety", "Saplov", 23, "M",
@@ -35,8 +38,10 @@
             clients.add(new Client(3, "Danila", "Letov", 21, "M",
                     "letov@gmail.com", "6982e45352af5526754d83df2d1635", "client",(long)2, 0.65, (long)4));
 
-            clients.add(new Client(4,"Данила", "Куликов", 42, "M",
-                    "kulikov42@gmail.com", "34cc93ece0ba9e3f6f235d4af979b16c", "client", (long)3, 30.0,(long) 4));
+            //8	Евгений	Соболев	33	M	sobolev@gamil.com	b25ef06be3b6948c0bc431da46c2c738	3
+
+            clients.add(new Client(8,"Евгений", "Соболев", 33, "M",
+                    "sobolev@gamil.com", "b25ef06be3b6948c0bc431da46c2c738", "client", (long)7, 0.0,(long) 8));
             session.setAttribute("clients", clients);
 
             //10	Алексей 	Артемьев	24	M	artemiev@yandex.ru	87e897e3b54a405da144968b2ca19b45
@@ -44,55 +49,136 @@
             List<Trainer> trainers = new ArrayList<>();
             trainers.add(new Trainer(5, "Алексей", "Артемьев", 24, "M",
                     "artemiev@yandex.ru", "87e897e3b54a405da144968b2ca19b45", "trainer", 2,"мсмк", new BigDecimal(12), 4 ));
+
+            //9	Федор	Макаров	27	M	makarov@gmail.com	5d69dd95ac183c9643780ed7027d128a	2
+            trainers.add(new Trainer(9, "Федор", "Макаров", 27, "M",
+                    "makarov@gmail.com", "5d69dd95ac183c9643780ed7027d128a", "trainer", 1, "кмс", new BigDecimal(10), 9));
             session.setAttribute("trainers", trainers);
         %>
         <c:forEach items="${clients}" var="clients">
             <tr>
+                <td><input type="checkbox" name="selectClient" value="${clients.email}" id="idClient"/></td>
                 <td>${clients.idClient}</td>
                 <td>${clients.name}</td>
                 <td>${clients.surname}</td>
                 <td>${clients.yearOld}</td>
                 <td>${clients.sex}</td>
                 <td>${clients.email}</td>
-                <td>${clients.role}</td>
             </tr>
         </c:forEach>
     </table>
+    <br/><input type="submit" value="Remove" name="RemoveClientButton"><br/><br/>
+    <strong><fmt:message key="jsp.id" bundle="${var}"/></strong>
+    <label>
+        <input type="number" name="idClient" value=""/>
+    </label>
+    <strong><fmt:message key = "jsp.name" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="nameClient" value=""/>
+    </label>
+    <strong><fmt:message key = "jsp.surname" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="surnameClient" value=""/>
+    </label>
+    <strong><fmt:message key = "jsp.yearsOld" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="yearOldClient" value=""/>
+    </label>
+    <strong><fmt:message key = "jsp.sex" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="sexClient" value=""/>
+    </label>
+    <strong><fmt:message key = "jsp.email" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="emailClient" value=""/>
+    </label>
+    <br/><input type="submit" value="Update" name="UpdateClientButton"/>
 </form>
-<br/><input type="submit" value="Update">
-<br/><input type="submit" value="Remove">
+
 
 <form name="adminPageTrainers" method="POST" action="/jsp/controller">
-    <input type="hidden" name="command" value="adminTrainer"/>
+    <input type="hidden" name="command" value="UpdateTrainer"/>
     <h3>List of trainers: </h3>
     <table border="1" width="100%" cellpadding="5">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Years Old</th>
-            <th>Sex</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Education</th>
-            <th>Cost per lesson</th>
+            <th><fmt:message key="jsp.select" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.id" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.name" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.surname" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.yearsOld" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.sex" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.email" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.education" bundle="${var}"/></th>
+            <th><fmr:message key="jsp.costPerLesson" bundle="${var}"/></th>
         </tr>
         <c:forEach items="${trainers}" var="trainers">
             <tr>
+                <td><input type="checkbox" name="selectTrainer" value="${trainers.email}" id="idTrainer"/></td>
                 <td>${trainers.idTrainer}</td>
                 <td>${trainers.name}</td>
                 <td>${trainers.surname}</td>
                 <td>${trainers.yearOld}</td>
                 <td>${trainers.sex}</td>
                 <td>${trainers.email}</td>
-                <td>${trainers.role}</td>
                 <td>${trainers.education}</td>
                 <td>${trainers.costPerHour}</td>
             </tr>
         </c:forEach>
     </table>
+    <br/><input type="submit" value="Remove" name="RemoveTrainerButton"><br/><br/>
+    <%--<div class="main">--%>
+        <div class="field">
+    <strong><fmt:message key="jsp.id" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="idTrainer" value="" /><br/>
+    </label>
+        </div>
+        <div class="field">
+    <strong><fmt:message key = "jsp.name" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="nameTrainer" value="" /><br/>
+    </label>
+        </div>
+        <div class="field">
+    <strong><fmt:message key = "jsp.surname" bundle="${var}" /></strong>
+    <label>
+        <input type="text" name="surnameTrainer" value="" /><br/>
+    </label>
+        </div>
+        <div class="field">
+    <strong><fmt:message key = "jsp.yearsOld" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="yearOldTrainer" value="" /><br/>
+    </label>
+        </div>
+        <div class="field">
+    <strong><fmt:message key = "jsp.sex" bundle="${var}"/></strong>
+    <label>
+        <input type="text" name="sexTrainer" value=""/><br/>
+    </label>
+        </div>
+        <div class="field">
+    <strong><fmt:message key = "jsp.email" bundle="${var}" /></strong>
+    <label>
+        <input type="text" name="emailTrainer" value="" /><br/>
+    </label>
+        </div>
+        <div class="field">
+    <strong><fmt:message key = "jsp.education" bundle="${var}" /></strong>
+    <label>
+        <input type="text" name="education" value="" /><br/>
+    </label>
+        </div>
+        <div class="field">
+    <strong><fmt:message key = "jsp.costPerLesson" bundle="${var}" /></strong>
+    <label>
+        <input type="text" name="costPerLesson" value="" /><br/>
+    </label>
+        </div>
+
+
+    <br/><input type="submit" value="Update" name="UpdateTrainerButton">
 </form>
-<br/><input type="submit" value="Update">
-<br/><input type="submit" value="Remove">
+
 </body>
 </html>

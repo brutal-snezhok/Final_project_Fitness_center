@@ -6,6 +6,10 @@ public class Exercises {
     private String nameOfExercises;
     private String equipment;
 
+    public Exercises() {
+        idExercises = (long)1;
+    }
+
     public Exercises(String muscleGroup, String nameOfExercises, String equipment) {
         this.muscleGroup = muscleGroup;
         this.nameOfExercises = nameOfExercises;
