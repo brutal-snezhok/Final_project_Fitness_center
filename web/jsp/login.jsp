@@ -9,7 +9,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/login.css"/>">
     <title>Login</title>
-    <%@ include file="header.jsp" %>
+    <%@ include file="common/header.jsp" %>
 </head>
 <body>
 
@@ -35,6 +35,6 @@
 
     <br/> ${successMessage} <br/> ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} <br/>
 </form>
-    <c:import url="${pageContext.request.contextPath}/jsp/footer.jsp"/>
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

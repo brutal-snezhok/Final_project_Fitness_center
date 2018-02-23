@@ -9,7 +9,7 @@
   <body>
 
   <%--<jsp:forward page="jsp/login.jsp"/>--%>
-  <jsp:forward page="jsp/client/order.jsp"/>
+  <jsp:forward page="jsp/common/about.jsp"/>
 
   </body>
 

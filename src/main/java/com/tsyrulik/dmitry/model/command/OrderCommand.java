@@ -31,7 +31,7 @@ public class OrderCommand implements Command {
         String selectMode = request.getParameter(PARAM_SELECT_MODE);
         String countOfTraining = request.getParameter(PARAM_COUNT_OF_TRAINING);
         Client client = (Client) request.getSession().getAttribute("client"); // мы же в сессии под определенным пользователем, достаем этого пользователя
-        Order order = new Order();// заполнить
+        Order order = new Order();
         try{
             Trainer trainer = receiverTrainer.findTrainerByEmail(radioTrainer);
 

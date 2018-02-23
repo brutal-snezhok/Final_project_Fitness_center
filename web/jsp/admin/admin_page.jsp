@@ -172,8 +172,6 @@
         <input type="text" name="costPerLesson" value="" /><br/>
     </label>
 
-
-
     <br/><input type="submit" value="Update" name="UpdateTrainerButton">
 </form>
 

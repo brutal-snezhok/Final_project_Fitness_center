@@ -18,7 +18,7 @@
     <div class="container">
         <div class="col-md-6">
             <footer class="footer-centered">
-                <p class="footer-name">Dmitry Tsyrulik, Fitness center &copy; 2018</p>
+                <p class="footer-name"><fmt:message key="jsp.footer.nameAuthor"/> &copy; <fmt:message key="jsp.footer.year"/></p>
             </footer>
         </div>
         <div class="col-md-6">
@@ -26,12 +26,13 @@
                 <ul class="social-icons">
                     <li><a href="" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
                     <li><a href="" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
-                    <li><a href="" class="social-icon"> <i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="" class="social-icon"> <i class="fa fa-youtube"></i></a></li>
+                    <li><a href="" class="social-icon"> <i class="fa fa-google-plus"></i></a></li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
-<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<%--<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>--%>
 </body>
 </html>
