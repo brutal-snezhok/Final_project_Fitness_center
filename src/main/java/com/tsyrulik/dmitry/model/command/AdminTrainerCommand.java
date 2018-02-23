@@ -34,15 +34,6 @@ public class AdminTrainerCommand implements Command {
         String[] checkboxTrainer = request.getParameterValues(PARAM_CHECKBOX_TRAINER);
         ArrayList<Trainer> trainers = new ArrayList<>();
 
-        int idTrainer= Integer.parseInt(request.getParameter(PARAM_ID_TRAINER));
-        String name = request.getParameter(PARAM_NAME_TRAINER);
-        String surname = request.getParameter(PARAM_SURNAME_TRAINER);
-        String yearsOld = request.getParameter(PARAM_YEARS_OLD_TRAINER);
-        String sex = request.getParameter(PARAM_SEX_TRAINER);
-        String email = request.getParameter(PARAM_EMAIL_TRAINER);
-        String education = request.getParameter(PARAM_EDUCATION_TRAINER);
-        String costPerLesson = request.getParameter(PARAM_COST_PER_LESSON_TRAINER);
-
         String actionButtonRemoveTrainer = request.getParameter("RemoveTrainerButton");
         String actionButtonUpdateTrainer = request.getParameter("UpdateTrainerButton");
         String page;
@@ -60,6 +51,14 @@ public class AdminTrainerCommand implements Command {
                 }
 
                 if (actionButtonUpdateTrainer != null){
+                    int idTrainer= Integer.parseInt(request.getParameter(PARAM_ID_TRAINER));
+                    String name = request.getParameter(PARAM_NAME_TRAINER);
+                    String surname = request.getParameter(PARAM_SURNAME_TRAINER);
+                    String yearsOld = request.getParameter(PARAM_YEARS_OLD_TRAINER);
+                    String sex = request.getParameter(PARAM_SEX_TRAINER);
+                    String email = request.getParameter(PARAM_EMAIL_TRAINER);
+                    String education = request.getParameter(PARAM_EDUCATION_TRAINER);
+                    String costPerLesson = request.getParameter(PARAM_COST_PER_LESSON_TRAINER);
                     Trainer trainer = receiverTrainer.findTrainerById(idTrainer);
                     trainer.setName(name);
                     trainer.setSurname(surname);

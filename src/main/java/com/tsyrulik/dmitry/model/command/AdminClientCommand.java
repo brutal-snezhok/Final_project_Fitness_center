@@ -29,12 +29,7 @@ public class AdminClientCommand implements Command {
     public String execute(HttpServletRequest request) throws CommandFitnessException {
         String[] checkboxClient = request.getParameterValues(PARAM_CHECKBOX_CLIENT);
         ArrayList<Client> clients = new ArrayList<>();
-        int idClient = Integer.parseInt(request.getParameter(PARAM_ID_CLIENT));
-        String name = request.getParameter(PARAM_NAME_CLIENT);
-        String surname = request.getParameter(PARAM_SURNAME_CLIENT);
-        String yearsOld = request.getParameter(PARAM_YEARS_OLD_CLIENT);
-        String sex = request.getParameter(PARAM_SEX_CLIENT);
-        String email = request.getParameter(PARAM_EMAIL_CLIENT);
+
 
         String actionButtonRemoveClient = request.getParameter("RemoveClientButton");
         String actionButtonUpdateClient = request.getParameter("UpdateClientButton");
@@ -54,6 +49,12 @@ public class AdminClientCommand implements Command {
                 }
 
                 if (actionButtonUpdateClient!= null){
+                    int idClient = Integer.parseInt(request.getParameter(PARAM_ID_CLIENT));
+                    String name = request.getParameter(PARAM_NAME_CLIENT);
+                    String surname = request.getParameter(PARAM_SURNAME_CLIENT);
+                    String yearsOld = request.getParameter(PARAM_YEARS_OLD_CLIENT);
+                    String sex = request.getParameter(PARAM_SEX_CLIENT);
+                    String email = request.getParameter(PARAM_EMAIL_CLIENT);
                     Client client = receiverClient.findClientById(idClient);
                     client.setName(name);
                     client.setSurname(surname);

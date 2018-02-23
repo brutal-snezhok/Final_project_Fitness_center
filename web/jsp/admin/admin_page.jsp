@@ -50,9 +50,11 @@
             trainers.add(new Trainer(5, "Алексей", "Артемьев", 24, "M",
                     "artemiev@yandex.ru", "87e897e3b54a405da144968b2ca19b45", "trainer", 2,"мсмк", new BigDecimal(12), 4 ));
 
-            //9	Федор	Макаров	27	M	makarov@gmail.com	5d69dd95ac183c9643780ed7027d128a	2
             trainers.add(new Trainer(9, "Федор", "Макаров", 27, "M",
                     "makarov@gmail.com", "5d69dd95ac183c9643780ed7027d128a", "trainer", 1, "кмс", new BigDecimal(10), 9));
+            //18	Станислав	Федотов	32	М	fedotov@yandex.ru	80b8bdceb474b5127b6aca386bb8ce14	2
+            trainers.add(new Trainer(18, "Станислав", "Федотов", 32, "M",
+                    "fedotov@yandex.ru", "80b8bdceb474b5127b6aca386bb8ce14", "trainer", 10, "мсмк", new BigDecimal(25), 18));
             session.setAttribute("trainers", trainers);
         %>
         <c:forEach items="${clients}" var="clients">
@@ -127,54 +129,49 @@
     </table>
     <br/><input type="submit" value="Remove" name="RemoveTrainerButton"><br/><br/>
     <%--<div class="main">--%>
-        <div class="field">
+
     <strong><fmt:message key="jsp.id" bundle="${var}"/></strong>
     <label>
         <input type="text" name="idTrainer" value="" /><br/>
     </label>
-        </div>
-        <div class="field">
+
+
     <strong><fmt:message key = "jsp.name" bundle="${var}"/></strong>
     <label>
         <input type="text" name="nameTrainer" value="" /><br/>
     </label>
-        </div>
-        <div class="field">
+
     <strong><fmt:message key = "jsp.surname" bundle="${var}" /></strong>
     <label>
         <input type="text" name="surnameTrainer" value="" /><br/>
     </label>
-        </div>
-        <div class="field">
+
     <strong><fmt:message key = "jsp.yearsOld" bundle="${var}"/></strong>
     <label>
         <input type="text" name="yearOldTrainer" value="" /><br/>
     </label>
-        </div>
-        <div class="field">
+
     <strong><fmt:message key = "jsp.sex" bundle="${var}"/></strong>
     <label>
         <input type="text" name="sexTrainer" value=""/><br/>
     </label>
-        </div>
-        <div class="field">
+
+
     <strong><fmt:message key = "jsp.email" bundle="${var}" /></strong>
     <label>
         <input type="text" name="emailTrainer" value="" /><br/>
     </label>
-        </div>
-        <div class="field">
+
     <strong><fmt:message key = "jsp.education" bundle="${var}" /></strong>
     <label>
         <input type="text" name="education" value="" /><br/>
     </label>
-        </div>
-        <div class="field">
+
     <strong><fmt:message key = "jsp.costPerLesson" bundle="${var}" /></strong>
     <label>
         <input type="text" name="costPerLesson" value="" /><br/>
     </label>
-        </div>
+
 
 
     <br/><input type="submit" value="Update" name="UpdateTrainerButton">
