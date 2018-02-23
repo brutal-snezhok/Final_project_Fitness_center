@@ -13,6 +13,14 @@ public class Order {
     public Order() {
     }
 
+    public Order(String typeOfTraining, BigDecimal costOfLessons,
+                 int number_of_lessons, Long idClient, int idTrainer) {
+        this.typeOfTraining = typeOfTraining;
+        this.costOfLessons = costOfLessons;
+        this.number_of_lessons = number_of_lessons;
+        this.idClient = idClient;
+        this.idTrainer = idTrainer;
+    }
     public Order(Long idOrder, String typeOfTraining, BigDecimal costOfLessons,
                  int number_of_lessons, Long idClient, int idTrainer) {
         this.idOrder = idOrder;

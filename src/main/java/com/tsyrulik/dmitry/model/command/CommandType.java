@@ -1,6 +1,7 @@
 package com.tsyrulik.dmitry.model.command;
 
 import com.tsyrulik.dmitry.model.logic.ClientReceiver;
+import com.tsyrulik.dmitry.model.logic.OrderReceiver;
 import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
 import com.tsyrulik.dmitry.model.logic.UserReceiver;
 
@@ -13,7 +14,8 @@ public enum CommandType {
     CLIENTCABINET(new FoodExercisesCommand(new ClientReceiver())),
     TRAINERCABINET(new TrainerCommand(new ClientReceiver(), new TrainerReceiver())),
     UPDATECLIENT(new AdminClientCommand(new ClientReceiver())),
-    UPDATETRAINER(new AdminTrainerCommand(new TrainerReceiver()));
+    UPDATETRAINER(new AdminTrainerCommand(new TrainerReceiver())),
+    ORDER(new OrderCommand(new TrainerReceiver(), new OrderReceiver()));
 
 
 

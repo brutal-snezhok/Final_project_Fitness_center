@@ -33,7 +33,7 @@ public class UserReceiver {
         }
     }
 
-    ///!!!!!!!!!!!!!!!!!!!!
+
     public User addUser(String name, String surname, int years_old, String sex, String email,
                         String password, String role) throws LogicFitnessException {
         UserDAO daoUser = new UserDAOImpl();

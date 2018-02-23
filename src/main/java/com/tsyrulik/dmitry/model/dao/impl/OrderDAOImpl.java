@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderDAOImpl implements OrderDAO {
-    private static final String CREATE_ORDER_SQL = "INSERT INTO `order_client` (`idorder`,`type_of_training`, `cost_of_lessons`, `number_of_lessons`, `client_idclient`, `trainer_idtrainer`)" +
-            " VALUES (?, ?, ?, ?, ?, ?);";
+    private static final String CREATE_ORDER_SQL = "INSERT INTO `order_client` (`type_of_training`, `number_of_lessons`, `client_idclient`, `trainer_idtrainer`)" +
+            " VALUES (?, ?, ?, ?);";
     private static final String FIND_ALL_ORDERS_SQL = "SELECT `idorder`,`type_of_training`,`cost_of_lessons`,`number_of_lessons`,`client_idclient`,`trainer_idtrainer` FROM `order_client` ORDER BY `idorder`;";
     private static final String FIND_ORDER_BY_ID_SQL = "SELECT `idorder`, `type_of_training`,`cost_of_lessons`,`number_of_lessons`,`client_idclient`,`trainer_idtrainer` FROM `order_client` WHERE `idorder` = ?;";
     private static final String FIND_ORDER_BY_EMAIL_SQL = "SELECT `idorder`, `type_of_training`,`cost_of_lessons`,`number_of_lessons`,`client_idclient`,`trainer_idtrainer` FROM `order_client` " +
@@ -28,12 +28,10 @@ public class OrderDAOImpl implements OrderDAO {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_ORDER_SQL)) {
 
-            preparedStatement.setLong(1, order.getIdOrder());
-            preparedStatement.setString(2, order.getTypeOfTraining());
-            preparedStatement.setBigDecimal(3, order.getCostOfLessons());
-            preparedStatement.setInt(4, order.getNumber_of_lessons());
-            preparedStatement.setLong(5, order.getIdClient());
-            preparedStatement.setInt(6, order.getIdTrainer());
+            preparedStatement.setString(1, order.getTypeOfTraining());
+            preparedStatement.setInt(2, order.getNumber_of_lessons());
+            preparedStatement.setLong(3, order.getIdClient());
+            preparedStatement.setInt(4, order.getIdTrainer());
 
             preparedStatement.executeUpdate();
 

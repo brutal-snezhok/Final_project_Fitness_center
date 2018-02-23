@@ -1,3 +1,4 @@
+<%@ page import="com.tsyrulik.dmitry.model.entity.Client" %>
 <%@ page import="com.tsyrulik.dmitry.model.entity.Trainer" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="java.util.ArrayList" %>
@@ -30,7 +31,11 @@
             <th><fmt:message key="jsp.education" bundle="${var}"/></th>
             <th><fmr:message key="jsp.costPerLesson" bundle="${var}"/></th>
         </tr>
-        <% List<Trainer> trainers = new ArrayList<>();
+        <%
+            Client client = new Client(8,"Евгений", "Соболев", 33, "M",
+                    "sobolev@gamil.com", "b25ef06be3b6948c0bc431da46c2c738", "client", (long)7, 0.0,(long) 8);
+            request.getSession().setAttribute("client", client);
+            List<Trainer> trainers = new ArrayList<>();
             trainers.add(new Trainer(5, "Алексей", "Артемьев", 24, "M",
                     "artemiev@yandex.ru", "87e897e3b54a405da144968b2ca19b45", "trainer", 2,"мсмк", new BigDecimal(12), 4 ));
 
@@ -43,7 +48,7 @@
 
         <c:forEach items="${trainers}" var="trainers">
             <tr>
-                <td><input type="checkbox" name="selectTrainer" value="${trainers.email}" id="idTrainer"/></td>
+                <td><input type="radio" name="selectTrainer" value="${trainers.email}" id="idTrainer"/></td>
                 <td>${trainers.idTrainer}</td>
                 <td>${trainers.name}</td>
                 <td>${trainers.surname}</td>
@@ -57,7 +62,7 @@
     </table>
 
     <h3><fmt:message key="jsp.typeOfTraining" bundle="${var}"/></h3>
-    <select>
+    <select name="listOfModes">
         <option value="norm" selected><fmt:message key="jsp.typeOfTraining.normal"  bundle="${var}"/></option>
         <option value="sport"><fmt:message key="jsp.typeOfTraining.sport" bundle="${var}"/></option>
         <option value="sparing"><fmt:message key="jsp.typeOfTraining.sparing" bundle="${var}"/></option>
@@ -66,8 +71,10 @@
 
     <strong><fmt:message key = "jsp.numberOfTraining" bundle="${var}"/></strong><br/>
     <label>
-        <input type="number" value="1" name="numberOfTraining">
+        <input type="number" value="1" name="countOfTraining">
     </label>
+
+    <br/><input type="submit" value="Make Order" name="makeOrder">
 
 
 </form>
