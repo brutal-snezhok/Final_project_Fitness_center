@@ -18,7 +18,7 @@
 </head>
 <body>
 <form name="trainerCabinet" method="POST" action = "/jsp/controller">
-    <input type="hidden" name="command" value="trainerCabinet"/>
+    <input type="hidden" name="command" value="trainer_cabinet"/>
     <h1>Trainer cabinet</h1>
     <table border="1" width="70%" cellpadding="5">
         <tr>

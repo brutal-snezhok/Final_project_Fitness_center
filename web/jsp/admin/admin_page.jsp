@@ -20,7 +20,7 @@
 <h1>Admin page</h1>
 
 <form name="adminPageClients" method="POST" action="/jsp/controller">
-    <input type="hidden" name="command" value="UpdateClient"/>
+    <input type="hidden" name="command" value="update_client"/>
     <h3>List of clients: </h3>
     <table border="1" width="100%" cellpadding="5">
         <tr>
@@ -99,7 +99,7 @@
 
 
 <form name="adminPageTrainers" method="POST" action="/jsp/controller">
-    <input type="hidden" name="command" value="UpdateTrainer"/>
+    <input type="hidden" name="command" value="update_trainer"/>
     <h3>List of trainers: </h3>
     <table border="1" width="100%" cellpadding="5">
         <tr>

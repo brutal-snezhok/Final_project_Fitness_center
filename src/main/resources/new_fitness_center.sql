@@ -146,6 +146,21 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`appointments` (
 
 
 -- -----------------------------------------------------
+-- Table `new_fitness_center`.`reviews`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `new_fitness_center`.`reviews` ;
+
+CREATE TABLE IF NOT EXISTS `new_fitness_center`.`reviews` (
+  `idreviews` INT NOT NULL COMMENT 'id отзыва',
+  `client_idclient` INT NOT NULL COMMENT 'id пользователя, который оставил комментарий',
+  `text_review` VARCHAR(45) NULL COMMENT 'текст отзыва\n',
+  `mark` TINYINT(4) NULL COMMENT 'оценка фитнесс центру',
+  PRIMARY KEY (`idreviews`, `client_idclient`))
+  ENGINE = InnoDB
+  COMMENT = 'таблица отзывов клиентов';
+
+
+-- -----------------------------------------------------
 -- Data for table `new_fitness_center`.`role`
 -- -----------------------------------------------------
 START TRANSACTION;

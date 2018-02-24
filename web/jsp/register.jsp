@@ -13,7 +13,7 @@
 <h4><b><fmt:message key="jsp.register.registration" /> </b></h4>
 <hr/>
 <form name="signForm" method="POST" action = "<c:url value="/jsp/controller"/>">
-    <input type="hidden" name="command" value="signup"/>
+    <input type="hidden" name="command" value="sign_up"/>
     <fmt:message key="jsp.register.firstname" /><br/>
     <label>
         <input type="text" name="first_name" value="" required pattern="^([A-Z][a-z]{0,15})|([А-Я][а-я]{0,20})$"/>

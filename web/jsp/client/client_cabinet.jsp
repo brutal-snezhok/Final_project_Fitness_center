@@ -56,7 +56,7 @@
 
     </div>
     <form name="clientCabinet" method="POST" action = "/jsp/controller">
-        <input type="hidden" name="command" value="clientCabinet"/>
+        <input type="hidden" name="command" value="client_Cabinet"/>
 
         <table border="1" width="70%" cellpadding="5">
             <tr>

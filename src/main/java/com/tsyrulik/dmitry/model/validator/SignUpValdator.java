@@ -19,13 +19,15 @@ public class SignUpValdator {
     }
 
     public static boolean isUserEmailCorrect(String email){
-        return (Pattern.matches(EMAIL_REGEX, email));
+        return Pattern.matches(EMAIL_REGEX, email);
     }
 
     public static boolean isUserPasswordCorrect(String password){
-        return (Pattern.matches(PASSWORD_REGEX, password));
+        return Pattern.matches(PASSWORD_REGEX, password);
     }
 
-
+    public static boolean isCommentCorrect(String comment){
+        return Pattern.matches(COMMENT_REGEX, comment);
+    }
 
 }

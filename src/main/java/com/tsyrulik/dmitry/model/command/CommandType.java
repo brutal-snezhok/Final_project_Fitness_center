@@ -1,21 +1,20 @@
 package com.tsyrulik.dmitry.model.command;
 
-import com.tsyrulik.dmitry.model.logic.ClientReceiver;
-import com.tsyrulik.dmitry.model.logic.OrderReceiver;
-import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
-import com.tsyrulik.dmitry.model.logic.UserReceiver;
+import com.tsyrulik.dmitry.model.logic.*;
 
 public enum CommandType {
     LOGIN(new LoginCommand(new UserReceiver())),
     LOGOUT(new LogoutCommand()),
-    SIGNUP(new RegistrationCommand(new UserReceiver())),
-    ADMINCLIENT(new ClientListCommand(new ClientReceiver())),
-    ADMINTRAINER(new TrainerListCommand(new TrainerReceiver())),
-    CLIENTCABINET(new FoodExercisesCommand(new ClientReceiver())),
-    TRAINERCABINET(new TrainerCommand(new ClientReceiver(), new TrainerReceiver())),
-    UPDATECLIENT(new AdminClientCommand(new ClientReceiver())),
-    UPDATETRAINER(new AdminTrainerCommand(new TrainerReceiver())),
-    ORDER(new OrderCommand(new TrainerReceiver(), new OrderReceiver()));
+    SIG_NUP(new RegistrationCommand(new UserReceiver())),
+    ADMIN_CLIENT(new ClientListCommand(new ClientReceiver())),
+    ADMIN_TRAINER(new TrainerListCommand(new TrainerReceiver())),
+    CLIENT_CABINET(new FoodExercisesCommand(new ClientReceiver())),
+    TRAINER_CABINET(new TrainerCommand(new ClientReceiver(), new TrainerReceiver())),
+    UPDATE_CLIENT(new AdminClientCommand(new ClientReceiver())),
+    UPDATE_TRAINER(new AdminTrainerCommand(new TrainerReceiver())),
+    ORDER(new OrderCommand(new TrainerReceiver(), new OrderReceiver())),
+    ADD_REVIEW(new AddReviewCommand(new ReviewReceiver())),
+    DELETE_REVIEW(new DeleteReviewCommand(new ReviewReceiver()));
 
 
 
