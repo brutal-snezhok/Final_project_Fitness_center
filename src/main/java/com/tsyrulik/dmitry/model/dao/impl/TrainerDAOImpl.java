@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TrainerDAOImpl implements TrainerDAO {
-    private static final String CREATE_TRAINER_SQL = "INSERT INTO `trainer` (`idtrainer`,`education_or_level`, `cost_per_lesson`, `user_iduser`)  VALUES (?, ?, ?, ?);";
+    private static final String CREATE_TRAINER_SQL = "INSERT INTO `trainer` (`education_or_level`, `cost_per_lesson`, `user_iduser`)  VALUES (?, ?, ?);";
     private static final String FIND_ALL_TRAINERS_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.user_iduser=user.iduser";
     private static final String FIND_TRAINER_BY_ID_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.user_iduser=user.iduser WHERE `trainer`.`idtrainer` = ?;";
     private static final String FIND_TRAINER_BY_EMAIL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.user_iduser=user.iduser WHERE `user`.`email`=?;";
@@ -38,10 +38,9 @@ public class TrainerDAOImpl implements TrainerDAO {
         new UserDAOImpl().create(user);
         try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_TRAINER_SQL)){
-            preparedStatement.setInt(1, trainer.getIdTrainer());
-            preparedStatement.setString(2, trainer.getEducation());
-            preparedStatement.setBigDecimal(3, trainer.getCostPerHour());
-            preparedStatement.setInt(4, trainer.getTrainerIdUser());
+            preparedStatement.setString(1, trainer.getEducation());
+            preparedStatement.setBigDecimal(2, trainer.getCostPerHour());
+            preparedStatement.setInt(3, trainer.getTrainerIdUser());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

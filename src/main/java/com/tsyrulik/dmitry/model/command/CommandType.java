@@ -5,7 +5,7 @@ import com.tsyrulik.dmitry.model.logic.*;
 public enum CommandType {
     LOGIN(new LoginCommand(new UserReceiver())),
     LOGOUT(new LogoutCommand()),
-    SIG_NUP(new RegistrationCommand(new UserReceiver())),
+    SIGN_UP(new RegistrationCommand(new UserReceiver())),
     ADMIN_CLIENT(new ClientListCommand(new ClientReceiver())),
     ADMIN_TRAINER(new TrainerListCommand(new TrainerReceiver())),
     CLIENT_CABINET(new FoodExercisesCommand(new ClientReceiver())),

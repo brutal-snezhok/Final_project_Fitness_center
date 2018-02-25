@@ -10,7 +10,6 @@ import java.util.List;
 
 public class TrainerReceiver {
 
-    //!!!!!!!!!!!!!!!!
     public void addTrainer(Trainer trainer) throws LogicFitnessException{
         TrainerDAO trainerDAO = new TrainerDAOImpl();
         try {

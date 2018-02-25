@@ -16,11 +16,11 @@ import java.util.Optional;
 public class UserDAOImpl implements UserDAO {
     private static final String FIND_ALL_USERS_SQL = "SELECT `iduser`,`name`,`surname`,`years_old`,`sex`,`email`,`password`,`role_name` AS `role` FROM `user` LEFT JOIN `role` ON `user`.`role_idrole` = `role`.`idrole` ORDER BY `user`.`iduser`;";
 
-    private static final String CREATE_USER_SQL = "INSERT INTO `user` (`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
-            " VALUES (?, ?, ?, ?, ?, ?, ?);";
-
-    private static final String CREATE_USER_SQL_WITH_ID = "INSERT INTO `user` (`iduser`,`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
+    private static final String CREATE_USER_SQL = "INSERT INTO `user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
+    private static final String CREATE_USER_SQL_WITH_ID = "INSERT INTO `user` (`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String FIND_USER_BY_ID_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user`\n" +
             "  LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`iduser` = ?;";
 
@@ -46,13 +46,14 @@ public class UserDAOImpl implements UserDAO {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER_SQL)) {
 
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getSurname());
-            preparedStatement.setInt(3, user.getYearOld());
-            preparedStatement.setString(4, user.getSex());
-            preparedStatement.setString(5, user.getEmail());
-            preparedStatement.setString(6, user.getPassword());
-            preparedStatement.setString(7, user.getRole());
+            preparedStatement.setLong(1,  user.getIdUser());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getSurname());
+            preparedStatement.setInt(4, user.getYearOld());
+            preparedStatement.setString(5, user.getSex());
+            preparedStatement.setString(6, user.getEmail());
+            preparedStatement.setString(7, user.getPassword());
+            preparedStatement.setString(8, user.getRole());
 
             preparedStatement.executeUpdate();
         } catch (SQLException | PoolFitnessException e) {
@@ -65,14 +66,13 @@ public class UserDAOImpl implements UserDAO {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER_SQL_WITH_ID)) {
 
-            preparedStatement.setLong(1, user.getIdUser());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getSurname());
-            preparedStatement.setInt(4, user.getYearOld());
-            preparedStatement.setString(5, user.getSex());
-            preparedStatement.setString(6, user.getEmail());
-            preparedStatement.setString(7, user.getPassword());
-            preparedStatement.setString(8, user.getRole());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setInt(3, user.getYearOld());
+            preparedStatement.setString(4, user.getSex());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(6, user.getPassword());
+            preparedStatement.setString(7, user.getRole());
 
             preparedStatement.executeUpdate();
         } catch (SQLException | PoolFitnessException e) {

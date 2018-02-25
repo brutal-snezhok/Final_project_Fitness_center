@@ -11,6 +11,8 @@ public class Trainer extends User{
 
     public Trainer(User user){
         super(user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
+        education = "кмс";
+        costPerHour = new BigDecimal(0);
     }
     public Trainer(User user, String education, BigDecimal costPerHour){
         super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());

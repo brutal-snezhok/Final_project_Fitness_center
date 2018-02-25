@@ -26,14 +26,14 @@
 
     <br/><fmt:message key="jsp.register.years_old"/><br/>
     <label>
-        <input type="text" name="years_old" value="" required pattern="\\d+"/>
+        <input type="text" name="years_old" value="" />
     </label>
 
     <br/><fmt:message key="jsp.register.sex"/><br/>
     <label>
-            <input type="radio" name="radio-sex" value="Male" checked>
+            <input type="radio" name="radio-sex" value="M" checked>
             M
-            <input type="radio" name="radio-sex" value="Female">
+            <input type="radio" name="radio-sex" value="F">
             F
     </label>
 
@@ -44,7 +44,7 @@
 
     <br/><fmt:message key="jsp.register.password"/><br/>
     <label>
-        <input type="password" name="password" value="" required pattern="\\w+"/>
+        <input type="password" name="password" value="" />
     </label>
     <br/>
     <label>

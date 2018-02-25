@@ -48,7 +48,7 @@ public class RegistrationCommand implements Command {
         String passValue = request.getParameter(PARAM_PASSWORD);
         String clientOrTrainer = request.getParameter(PARAM_ROLE);
         //receiver
-        if (RegisterValidator.checkRegistration(nameValue, surnameValue, yersOldValue, emailValue,passValue)) {
+        if (!RegisterValidator.checkRegistration(nameValue, surnameValue, yersOldValue, emailValue, passValue)) {
             if (clientOrTrainer.equals("Client")){
                 Client client = new Client(new User(nameValue, surnameValue, Integer.parseInt(yersOldValue),
                         sex, emailValue, passValue, String.valueOf(UserType.CLIENT.ordinal())),(double)0);

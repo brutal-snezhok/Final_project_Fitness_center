@@ -203,7 +203,6 @@
       <Comment>id отзыва</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="53" parent="15" name="client_idclient">
       <Position>2</Position>
@@ -253,6 +252,7 @@ client_idclient</ColNames>
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&apos;кмс&apos;</DefaultExpression>
     </column>
     <column id="62" parent="17" name="cost_per_lesson">
       <Position>3</Position>
