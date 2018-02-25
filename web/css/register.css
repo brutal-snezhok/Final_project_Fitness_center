@@ -13,3 +13,6 @@ body{
     -o-background-size: cover;
     background-size: cover;
 }
+b{
+    color: #080808;
+}

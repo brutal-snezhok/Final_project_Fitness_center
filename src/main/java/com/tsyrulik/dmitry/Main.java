@@ -1,10 +1,9 @@
 package com.tsyrulik.dmitry;
 
 
-import com.mysql.fabric.jdbc.FabricMySQLDriver;
-import com.tsyrulik.dmitry.model.util.Encryptor;
+import com.tsyrulik.dmitry.model.entity.UserType;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.time.LocalTime;
 
 
@@ -25,16 +24,10 @@ public class Main {
     }
     public static void main(String[] args) {
 
-        String nameOfDish = "Чипсоны";
-        String dataOfReceipt = "2017-04-20";
-        String timeOfReceipt = "17:00";
-        System.out.println(nameOfDish);
-        System.out.println(Date.valueOf(dataOfReceipt).toLocalDate());
-        System.out.println(parse(timeOfReceipt));
-       //Food food = new Food( nameOfDish, Date.valueOf(dataOfReceipt).toLocalDate(), Time.valueOf(timeOfReceipt).toLocalTime());
-       // System.out.println(food);
-          Encryptor encrypt = new Encryptor();
-//        System.out.println("1: " + encrypt.encrypt("password1"));
+       //user.getRole().equals(UserType.ADMIN.getTypeName()
+        System.out.println("trainer".equals(UserType.TRAINER.getTypeName()));
+      //    MD5 encrypt = new MD5();
+       // System.out.println("1: " + encrypt.encrypt("password1"));
 //        System.out.println("2: " + encrypt.encrypt("password2"));
 //        System.out.println("3: " + encrypt.encrypt("password3"));
 //        System.out.println("4: " + encrypt.encrypt("password4"));
@@ -63,19 +56,7 @@ public class Main {
 //        System.out.println("24: " + encrypt.encrypt("password24"));
 //    System.out.println("25: " + encrypt.encrypt("password25"));
 //    System.out.println("26: " + encrypt.encrypt("finel@yandex.ru"));
-        Driver driver = null;
-        try {
-            driver = new FabricMySQLDriver();
-            DriverManager.registerDriver(driver);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        Object mas;
-        int[] mass= new int[10];
-        mas= mass;
 
-        try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                Statement statement = connection.createStatement()) {
 
 
 //            statement.execute("insert into user(iduser, name, surname, years_old, sex, email, password, role_idrole )  " +
@@ -95,10 +76,7 @@ public class Main {
 //                    "FROM `user` LEFT JOIN `role` ON `user`.`role_idrole` = `role`.`idrole` ORDER BY `user`.`iduser`;");
 
 
-        }
-         catch (SQLException e) {
-             System.out.println("Exception " + e);
-        }
+
 
 
 

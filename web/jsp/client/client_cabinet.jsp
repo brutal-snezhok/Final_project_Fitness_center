@@ -20,7 +20,6 @@
 <strong><h1>Client Cabinet</h1></strong>
 <div class="container">
     <div class="sidebar">
-
         <%Client client = new Client(2, "Pety", "Saplov", 23, "M",
                 "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long)1, (double)15, (long)2);
         session.setAttribute("client", client);%>
