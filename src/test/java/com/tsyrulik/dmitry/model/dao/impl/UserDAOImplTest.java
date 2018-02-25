@@ -4,7 +4,7 @@ import com.tsyrulik.dmitry.model.dao.UserDAO;
 import com.tsyrulik.dmitry.model.entity.User;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 import com.tsyrulik.dmitry.model.pool.ConnectionPool;
-import com.tsyrulik.dmitry.model.util.MD5;
+import com.tsyrulik.dmitry.model.util.Encryptor;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -56,7 +56,7 @@ public class UserDAOImplTest {
     public void findUserByEmailAndPassword() throws DAOFitnessException, NoSuchAlgorithmException {
         String email = "goodmail@gmail.com";
         String password = "password24";
-        MD5 encryptor = new MD5();
+        Encryptor encryptor = new Encryptor();
         String encryptPassword = encryptor.encrypt(password);
         User expectedUser = allUsers.get(1);
         User actualUser = userDAO.findUserByEmailAndPassword(email, encryptPassword);
@@ -67,7 +67,7 @@ public class UserDAOImplTest {
     public void findUserByWrongUsernameOrPassword() throws DAOFitnessException, NoSuchAlgorithmException {
         String email = "WrongUsername";
         String password = "WrongPassword";
-        MD5 encryptor = new MD5();
+        Encryptor encryptor = new Encryptor();
         String encryptPassword = encryptor.encrypt(password);
         User actualUser = userDAO.findUserByEmailAndPassword(email, encryptPassword);
         Assert.assertEquals(actualUser, null);

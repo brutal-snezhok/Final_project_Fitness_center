@@ -17,6 +17,10 @@
         <session-timeout>60</session-timeout>
     </session-config>
 
+    <context-param>
+        <param-name>mail</param-name>
+        <param-value>/WEB-INF/classes/config/mail.properties</param-value>
+    </context-param>
     <error-page>
     <error-code>404</error-code>
         <location>/jsp/error/error.jsp</location>

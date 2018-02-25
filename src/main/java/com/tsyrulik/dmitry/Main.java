@@ -2,7 +2,7 @@ package com.tsyrulik.dmitry;
 
 
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
-import com.tsyrulik.dmitry.model.util.MD5;
+import com.tsyrulik.dmitry.model.util.Encryptor;
 
 import java.sql.*;
 import java.time.LocalTime;
@@ -33,7 +33,7 @@ public class Main {
         System.out.println(parse(timeOfReceipt));
        //Food food = new Food( nameOfDish, Date.valueOf(dataOfReceipt).toLocalDate(), Time.valueOf(timeOfReceipt).toLocalTime());
        // System.out.println(food);
-          MD5 encrypt = new MD5();
+          Encryptor encrypt = new Encryptor();
 //        System.out.println("1: " + encrypt.encrypt("password1"));
 //        System.out.println("2: " + encrypt.encrypt("password2"));
 //        System.out.println("3: " + encrypt.encrypt("password3"));

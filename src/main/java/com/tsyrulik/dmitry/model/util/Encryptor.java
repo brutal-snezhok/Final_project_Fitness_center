@@ -5,8 +5,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5 {
-    private static String MD_5 = "MD5";
+public class Encryptor {
+    private static String MD_5 = "Encryptor";
     private static String UTF_8 = "utf-8";
     private static String ZERO = "0";
 

@@ -5,7 +5,7 @@ import com.tsyrulik.dmitry.model.dao.impl.UserDAOImpl;
 import com.tsyrulik.dmitry.model.entity.User;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
-import com.tsyrulik.dmitry.model.util.MD5;
+import com.tsyrulik.dmitry.model.util.Encryptor;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class UserReceiver {
     public User checkUser(String login, String password) throws LogicFitnessException {
         UserDAO dao = new UserDAOImpl();
         try {
-            MD5 encryptor = new MD5();
+            Encryptor encryptor = new Encryptor();
             return dao.findUserByEmailAndPassword(login, encryptor.encrypt(password));
         }
         catch (DAOFitnessException e) {
@@ -25,7 +25,7 @@ public class UserReceiver {
     public void addUser(User user) throws LogicFitnessException {
         UserDAO dao = new UserDAOImpl();
         try {
-            MD5 encryptor = new MD5();
+            Encryptor encryptor = new Encryptor();
             user.setPassword(encryptor.encrypt(user.getPassword()));
             dao.create(user);
         } catch (DAOFitnessException e) {
@@ -38,7 +38,7 @@ public class UserReceiver {
                         String password, String role) throws LogicFitnessException {
         UserDAO daoUser = new UserDAOImpl();
         try {
-            MD5 encryptor = new MD5();
+            Encryptor encryptor = new Encryptor();
             String encryptedPassword = encryptor.encrypt(password);
             User user = new User(0,  name,  surname, years_old, sex, email,
                      password, role);
