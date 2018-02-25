@@ -1,0 +1,15 @@
+form{
+    width:250px;
+    height: 400px;
+    margin:50px;
+    padding:15px 20px;
+    background:#f5f5f5;
+    border-radius: 10px;
+}
+body{
+    background: url(/document/squat.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

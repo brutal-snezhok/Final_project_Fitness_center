@@ -7,12 +7,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/register.css"/>">
     <title>Sign up</title>
+    <%@ include file="common/header.jsp" %>
 </head>
 <body>
 <h4><b><fmt:message key="jsp.register.registration" /> </b></h4>
 <hr/>
 <form name="signForm" method="POST" action = "<c:url value="/jsp/controller"/>">
+    <div class="centerTable">
     <input type="hidden" name="command" value="sign_up"/>
     <fmt:message key="jsp.register.firstname" /><br/>
     <label>
@@ -59,6 +62,8 @@
     </lable>
     <br/>
     ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} <br/>
+    </div>
 </form>
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

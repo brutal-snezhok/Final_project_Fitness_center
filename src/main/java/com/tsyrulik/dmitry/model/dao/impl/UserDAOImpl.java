@@ -16,8 +16,8 @@ import java.util.Optional;
 public class UserDAOImpl implements UserDAO {
     private static final String FIND_ALL_USERS_SQL = "SELECT `iduser`,`name`,`surname`,`years_old`,`sex`,`email`,`password`,`role_name` AS `role` FROM `user` LEFT JOIN `role` ON `user`.`role_idrole` = `role`.`idrole` ORDER BY `user`.`iduser`;";
 
-    private static final String CREATE_USER_SQL = "INSERT INTO `user` (`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String CREATE_USER_SQL = "INSERT INTO `user` (`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
+            " VALUES (?, ?, ?, ?, ?, ?,?);";
 
     private static final String CREATE_USER_SQL_WITH_ID = "INSERT INTO `user` (`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -40,22 +40,29 @@ public class UserDAOImpl implements UserDAO {
 
     private static final String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE `iduser`=?;";
 
+    private static final String SELECT_MAX_ID_USER = "SELECT max(`iduser`) FROM `user`;";
 
 
-    public void createWithOutId(User user) throws DAOFitnessException {
+
+    public User createWithMaxId(User user) throws DAOFitnessException {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER_SQL);
+             PreparedStatement prestatement = connection.prepareStatement(SELECT_MAX_ID_USER)) {
 
-            preparedStatement.setLong(1,  user.getIdUser());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getSurname());
-            preparedStatement.setInt(4, user.getYearOld());
-            preparedStatement.setString(5, user.getSex());
-            preparedStatement.setString(6, user.getEmail());
-            preparedStatement.setString(7, user.getPassword());
-            preparedStatement.setString(8, user.getRole());
-
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setInt(3, user.getYearOld());
+            preparedStatement.setString(4, user.getSex());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(6, user.getPassword());
+            preparedStatement.setString(7, user.getRole());
             preparedStatement.executeUpdate();
+            ResultSet resultSet = prestatement.executeQuery();
+            if (resultSet.next()){
+                user.setIdUser(resultSet.getLong(1));
+            }
+            return user;
+
         } catch (SQLException | PoolFitnessException e) {
             throw new DAOFitnessException(e);
         }

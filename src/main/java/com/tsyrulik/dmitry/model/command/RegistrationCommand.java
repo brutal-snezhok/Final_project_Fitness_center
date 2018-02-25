@@ -47,11 +47,10 @@ public class RegistrationCommand implements Command {
         String emailValue = request.getParameter(PARAM_EMAIL);
         String passValue = request.getParameter(PARAM_PASSWORD);
         String clientOrTrainer = request.getParameter(PARAM_ROLE);
-        //receiver
         if (!RegisterValidator.checkRegistration(nameValue, surnameValue, yersOldValue, emailValue, passValue)) {
             if (clientOrTrainer.equals("Client")){
                 Client client = new Client(new User(nameValue, surnameValue, Integer.parseInt(yersOldValue),
-                        sex, emailValue, passValue, String.valueOf(UserType.CLIENT.ordinal())),(double)0);
+                        sex, emailValue, passValue, String.valueOf(UserType.CLIENT.ordinal()+1)),(double)0);
                 request.getSession(true).setAttribute("client", client);
                 try {
                     clientReceiver.addClient(client);
@@ -61,7 +60,7 @@ public class RegistrationCommand implements Command {
             }
             else {
                 Trainer trainer = new Trainer(new User(nameValue, surnameValue, Integer.parseInt(yersOldValue),
-                        sex, emailValue, passValue, String.valueOf(UserType.TRAINER.ordinal())));
+                        sex, emailValue, passValue, String.valueOf(UserType.TRAINER.ordinal()+1)));
                 request.getSession(true).setAttribute("trainer", trainer);
                 try {
                     trainerReceiver.addTrainer(trainer);

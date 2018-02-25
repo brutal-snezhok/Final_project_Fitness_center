@@ -16,7 +16,7 @@ import java.util.Optional;
 public class ClientDAOImpl implements ClientDAO {
     private static final String FIND_USERS_BY_WITH_DISCOUNT_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user` " +
             "LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`email` = ?;";
-    private static final String CREATE_CLIENT_SQL = "INSERT INTO `client` (`idclient`,`discount`, `user_iduser`)  VALUES (?, ?, ?);";
+    private static final String CREATE_CLIENT_SQL = "INSERT INTO `client` (`discount`, `user_iduser`)  VALUES (?, ?);";
     private static final String FIND_CLIENT_BY_ID_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idclient`, `discount`,`user_iduser` " +
             "FROM `user` INNER JOIN `client` ON client.user_iduser=user.iduser WHERE `client`.`idclient` = ?;";
     private static final String FIND_ALL_CLIENTS_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idclient`, `discount`,`user_iduser` " +
@@ -49,12 +49,11 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     public void createClient(Client client) throws DAOFitnessException {
         User user = createUserFromClient(client);
-        new UserDAOImpl().create(user);
+        user = new UserDAOImpl().createWithMaxId(user);
         try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_CLIENT_SQL)){
-            preparedStatement.setLong(1, client.getIdClient());
-            preparedStatement.setDouble(2, client.getDiscount());
-            preparedStatement.setLong(3, client.getClientIdUser());
+            preparedStatement.setDouble(1, client.getDiscount());
+            preparedStatement.setLong(2, user.getIdUser());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

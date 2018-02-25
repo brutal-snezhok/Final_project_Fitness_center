@@ -31,16 +31,17 @@ public class TrainerDAOImpl implements TrainerDAO {
     private static final String DELETE_EXERCISES_BY_ID = "DELETE FROM `exercises` WHERE `idexercises`=?;";
     private static final String DELETE_APPOINTMENTS_BY_ID = "DELETE FROM `appointments` WHERE `idappointments`=?;";
     private static final String SELECT_MAX_ID_EXERCISE = "SELECT max(`idexercises`) FROM `exercises`;";
+    private static final String SELECT_MAX_ID_TRAINER = "SELECT max(`idtrainer`) FROM `trainer`;";
 
     @Override
     public void createTrainer(Trainer trainer) throws DAOFitnessException {
         User user = createUserFromTrainer(trainer);
-        new UserDAOImpl().create(user);
+        user = new UserDAOImpl().createWithMaxId(user);
         try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_TRAINER_SQL)){
             preparedStatement.setString(1, trainer.getEducation());
             preparedStatement.setBigDecimal(2, trainer.getCostPerHour());
-            preparedStatement.setInt(3, trainer.getTrainerIdUser());
+            preparedStatement.setInt(3, (int) user.getIdUser());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -170,7 +171,6 @@ public class TrainerDAOImpl implements TrainerDAO {
             preparedStatement.setString(3, exercises.getEquipment());
             preparedStatement.executeUpdate();
             ResultSet resultSet = prestatement.executeQuery();
-            System.out.println(resultSet);
             if (resultSet.next()){
                 exercises.setIdExercises(resultSet.getLong(1));
             }
