@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/admin_page.css"/>">
+    <%--<link rel="stylesheet" type="text/css" href="<c:url value="/css/admin_page.css"/>">--%>
     <title>Admin page</title>
     <%@ include file="/jsp/common/header.jsp" %>
 </head>
@@ -83,7 +83,7 @@
             <th><fmt:message key="jsp.sex" bundle="${var}"/></th>
             <th><fmt:message key="jsp.email" bundle="${var}"/></th>
             <th><fmt:message key="jsp.education" bundle="${var}"/></th>
-            <th><fmr:message key="jsp.costPerLesson" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.costPerLesson" bundle="${var}"/></th>
         </tr>
         <c:forEach items="${trainers}" var="trainers">
             <tr>

@@ -1,9 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.tsyrulik.dmitry.model.entity.Client" %>
-<%@ page import="com.tsyrulik.dmitry.model.entity.Review" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="locale" var="var"/>
 <%@ page isELIgnored="false" %>
@@ -15,21 +11,21 @@
     <%@ include file="/jsp/common/header.jsp" %>
 </head>
 <body>
-<%
-    List<Client> clients = new ArrayList<>();
-    Client client = new Client(8,"Евгений", "Соболев", 33, "M",
-            "sobolev@gamil.com", "b25ef06be3b6948c0bc431da46c2c738", "client", (long)7, 0.0,(long) 8);
-    clients.add(new Client(2, "Pety", "Saplov", 23, "M",
-            "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long)1, (double)15, (long)2));
+<%--<%--%>
+    <%--List<Client> clients = new ArrayList<>();--%>
+    <%--Client client = new Client(8,"Евгений", "Соболев", 33, "M",--%>
+            <%--"sobolev@gamil.com", "b25ef06be3b6948c0bc431da46c2c738", "client", (long)7, 0.0,(long) 8);--%>
+    <%--clients.add(new Client(2, "Pety", "Saplov", 23, "M",--%>
+            <%--"goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long)1, (double)15, (long)2));--%>
 
-    session.setAttribute("client", client);
+    <%--session.setAttribute("client", client);--%>
 
-    List<Review> reviews = new ArrayList<>();
-    Review review = new Review(1, 7, "So so", 4);
-    reviews.add(new Review(2, 2, "Very good", 10));
-    reviews.add(review);
-    session.setAttribute("reviews", reviews);
-%>
+    <%--List<Review> reviews = new ArrayList<>();--%>
+    <%--Review review = new Review(1, 7, "So so", 4);--%>
+    <%--reviews.add(new Review(2, 2, "Very good", 10));--%>
+    <%--reviews.add(review);--%>
+    <%--session.setAttribute("reviews", reviews);--%>
+<%--%>--%>
 <div class="centerTable">
     <h1><fmt:message key="label.headerReviews" bundle="${var}"/></h1>
     <table width="80%" float="left">
