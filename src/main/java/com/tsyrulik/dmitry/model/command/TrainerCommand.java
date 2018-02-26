@@ -70,9 +70,11 @@ public class TrainerCommand implements Command {
                 Exercises exercises = new Exercises();
                 if (!nameOfDish.isEmpty() && !dataOfReceipt.isEmpty() && !timeOfReceipt.isEmpty()){
                     food = new Food(nameOfDish, Date.valueOf(dataOfReceipt).toLocalDate(), ParserToLocalTime.parse(timeOfReceipt));
+                    exercises.setIdExercises((long)1);
                 }
                if (!muscleGroup.isEmpty() && !nameOfExercises.isEmpty() && !equipment.isEmpty()){
                    exercises = new Exercises(muscleGroup, nameOfExercises, equipment);
+                   food.setIdFood((long) 1);
                }
 
                 List<Appointment> appointment = clientReceiver.findAllAppointmentForClient(clients.get(i).getIdClient());

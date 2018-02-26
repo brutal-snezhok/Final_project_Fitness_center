@@ -31,6 +31,7 @@ public class TrainerDAOImpl implements TrainerDAO {
     private static final String DELETE_EXERCISES_BY_ID = "DELETE FROM `exercises` WHERE `idexercises`=?;";
     private static final String DELETE_APPOINTMENTS_BY_ID = "DELETE FROM `appointments` WHERE `idappointments`=?;";
     private static final String SELECT_MAX_ID_EXERCISE = "SELECT max(`idexercises`) FROM `exercises`;";
+    private static final String SELECT_MAX_ID_FOOD = "SELECT max(`idfood`) FROM `food`;";
     private static final String SELECT_MAX_ID_TRAINER = "SELECT max(`idtrainer`) FROM `trainer`;";
 
     @Override
@@ -158,7 +159,21 @@ public class TrainerDAOImpl implements TrainerDAO {
 
     @Override
     public Food createFoodForClient(Food food) throws DAOFitnessException {
-        return  executeFood(food, CREATE_FOOD_FOR_CLIENT);
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_FOOD_FOR_CLIENT);
+            PreparedStatement prestatement = connection.prepareStatement(SELECT_MAX_ID_FOOD)){
+            preparedStatement.setString(1, food.getNameOfDish());
+            preparedStatement.setDate(2, Date.valueOf(food.getDateReceipt()));
+            preparedStatement.setTime(3, Time.valueOf(food.getTimeOfReceipt()));
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = prestatement.executeQuery();
+            if (resultSet.next()){
+                food.setIdFood(resultSet.getLong(1));
+            }
+            return food;
+        } catch (SQLException e) {
+            throw new DAOFitnessException(e);
+        }
     }
 
     @Override

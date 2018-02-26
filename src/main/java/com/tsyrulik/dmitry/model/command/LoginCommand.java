@@ -3,14 +3,12 @@ package com.tsyrulik.dmitry.model.command;
 import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
-import com.tsyrulik.dmitry.model.logic.ClientReceiver;
-import com.tsyrulik.dmitry.model.logic.ReviewReceiver;
-import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
-import com.tsyrulik.dmitry.model.logic.UserReceiver;
+import com.tsyrulik.dmitry.model.logic.*;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
 import com.tsyrulik.dmitry.model.validator.SignUpValdator;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginCommand implements Command {
@@ -25,12 +23,15 @@ public class LoginCommand implements Command {
     private ClientReceiver clientReceiver;
     private TrainerReceiver trainerReceiver;
     private ReviewReceiver reviewReceiver;
+    private OrderReceiver orderReceiver;
 
-    public LoginCommand(UserReceiver receiver, ClientReceiver clientReceiver, TrainerReceiver trainerReceiver, ReviewReceiver reviewReceiver) {
+    public LoginCommand(UserReceiver receiver, ClientReceiver clientReceiver, TrainerReceiver trainerReceiver,
+                        ReviewReceiver reviewReceiver, OrderReceiver orderReceiver) {
         this.receiver = receiver;
         this.clientReceiver = clientReceiver;
         this.trainerReceiver = trainerReceiver;
         this.reviewReceiver = reviewReceiver;
+        this.orderReceiver = orderReceiver;
     }
 
     @Override
@@ -39,7 +40,6 @@ public class LoginCommand implements Command {
        String loginValue = request.getParameter(PARAM_LOGIN);
        String passValue = request.getParameter(PARAM_PASSWORD);
 
-       // дописать SignUpValdator.isUserEmailCorrect(loginValue)
         if (SignUpValdator.isUserPasswordCorrect(passValue) && SignUpValdator.isUserEmailCorrect(loginValue)){
             try {
                     User user = receiver.checkUser(loginValue, passValue);
@@ -59,10 +59,15 @@ public class LoginCommand implements Command {
                             request.getSession().setAttribute("trainer", trainer);
                             List<Client> clientListOfThisTrainer = clientReceiver.findAllClientsOfThisTrainer(trainer.getIdTrainer());
                             request.getSession().setAttribute("clientsOfTrainer", clientListOfThisTrainer);
-                            //ADD!!!!Food+Exercises
+                            List<ClientInf> clientInfList = new ArrayList<>();
+                            for (Client client : clientListOfThisTrainer){
+                                List<Food> foods = clientReceiver.findAllFoodForClients(client.getIdClient());
+                                List<Exercises> exercises = clientReceiver.findAllExercisesForClients(client.getIdClient());
+                               // Order order = orderReceiver.findOrdertByClientEmail(client.getEmail());
+                                clientInfList.add(new ClientInf(client, foods, exercises));
+                            }
 
-
-
+                           request.getSession().setAttribute("clientInfList", clientInfList);
                             page = PATH_PAGE_MAIN_TRAINER;
                         }
                         else{
