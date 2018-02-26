@@ -62,6 +62,7 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+
     @Override
     public Optional<Order> findOrderById(long id) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();

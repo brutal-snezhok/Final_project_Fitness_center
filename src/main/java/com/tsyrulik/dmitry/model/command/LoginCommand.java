@@ -40,7 +40,7 @@ public class LoginCommand implements Command {
        String passValue = request.getParameter(PARAM_PASSWORD);
 
        // дописать SignUpValdator.isUserEmailCorrect(loginValue)
-        if (SignUpValdator.isUserPasswordCorrect(passValue)){
+        if (SignUpValdator.isUserPasswordCorrect(passValue) && SignUpValdator.isUserEmailCorrect(loginValue)){
             try {
                     User user = receiver.checkUser(loginValue, passValue);
                     if (user != null){
@@ -55,6 +55,12 @@ public class LoginCommand implements Command {
                             page = PATH_PAGE_MAIN_ADMIN;
                         }
                         else if (user.getRole().equals(UserType.TRAINER.getTypeName())){
+                            Trainer trainer = trainerReceiver.findTrainerByEmail(loginValue);
+                            request.getSession().setAttribute("trainer", trainer);
+                            List<Client> clientListOfThisTrainer = clientReceiver.findAllClientsOfThisTrainer(trainer.getIdTrainer());
+                            request.getSession().setAttribute("clientsOfTrainer", clientListOfThisTrainer);
+                            //ADD!!!!Food+Exercises
+
 
 
                             page = PATH_PAGE_MAIN_TRAINER;

@@ -37,6 +37,15 @@ public class ClientReceiver {
         }
     }
 
+    public List<Client> findAllClientsOfThisTrainer(int idTrainer) throws LogicFitnessException {
+        ClientDAO dao = new ClientDAOImpl();
+        try {
+            return dao.findAllClientsOfThisTrainer(idTrainer);
+        } catch (DAOFitnessException e) {
+            throw new LogicFitnessException(e);
+        }
+    }
+
 
     public Client findClientById(int idClient)  throws LogicFitnessException {
         ClientDAO clientDAO = new ClientDAOImpl();

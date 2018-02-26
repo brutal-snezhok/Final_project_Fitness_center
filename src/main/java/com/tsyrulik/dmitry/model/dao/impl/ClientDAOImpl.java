@@ -46,6 +46,10 @@ public class ClientDAOImpl implements ClientDAO {
             "FROM `appointments` WHERE client_idclient=?;";
     private static final String FIND_EXERCISE_BY_NAME_EXERCISE = "SELECT `idexercises`, `muscle_group`, `names_of_exercises`, `equipment` " +
             "FROM `exercises` WHERE `names_of_exercises`=?;";
+
+    private static final String FIND_ALL_ClIENTS_THIS_TRAINER_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idclient`, `discount`,`user_iduser` " +
+            "FROM `user` RIGHT JOIN `client` ON client.user_iduser=user.iduser " +
+            "LEFT JOIN order_client ON client.idclient=order_client.client_idclient WHERE `trainer_idtrainer`=?;";
     @Override
     public void createClient(Client client) throws DAOFitnessException {
         User user = createUserFromClient(client);
@@ -287,6 +291,23 @@ public class ClientDAOImpl implements ClientDAO {
                 exercises = createExercisesFromResult(resultSet);
             }
             return exercises;
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
+
+
+    @Override
+    public List<Client> findAllClientsOfThisTrainer(int idTrainer) throws DAOFitnessException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_ClIENTS_THIS_TRAINER_SQL)) {
+            statement.setLong(1, idTrainer);
+            ResultSet resultSet = statement.executeQuery();
+            List<Client> clients = new ArrayList<>();
+            while (resultSet.next()) {
+                clients.add(createClientFromResult(resultSet));
+            }
+            return clients;
         } catch (SQLException | PoolFitnessException e) {
             throw new DAOFitnessException(e);
         }

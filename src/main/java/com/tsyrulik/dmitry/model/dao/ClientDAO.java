@@ -33,4 +33,6 @@ public interface ClientDAO {
     List<Exercises> findAllExercisesForClientById(long idClient) throws DAOFitnessException;
 
     Exercises findExercisesForClientByIdEx(String nameOfExercise) throws DAOFitnessException;
+
+    List<Client> findAllClientsOfThisTrainer(int idTrainer) throws DAOFitnessException;
 }
