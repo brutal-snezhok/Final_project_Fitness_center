@@ -178,10 +178,11 @@
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="48" parent="14" name="cost_of_lessons">
+    <column id="48" parent="14" name="number_of_lessons">
       <Position>3</Position>
-      <Comment>итоговая сумма,сколько клиент должен заплатить фитнесс-центру.высчитывается автоматически</Comment>
-      <DataType>decimal(10)|0</DataType>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <column id="49" parent="14" name="client_idclient">
       <Position>4</Position>
@@ -203,6 +204,7 @@
       <Comment>id отзыва</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="53" parent="15" name="client_idclient">
       <Position>2</Position>

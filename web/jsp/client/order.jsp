@@ -28,22 +28,22 @@
             <th><fmt:message key="jsp.sex" bundle="${var}"/></th>
             <th><fmt:message key="jsp.email" bundle="${var}"/></th>
             <th><fmt:message key="jsp.education" bundle="${var}"/></th>
-            <th><fmr:message key="jsp.costPerLesson" bundle="${var}"/></th>
+            <th><fmt:message key="jsp.costPerLesson" bundle="${var}"/></th>
         </tr>
-        <%
-            Client client = new Client(8,"Евгений", "Соболев", 33, "M",
-                    "sobolev@gamil.com", "b25ef06be3b6948c0bc431da46c2c738", "client", (long)7, 0.0,(long) 8);
-            request.getSession().setAttribute("client", client);
-            List<Trainer> trainers = new ArrayList<>();
-            trainers.add(new Trainer(5, "Алексей", "Артемьев", 24, "M",
-                    "artemiev@yandex.ru", "87e897e3b54a405da144968b2ca19b45", "trainer", 2,"мсмк", new BigDecimal(12), 4 ));
+        <%--<%--%>
+            <%--Client client = new Client(8,"Евгений", "Соболев", 33, "M",--%>
+                    <%--"sobolev@gamil.com", "b25ef06be3b6948c0bc431da46c2c738", "client", (long)7, 0.0,(long) 8);--%>
+            <%--request.getSession().setAttribute("client", client);--%>
+            <%--List<Trainer> trainers = new ArrayList<>();--%>
+            <%--trainers.add(new Trainer(5, "Алексей", "Артемьев", 24, "M",--%>
+                    <%--"artemiev@yandex.ru", "87e897e3b54a405da144968b2ca19b45", "trainer", 2,"мсмк", new BigDecimal(12), 4 ));--%>
 
-            trainers.add(new Trainer(9, "Федор", "Макаров", 27, "M",
-                    "makarov@gmail.com", "5d69dd95ac183c9643780ed7027d128a", "trainer", 1, "кмс", new BigDecimal(10), 9));
-            //18	Станислав	Федотов	32	М	fedotov@yandex.ru	80b8bdceb474b5127b6aca386bb8ce14	2
-            trainers.add(new Trainer(18, "Станислав", "Федотов", 32, "M",
-                    "fedotov@yandex.ru", "80b8bdceb474b5127b6aca386bb8ce14", "trainer", 10, "мсмк", new BigDecimal(25), 18));
-            session.setAttribute("trainers", trainers);%>
+            <%--trainers.add(new Trainer(9, "Федор", "Макаров", 27, "M",--%>
+                    <%--"makarov@gmail.com", "5d69dd95ac183c9643780ed7027d128a", "trainer", 1, "кмс", new BigDecimal(10), 9));--%>
+            <%--//18	Станислав	Федотов	32	М	fedotov@yandex.ru	80b8bdceb474b5127b6aca386bb8ce14	2--%>
+            <%--trainers.add(new Trainer(18, "Станислав", "Федотов", 32, "M",--%>
+                    <%--"fedotov@yandex.ru", "80b8bdceb474b5127b6aca386bb8ce14", "trainer", 10, "мсмк", new BigDecimal(25), 18));--%>
+            <%--session.setAttribute("trainers", trainers);%>--%>
 
         <c:forEach items="${trainers}" var="trainers">
             <tr>

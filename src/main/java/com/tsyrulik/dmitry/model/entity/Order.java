@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class Order {
     private Long idOrder;
     private String typeOfTraining;
-    private BigDecimal costOfLessons;
     private int number_of_lessons;
     private Long idClient;
     private int idTrainer;
@@ -16,7 +15,6 @@ public class Order {
     public Order(String typeOfTraining, BigDecimal costOfLessons,
                  int number_of_lessons, Long idClient, int idTrainer) {
         this.typeOfTraining = typeOfTraining;
-        this.costOfLessons = costOfLessons;
         this.number_of_lessons = number_of_lessons;
         this.idClient = idClient;
         this.idTrainer = idTrainer;
@@ -25,7 +23,6 @@ public class Order {
                  int number_of_lessons, Long idClient, int idTrainer) {
         this.idOrder = idOrder;
         this.typeOfTraining = typeOfTraining;
-        this.costOfLessons = costOfLessons;
         this.number_of_lessons = number_of_lessons;
         this.idClient = idClient;
         this.idTrainer = idTrainer;
@@ -45,14 +42,6 @@ public class Order {
 
     public void setTypeOfTraining(String typeOfTraining) {
         this.typeOfTraining = typeOfTraining;
-    }
-
-    public BigDecimal getCostOfLessons() {
-        return costOfLessons;
-    }
-
-    public void setCostOfLessons(BigDecimal costOfLessons) {
-        this.costOfLessons = costOfLessons;
     }
 
     public int getNumber_of_lessons() {
@@ -91,8 +80,6 @@ public class Order {
         if (idOrder != null ? !idOrder.equals(that.idOrder) : that.idOrder != null) return false;
         if (typeOfTraining != null ? !typeOfTraining.equals(that.typeOfTraining) : that.typeOfTraining != null)
             return false;
-        if (costOfLessons != null ? !costOfLessons.equals(that.costOfLessons) : that.costOfLessons != null)
-            return false;
         return idClient != null ? idClient.equals(that.idClient) : that.idClient == null;
     }
 
@@ -100,7 +87,6 @@ public class Order {
     public int hashCode() {
         int result = idOrder != null ? idOrder.hashCode() : 0;
         result = 31 * result + (typeOfTraining != null ? typeOfTraining.hashCode() : 0);
-        result = 31 * result + (costOfLessons != null ? costOfLessons.hashCode() : 0);
         result = 31 * result + number_of_lessons;
         result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
         result = 31 * result + idTrainer;
@@ -112,7 +98,6 @@ public class Order {
         return "Order{" +
                 "idOrder=" + idOrder +
                 ", typeOfTraining='" + typeOfTraining + '\'' +
-                ", costOfLessons=" + costOfLessons +
                 ", number_of_lessons=" + number_of_lessons +
                 ", idClient=" + idClient +
                 ", idTrainer=" + idTrainer +

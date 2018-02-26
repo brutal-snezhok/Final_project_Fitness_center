@@ -25,8 +25,8 @@
     session.setAttribute("client", client);
 
     List<Review> reviews = new ArrayList<>();
-    Review review = new Review(1, 7, 4, "So so");
-    reviews.add(new Review(2, 2, 10, "Very good"));
+    Review review = new Review(1, 7, "So so", 4);
+    reviews.add(new Review(2, 2, "Very good", 10));
     reviews.add(review);
     session.setAttribute("reviews", reviews);
 %>

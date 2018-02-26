@@ -13,13 +13,13 @@ import java.util.List;
 
 public class ReviewsDAOImpl implements ReviewsDAO{
     private static final String SQL_SELECT_REVIEWS =
-            "SELECT idreviews, client_idclient, text_review, mark FROM reviews;";
+            "SELECT `idreviews`, `client_idclient`, `text_review`, `mark` FROM `reviews`;";
 
     private static final String SQL_INSERT_REVIEW =
-            "INSERT INTO reviews (client_idclient, text_review, mark) VALUES (?, ?, ?);";
+            "INSERT INTO `reviews` (`client_idclient`, `text_review`, `mark`) VALUES (?, ?, ?);";
 
     private static final String SQL_DELETE_REVIEW =
-            "DELETE FROM reviews WHERE idreviews=?;";
+            "DELETE FROM `reviews` WHERE `idreviews`=?;";
 
 
     @Override
@@ -40,7 +40,7 @@ public class ReviewsDAOImpl implements ReviewsDAO{
 
     private Review createReviewFromResult(ResultSet resultSet) throws SQLException {
         Review review = new Review(resultSet.getInt(1),resultSet.getInt(2),
-                resultSet.getInt(3), resultSet.getString(4));
+                resultSet.getString(3), resultSet.getInt(4));
         return review;
     }
 

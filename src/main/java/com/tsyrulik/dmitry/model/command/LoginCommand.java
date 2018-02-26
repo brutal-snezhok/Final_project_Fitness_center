@@ -4,6 +4,7 @@ import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.ClientReceiver;
+import com.tsyrulik.dmitry.model.logic.ReviewReceiver;
 import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
 import com.tsyrulik.dmitry.model.logic.UserReceiver;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
@@ -23,11 +24,13 @@ public class LoginCommand implements Command {
     private UserReceiver receiver;
     private ClientReceiver clientReceiver;
     private TrainerReceiver trainerReceiver;
+    private ReviewReceiver reviewReceiver;
 
-    public LoginCommand(UserReceiver receiver, ClientReceiver clientReceiver, TrainerReceiver trainerReceiver) {
+    public LoginCommand(UserReceiver receiver, ClientReceiver clientReceiver, TrainerReceiver trainerReceiver, ReviewReceiver reviewReceiver) {
         this.receiver = receiver;
         this.clientReceiver = clientReceiver;
         this.trainerReceiver = trainerReceiver;
+        this.reviewReceiver = reviewReceiver;
     }
 
     @Override
@@ -41,15 +44,19 @@ public class LoginCommand implements Command {
             try {
                     User user = receiver.checkUser(loginValue, passValue);
                     if (user != null){
+                        List<Trainer> trainers = trainerReceiver.findAllTrainers();
                         request.getSession(true).setAttribute("user", user);
+                        request.getSession().setAttribute("trainers", trainers);
+                        request.getSession().setAttribute("reviews", reviewReceiver.findAllReviews());
+
                         if (user.getRole().equals(UserType.ADMIN.getTypeName())){
                             List<Client> clients = clientReceiver.findAllClients();
                             request.getSession().setAttribute("clients", clients);
-                            List<Trainer> trainers = trainerReceiver.findAllTrainers();
-                            request.getSession().setAttribute("trainers", trainers);
                             page = PATH_PAGE_MAIN_ADMIN;
                         }
                         else if (user.getRole().equals(UserType.TRAINER.getTypeName())){
+
+
                             page = PATH_PAGE_MAIN_TRAINER;
                         }
                         else{

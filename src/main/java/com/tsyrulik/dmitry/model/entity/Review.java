@@ -3,14 +3,15 @@ package com.tsyrulik.dmitry.model.entity;
 public class Review {
     private int reviewId;
     private int clientId;
-    private int mark;
     private String textReview;
+    private int mark;
 
-    public Review(int reviewId, int clientId, int mark, String textReview) {
+
+    public Review(int reviewId, int clientId, String textReview, int mark) {
         this.reviewId = reviewId;
         this.clientId = clientId;
-        this.mark = mark;
         this.textReview = textReview;
+        this.mark = mark;
     }
 
     public int getReviewId() {
@@ -29,20 +30,20 @@ public class Review {
         this.clientId = clientId;
     }
 
-    public int getMark() {
-        return mark;
-    }
-
-    public void setMark(int mark) {
-        this.mark = mark;
-    }
-
     public String getTextReview() {
         return textReview;
     }
 
     public void setTextReview(String textReview) {
         this.textReview = textReview;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 
     @Override
@@ -62,8 +63,18 @@ public class Review {
     public int hashCode() {
         int result = reviewId;
         result = 31 * result + clientId;
-        result = 31 * result + mark;
         result = 31 * result + (textReview != null ? textReview.hashCode() : 0);
+        result = 31 * result + mark;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", clientId=" + clientId +
+                ", textReview='" + textReview + '\'' +
+                ", mark=" + mark +
+                '}';
     }
 }

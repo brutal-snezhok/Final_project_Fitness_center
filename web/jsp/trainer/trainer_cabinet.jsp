@@ -22,7 +22,7 @@
     <h1>Trainer cabinet</h1>
     <table border="1" width="70%" cellpadding="5">
         <tr>
-            <th><fmt:message key="jsp.select" bundle="${var}"/> </th>
+            <th><fmt:message key="jsp.select" bundle="${var}"/></th>
             <th><fmt:message key="jsp.name" bundle="${var}"/></th>
             <th><fmt:message key="jsp.surname" bundle="${var}"/></th>
             <th><fmt:message key="jsp.yearsOld" bundle="${var}"/></th>

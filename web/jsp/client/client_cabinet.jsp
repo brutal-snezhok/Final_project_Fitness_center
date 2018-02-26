@@ -10,6 +10,8 @@
 </head>
 <body>
 <strong><h1>Client Cabinet</h1></strong>
+<a href="/jsp/client/order.jsp"><fmt:message key="label.wantToMakeOrder"  bundle="${var}"/></a><br/>
+<a href="/jsp/client/review.jsp"><fmt:message key="label.wantToLeaveFeedback"  bundle="${var}"/></a>
 <div class="container">
     <div class="sidebar">
 
