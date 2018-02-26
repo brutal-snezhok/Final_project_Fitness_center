@@ -18,7 +18,6 @@ public class AdminClientCommand implements Command {
     private static final String PARAM_SURNAME_CLIENT = "surnameClient";
     private static final String PARAM_YEARS_OLD_CLIENT = "yearOldClient";
     private static final String PARAM_SEX_CLIENT = "sexClient";
-    private static final String PARAM_EMAIL_CLIENT = "emailClient";
     private static final String PARAM_CHECKBOX_CLIENT = "selectClient";
 
     public AdminClientCommand(ClientReceiver receiverClient) {
@@ -54,13 +53,11 @@ public class AdminClientCommand implements Command {
                     String surname = request.getParameter(PARAM_SURNAME_CLIENT);
                     String yearsOld = request.getParameter(PARAM_YEARS_OLD_CLIENT);
                     String sex = request.getParameter(PARAM_SEX_CLIENT);
-                    String email = request.getParameter(PARAM_EMAIL_CLIENT);
                     Client client = receiverClient.findClientById(idClient);
                     client.setName(name);
                     client.setSurname(surname);
                     client.setYearOld(Integer.parseInt(yearsOld));
                     client.setSex(sex);
-                    client.setEmail(email);
                     receiverClient.updateClient(client);
                 }
             }

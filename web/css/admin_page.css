@@ -1,8 +1,7 @@
-
-/*strong{*/
-    /*clear: both;*/
-    /*float: left; text-align: right;*/
-    /*line-height:25px;*/
-/*}*/
-/*label {float:left; padding-right:10px;}*/
-/*.main {float:left}*/
+body{
+    background: url(/document/nastol.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

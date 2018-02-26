@@ -20,7 +20,7 @@ public class ClientDAOImpl implements ClientDAO {
     private static final String FIND_CLIENT_BY_ID_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idclient`, `discount`,`user_iduser` " +
             "FROM `user` INNER JOIN `client` ON client.user_iduser=user.iduser WHERE `client`.`idclient` = ?;";
     private static final String FIND_ALL_CLIENTS_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idclient`, `discount`,`user_iduser` " +
-            "FROM `user` INNER JOIN `client` ON client.user_iduser=user.iduser";
+            "FROM `user` RIGHT JOIN `client` ON client.user_iduser=user.iduser";
     private static final String FIND_CLIENT_BY_EMAIL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idclient`, `discount`,`user_iduser` " +
             "FROM `user` INNER JOIN `client` ON client.user_iduser=user.iduser WHERE `user`.`email`=?;";
     private static final String UPDATE_CLIENT= "UPDATE `client` SET `client`.idclient=?, `client`.discount=?  WHERE `user_iduser`=?;";
@@ -247,9 +247,9 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     public List<Food> findAllFoodForClientById(long idClient) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeQuery(FIND_ALL_FOOD_FOR_CLIENT_BY_ID);
-            ResultSet resultSet = statement.getResultSet();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_FOOD_FOR_CLIENT_BY_ID)) {
+            statement.setLong(1, idClient);
+            ResultSet resultSet = statement.executeQuery();
             List<Food> foods = new ArrayList<>();
             while (resultSet.next()) {
                 foods.add(createFoodFromResult(resultSet));
@@ -263,9 +263,9 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     public List<Exercises> findAllExercisesForClientById(long idClient) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeQuery(FIND_ALL_EXERCISES_FOR_CLIENT_BY_ID);
-            ResultSet resultSet = statement.getResultSet();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_EXERCISES_FOR_CLIENT_BY_ID)) {
+            statement.setLong(1, idClient);
+            ResultSet resultSet = statement.executeQuery();
             List<Exercises> exercises = new ArrayList<>();
             while (resultSet.next()) {
                 exercises.add(createExercisesFromResult(resultSet));

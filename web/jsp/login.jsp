@@ -9,7 +9,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/login.css"/>">
     <title>Login</title>
-    <%@ include file="common/header.jsp" %>
+    <%@ include file="/jsp/common/header.jsp" %>
 </head>
 <body>
 

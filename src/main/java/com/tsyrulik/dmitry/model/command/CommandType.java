@@ -3,7 +3,7 @@ package com.tsyrulik.dmitry.model.command;
 import com.tsyrulik.dmitry.model.logic.*;
 
 public enum CommandType {
-    LOGIN(new LoginCommand(new UserReceiver())),
+    LOGIN(new LoginCommand(new UserReceiver(), new ClientReceiver(), new TrainerReceiver())),
     LOGOUT(new LogoutCommand()),
     SIGN_UP(new RegistrationCommand(new UserReceiver())),
     ADMIN_CLIENT(new ClientListCommand(new ClientReceiver())),

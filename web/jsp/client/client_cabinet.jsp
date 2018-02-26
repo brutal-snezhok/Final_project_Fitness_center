@@ -1,11 +1,3 @@
-<%@ page import="com.tsyrulik.dmitry.model.entity.Client" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.tsyrulik.dmitry.model.entity.Trainer" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.tsyrulik.dmitry.model.entity.Food" %>
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="java.time.LocalTime" %>
-<%@ page import="com.tsyrulik.dmitry.model.entity.Exercises" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -20,9 +12,6 @@
 <strong><h1>Client Cabinet</h1></strong>
 <div class="container">
     <div class="sidebar">
-        <%Client client = new Client(2, "Pety", "Saplov", 23, "M",
-                "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long)1, (double)15, (long)2);
-        session.setAttribute("client", client);%>
 
         <strong><fmt:message key="jsp.register.firstname" bundle="${var}"/></strong>
         <label>
@@ -69,24 +58,6 @@
             </tr>
 
 
-            <%
-                List<Food> foods = new ArrayList<>();
-                Food food1 = new Food((long)7, "Шоколад 100 гр",  LocalDate.of(2017,9, 20), LocalTime.of(15,0,0));
-                Food food2 = new Food((long)8, "Сок",  LocalDate.of(2017,4, 20), LocalTime.of(17,0,0));
-                foods.add(food1);
-                foods.add(food2);
-                session.setAttribute("foods", foods);
-
-                List<Exercises> exercises = new ArrayList<>();
-                Exercises exercises1 = new Exercises((long) 6, "широчайшие мышцы спины",
-                    "тяга верхнего блока перед собой; тяга гантели одной рукой; тяга гантели к поясу; отжимания стоя на руках; подтягивания широким хватом",
-                    "гантели, турник, тренажер");
-                Exercises exercises2 = new Exercises((long) 5, "икры",
-                        "подъем на носки", "");
-                exercises.add(exercises1);
-                exercises.add(exercises2);
-                session.setAttribute("exercises", exercises);
-            %>
 
             <c:forEach items="${foods}" var="food" varStatus="loop">
                 <c:forEach items="${exercises}" var="exercise" begin="${loop.index}" end="${loop.index}" >

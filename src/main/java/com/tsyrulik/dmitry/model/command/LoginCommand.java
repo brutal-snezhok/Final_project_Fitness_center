@@ -1,14 +1,16 @@
 package com.tsyrulik.dmitry.model.command;
 
-import com.tsyrulik.dmitry.model.entity.User;
-import com.tsyrulik.dmitry.model.entity.UserType;
+import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
+import com.tsyrulik.dmitry.model.logic.ClientReceiver;
+import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
 import com.tsyrulik.dmitry.model.logic.UserReceiver;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
 import com.tsyrulik.dmitry.model.validator.SignUpValdator;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class LoginCommand implements Command {
     private static final String PARAM_LOGIN = "login";
@@ -19,9 +21,13 @@ public class LoginCommand implements Command {
     private static final String PATH_PAGE_MAIN_TRAINER = "/jsp/trainer/trainer_cabinet.jsp";
     private static final String PATH_PAGE_MAIN_ADMIN = "/jsp/admin/admin_page.jsp";
     private UserReceiver receiver;
+    private ClientReceiver clientReceiver;
+    private TrainerReceiver trainerReceiver;
 
-    public LoginCommand(UserReceiver receiver) {
+    public LoginCommand(UserReceiver receiver, ClientReceiver clientReceiver, TrainerReceiver trainerReceiver) {
         this.receiver = receiver;
+        this.clientReceiver = clientReceiver;
+        this.trainerReceiver = trainerReceiver;
     }
 
     @Override
@@ -37,12 +43,22 @@ public class LoginCommand implements Command {
                     if (user != null){
                         request.getSession(true).setAttribute("user", user);
                         if (user.getRole().equals(UserType.ADMIN.getTypeName())){
+                            List<Client> clients = clientReceiver.findAllClients();
+                            request.getSession().setAttribute("clients", clients);
+                            List<Trainer> trainers = trainerReceiver.findAllTrainers();
+                            request.getSession().setAttribute("trainers", trainers);
                             page = PATH_PAGE_MAIN_ADMIN;
                         }
                         else if (user.getRole().equals(UserType.TRAINER.getTypeName())){
                             page = PATH_PAGE_MAIN_TRAINER;
                         }
                         else{
+                            Client client = clientReceiver.findClientByEmail(loginValue);
+                            request.getSession().setAttribute("client", client);
+                            List<Food> foods = clientReceiver.findAllFoodForClients(client.getIdClient());
+                            request.getSession().setAttribute("foods", foods);
+                            List<Exercises> exercises = clientReceiver.findAllExercisesForClients(client.getIdClient());
+                            request.getSession().setAttribute("exercises", exercises);
                             page = PATH_PAGE_MAIN_CLIENT;
                         }
                     }

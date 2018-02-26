@@ -19,7 +19,6 @@ public class AdminTrainerCommand implements Command {
     private static final String PARAM_SURNAME_TRAINER = "surnameTrainer";
     private static final String PARAM_YEARS_OLD_TRAINER = "yearOldTrainer";
     private static final String PARAM_SEX_TRAINER = "sexTrainer";
-    private static final String PARAM_EMAIL_TRAINER = "emailTrainer";
     private static final String PARAM_EDUCATION_TRAINER = "education";
     private static final String PARAM_COST_PER_LESSON_TRAINER = "costPerLesson";
     private static final String PARAM_CHECKBOX_TRAINER = "selectTrainer";
@@ -56,7 +55,6 @@ public class AdminTrainerCommand implements Command {
                     String surname = request.getParameter(PARAM_SURNAME_TRAINER);
                     String yearsOld = request.getParameter(PARAM_YEARS_OLD_TRAINER);
                     String sex = request.getParameter(PARAM_SEX_TRAINER);
-                    String email = request.getParameter(PARAM_EMAIL_TRAINER);
                     String education = request.getParameter(PARAM_EDUCATION_TRAINER);
                     String costPerLesson = request.getParameter(PARAM_COST_PER_LESSON_TRAINER);
                     Trainer trainer = receiverTrainer.findTrainerById(idTrainer);
@@ -64,7 +62,6 @@ public class AdminTrainerCommand implements Command {
                     trainer.setSurname(surname);
                     trainer.setYearOld(Integer.parseInt(yearsOld));
                     trainer.setSex(sex);
-                    trainer.setEmail(email);
                     trainer.setEducation(education);
                     trainer.setCostPerHour(new BigDecimal(costPerLesson));
                     receiverTrainer.updateTrainer(trainer);
