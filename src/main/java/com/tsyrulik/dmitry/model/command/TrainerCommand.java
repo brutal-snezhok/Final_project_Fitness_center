@@ -88,12 +88,14 @@ public class TrainerCommand implements Command {
                             break;
                         }
                         case "Delete Food": {
+                            food = clientReceiver.findFoodForClient(clients.get(i).getIdClient());
                             trainerReceiver.deleteFoodById(food.getIdFood());
                             // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
                             break;
                         }
                         case "Update Food": {
                             food.setIdFood(appointment.get(0).getAppIdFood());
+                            food = clientReceiver.findFoodForClient(clients.get(0).getIdClient());
                             trainerReceiver.updateFood(food);
                             break;
                         }

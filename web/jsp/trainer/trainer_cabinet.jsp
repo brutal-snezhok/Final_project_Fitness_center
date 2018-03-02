@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>Trainer cabinet</title>
+    <%@ include file="/jsp/common/header.jsp" %>
 </head>
 <body>
 <form name="trainerCabinet" method="POST" action = "/jsp/controller">
@@ -158,5 +159,6 @@
         <input type="submit" name="actionExercise" value="Update Exercise">
     </label>
 </form>
+
 </body>
 </html>
