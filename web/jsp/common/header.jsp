@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setBundle basename="locale" var="var"/>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<fmt:setLocale value="${changeLanguage}"/>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -12,6 +14,7 @@
 </head>
 <body>
 <nav class="navbar navbar-inverse" role="navigation">
+
     <div class="container-fluid">
         <div class="navbar-header">
                     <c:choose>
@@ -49,6 +52,20 @@
             <li><a href="/jsp/common/contacts.jsp"><fmt:message key="label.contact" bundle="${var}"/></a></li>
             <li><a href="/jsp/common/about.jsp"><fmt:message key="label.about" bundle="${var}"/></a></li>
         </ul>
+
+        <table align="right">
+            <tr align="center">
+                <form name="localeForm" method="POST" action="/jsp/controller">
+                    <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
+                    <input type="hidden" name="command" value="locale"/>
+                    <td><input type="image" src="<fmt:message key="label.pictureLocale" bundle="${var}"/>" height="30" width="40" alt="<fmt:message key="label.buttonLanguage" bundle="${var}"/>"> </td>
+                </form>
+            </tr>
+            <tr><td><ctg:infoTimeTag/></td></tr>
+            <%--<tr>--%>
+            <%--<td align="center"><ctg:role user="${user}"/></td>--%>
+            <%--</tr>--%>
+        </table>
     </div>
 </nav>
 </body>

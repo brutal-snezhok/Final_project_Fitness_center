@@ -8,8 +8,13 @@ import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.util.MD5;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserReceiver {
+    private static final String ENGLISH_LOCALE = "en_US";
+    private static final String RUSSIAN_LOCALE = "ru_RU";
+    private static final String REG_EX_JSP = "/jsp.+";
 
     public User checkUser(String login, String password) throws LogicFitnessException {
         UserDAO dao = new UserDAOImpl();
@@ -96,12 +101,22 @@ public class UserReceiver {
             throw new LogicFitnessException(e);
         }
     }
-    //обращение к dao
-    //select user
-    //find user by id
-    //update user
-    //регистрируемся и заносим данные в бд createUser
-   // public boolean addUser
 
+    public String changeLanguage(String locale){
+        if (locale == null){
+            return ENGLISH_LOCALE;
+        }
+        return ENGLISH_LOCALE.equals(locale) ? RUSSIAN_LOCALE : ENGLISH_LOCALE;
+    }
+
+    public String returnSamePage(String pagePath){
+        String page = null;
+        Pattern p = Pattern.compile(REG_EX_JSP);
+        Matcher m = p.matcher(pagePath);
+        if(m.find()){
+            page = m.group();
+        }
+        return page;
+    }
 
 }

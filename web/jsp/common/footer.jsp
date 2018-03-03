@@ -4,6 +4,7 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
 <%@ page isELIgnored="false"%>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
@@ -18,7 +19,7 @@
     <div class="container">
         <div class="col-md-6">
             <footer class="footer-centered">
-                <p class="footer-name"><fmt:message key="jsp.footer.nameAuthor"/> &copy; <fmt:message key="jsp.footer.year"/></p>
+                <p class="footer-name"><ctg:footerTag/></p>
             </footer>
         </div>
         <div class="col-md-6">

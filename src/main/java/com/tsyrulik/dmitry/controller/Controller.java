@@ -38,7 +38,7 @@ public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setCharacterEncoding("UTF8");
+          //  request.setCharacterEncoding("UTF8");
             Optional<Command> commandOptional = ActionFactory.defineCommand(request.getParameter("command"));
             Command command = commandOptional.orElse(new EmptyCommand());
 
