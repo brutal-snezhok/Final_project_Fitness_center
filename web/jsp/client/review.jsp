@@ -37,7 +37,7 @@
         </tr>
         <tr><td style="background-color: rgba(0,255,0,0.5)">${review.textReview}</td>
             <c:if test="${client.idClient eq review.clientId}">
-                <form name="localeForm" method="POST" action="/jsp/controller">
+                <form name="localeForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
                     <input type="hidden" name="command" value="delete_review"/>
                     <input type="hidden"  name="reviewId" value=${review.reviewId}/>
                     <td><input type="image" src="/document/bitseps.jpeg" height="20" width="20"></td>
@@ -50,7 +50,7 @@
             <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
         <tr><td style="background-color: rgba(255,0,0,0.5)">${review.textReview}</td>
             <c:if test="${client.idClient eq review.clientId}">
-                <form name="localeForm" method="POST" action="/jsp/controller">
+                <form name="localeForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
                     <input type="hidden" name="command" value="delete_review"/>
                     <input type="hidden"  name="reviewId" value=${review.reviewId} />
                     <td><input type="image" src="/document/bitseps.jpeg" height="20" width="20"></td>
@@ -64,7 +64,7 @@
         <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
     <tr><td>${review.textReview}</td>
         <c:if test="${client.idClient eq review.clientId}">
-            <form name="localeForm" method="POST" action="/jsp/controller">
+            <form name="localeForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
                 <input type="hidden" name="command" value="delete_review"/>
                 <input type="hidden"  name="reviewId" value=${review.reviewId} />
                 <td><input type="image" src="/document/bitseps.jpeg" height="20" width="20"></td>
@@ -88,8 +88,9 @@
 </table>
 <c:if test="${not empty client}">
     <h3><fmt:message key="label.giveFeedback" bundle="${var}"/></h3>
-    <form name="localeForm" id="addFormId" method="POST" action="/jsp/controller">
-        <input type="hidden" name="command" value="add_review"/>
+    <form name="localeForm" id="addFormId" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
+        <input type="hidden" name="command" value="add_review" />
+        //pattern="[\\w*]{0-200}"
         <b><fmt:message key="label.mark" bundle="${var}"/></b>:
         <select name="mark">
             <option value="1">1</option>
@@ -118,6 +119,5 @@
 </c:if>
 
 </div>
-<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

@@ -5,6 +5,7 @@ import com.tsyrulik.dmitry.model.dao.impl.TrainerDAOImpl;
 import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
+import com.tsyrulik.dmitry.model.util.MD5;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class TrainerReceiver {
     public void addTrainer(Trainer trainer) throws LogicFitnessException{
         TrainerDAO trainerDAO = new TrainerDAOImpl();
         try {
+            MD5 encryptor = new MD5();
+            trainer.setPassword(encryptor.encrypt(trainer.getPassword()));
              trainerDAO.createTrainer(trainer);
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);

@@ -12,7 +12,7 @@
 </head>
 <body>
     <p><fmt:message key="label.sendingInProgress"  bundle="${var}"/></p>
-    <a href="/jsp/admin/mail.jsp"><fmt:message key="label.returnToNewPage" bundle="${var}"/></a>
+    <a href="${pageContext.request.contextPath}/jsp/admin/mail.jsp"><fmt:message key="label.returnToNewPage" bundle="${var}"/></a>
     <c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

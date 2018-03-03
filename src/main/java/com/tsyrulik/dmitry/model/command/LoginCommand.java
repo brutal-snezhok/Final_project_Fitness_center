@@ -35,7 +35,7 @@ public class LoginCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
        String page = null;
        String loginValue = request.getParameter(PARAM_LOGIN);
        String passValue = request.getParameter(PARAM_PASSWORD);
@@ -92,6 +92,6 @@ public class LoginCommand implements Command {
         else{
             request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("messages.login.empty"));
         }
-        return page;
+        return  new CommandPair(CommandPair.DispatchType.REDIRECT, page);
     }
 }

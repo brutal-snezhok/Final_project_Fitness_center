@@ -8,10 +8,11 @@
 <head>
     <title>Client cabinet</title>
 </head>
+<%@ include file="/jsp/common/header.jsp" %>
 <body>
 <strong><h1>Client Cabinet</h1></strong>
-<a href="/jsp/client/order.jsp"><fmt:message key="label.wantToMakeOrder"  bundle="${var}"/></a><br/>
-<a href="/jsp/client/review.jsp"><fmt:message key="label.wantToLeaveFeedback"  bundle="${var}"/></a>
+<a href="${pageContext.request.contextPath}/jsp/client/order.jsp"><fmt:message key="label.wantToMakeOrder"  bundle="${var}"/></a><br/>
+<a href="${pageContext.request.contextPath}/jsp/client/review.jsp"><fmt:message key="label.wantToLeaveFeedback"  bundle="${var}"/></a>
 <div class="container">
     <div class="sidebar">
 
@@ -45,7 +46,7 @@
         </label>
 
     </div>
-    <form name="clientCabinet" method="POST" action = "/jsp/controller">
+    <form name="clientCabinet" method="POST" action = "${pageContext.request.contextPath}/jsp/controller">
         <input type="hidden" name="command" value="client_Cabinet"/>
 
         <table border="1" width="70%" cellpadding="5">
@@ -78,5 +79,6 @@
         </table>
     </form>
 </div>
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

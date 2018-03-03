@@ -1,8 +1,3 @@
-<%@ page import="com.tsyrulik.dmitry.model.entity.Client" %>
-<%@ page import="com.tsyrulik.dmitry.model.entity.Trainer" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
@@ -13,9 +8,10 @@
 <head>
     <title>Order</title>
 </head>
+<%@ include file="/jsp/common/header.jsp" %>
 <body>
 <h1>Order page</h1>
-<form name="orderPage" method="POST" action="/jsp/controller">
+<form name="orderPage" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="order"/>
     <h3><fmt:message key="jsp.listOfTrainers"  bundle="${var}"/></h3>
     <table border="1" width="100%" cellpadding="5">
@@ -77,6 +73,6 @@
 
 
 </form>
-
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

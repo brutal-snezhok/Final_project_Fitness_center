@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ClientListCommand implements Command{
     private static final String PARAM_CLIENTS = "clients";
-    private static final String ADMIN_PAGE = "/jsp/admin/admin_page";
+    private static final String ADMIN_PAGE = "/jsp/admin/admin_page.jsp";
     private ClientReceiver receiverClient;
 
     public ClientListCommand(ClientReceiver receiverClient) {
@@ -18,13 +18,13 @@ public class ClientListCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String page;
         try {
             List<Client> clients = receiverClient.findAllClients();
             request.getSession().setAttribute(PARAM_CLIENTS,clients);
             page = ADMIN_PAGE;
-            return page;
+            return  new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }

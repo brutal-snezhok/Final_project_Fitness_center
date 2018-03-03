@@ -5,6 +5,7 @@ import com.tsyrulik.dmitry.model.dao.impl.ClientDAOImpl;
 import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
+import com.tsyrulik.dmitry.model.util.MD5;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class ClientReceiver {
     public void addClient(Client client) throws LogicFitnessException{
         ClientDAO clientDAO = new ClientDAOImpl();
         try {
+            MD5 encryptor = new MD5();
+            client.setPassword(encryptor.encrypt(client.getPassword()));
             clientDAO.createClient(client);
         } catch (DAOFitnessException e) {
             throw new LogicFitnessException(e);

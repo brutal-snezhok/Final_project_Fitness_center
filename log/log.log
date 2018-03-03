@@ -1,4 +1,0 @@
-2018-02-05 09:09:39,113  FATAL [main] <init> Could not create connection to database server. Attempted reconnect 3 times. Giving up. 
-2018-02-05 09:11:03,733  FATAL [main] <init> Could not create connection to database server. Attempted reconnect 3 times. Giving up. 
-2018-02-05 09:11:40,667  FATAL [main] <init> Could not create connection to database server. Attempted reconnect 3 times. Giving up. 
-2018-02-05 09:12:30,920  FATAL [main] <init> Could not create connection to database server. Attempted reconnect 3 times. Giving up. 

@@ -36,7 +36,7 @@
 
 
         <table>
-            <form name="loginForm" method="POST" action="/jsp/controller">
+            <form name="loginForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
                 <input type="hidden" name="command" id="logout"/>
                 <br/>
                 <input type="submit" value="Logout"/>

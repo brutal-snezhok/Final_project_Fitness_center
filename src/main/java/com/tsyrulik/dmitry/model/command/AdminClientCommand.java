@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class AdminClientCommand implements Command {
     private static final String PARAM_CLIENTS = "clients";
-    private static final String ADMIN_PAGE = "/jsp/admin/admin_page";
+    private static final String ADMIN_PAGE = "/jsp/admin/admin_page.jsp";
     private ClientReceiver receiverClient;
 
     private static final String PARAM_ID_CLIENT = "idClient";
@@ -25,7 +25,7 @@ public class AdminClientCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String[] checkboxClient = request.getParameterValues(PARAM_CHECKBOX_CLIENT);
         ArrayList<Client> clients = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class AdminClientCommand implements Command {
 
             request.getSession().setAttribute(PARAM_CLIENTS, receiverClient.findAllClients());
             page = ADMIN_PAGE;
-            return page;
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }

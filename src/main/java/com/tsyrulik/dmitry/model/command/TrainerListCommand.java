@@ -18,13 +18,13 @@ public class TrainerListCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String page;
         try {
             List<Trainer> trainers = receiverTrainer.findAllTrainers();
             request.getSession().setAttribute(PARAM_TRAINERS,trainers);
             page = ADMIN_PAGE;
-            return page;
+            return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         } catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }

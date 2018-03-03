@@ -41,7 +41,7 @@ public class TrainerCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String[] checkbox = request.getParameterValues(PARAM_CHECKBOX);
         ArrayList<Client> clients = new ArrayList<>();
 
@@ -127,7 +127,7 @@ public class TrainerCommand implements Command {
                 request.getSession().setAttribute(PARAM_CLIENTS, clientReceiver.findAllClients());
             }
             page = TRAINER_CABINET;
-            return page;
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }

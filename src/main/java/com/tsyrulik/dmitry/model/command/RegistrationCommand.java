@@ -38,7 +38,7 @@ public class RegistrationCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String page = null;
         String nameValue = request.getParameter(PARAM_NAME);
         String surnameValue = request.getParameter(PARAM_SURNAME);
@@ -75,6 +75,6 @@ public class RegistrationCommand implements Command {
             request.setAttribute("errorLoginPassMessage", MessageManager.getMessage("messages.login.error"));
             page = PATH_PAGE_REGISTER;
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
     }
 }

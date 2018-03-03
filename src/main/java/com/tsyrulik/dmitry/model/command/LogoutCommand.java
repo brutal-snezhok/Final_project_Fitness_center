@@ -11,8 +11,8 @@ public class LogoutCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public CommandPair execute(HttpServletRequest request) {
         request.getSession().invalidate();
-        return receiver.getPath();
+        return  new CommandPair(CommandPair.DispatchType.REDIRECT,  receiver.getPath());
     }
 }

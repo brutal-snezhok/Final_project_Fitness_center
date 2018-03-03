@@ -18,14 +18,14 @@ public class FoodExercisesCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         Client client = (Client) request.getSession(true).getAttribute("client");
         String page;
         try {
             request.getSession().setAttribute(PARAM_EXERCISES,receiver.findAllExercisesForClients(client.getIdClient()));
             request.getSession().setAttribute(PARAM_FOOD, receiver.findAllFoodForClients(client.getIdClient()));
             page = CLIENT_CABINET;
-            return page;
+            return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         } catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }

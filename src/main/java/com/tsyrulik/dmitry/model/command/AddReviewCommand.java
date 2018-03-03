@@ -30,7 +30,7 @@ public class AddReviewCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String page = null;
         long idClient = ((Client) request.getSession().getAttribute(PARAM_CLIENT)).getIdClient();
         int mark = Integer.valueOf(request.getParameter(PARAM_MARK));
@@ -39,18 +39,20 @@ public class AddReviewCommand implements Command{
         request.getSession().setAttribute(PARAM_ERROR_MESSAGE,null);
 
         try {
-            if(SignUpValdator.isCommentCorrect(textReview)) {
+            if(!SignUpValdator.isCommentCorrect(textReview)) {
                 receiver.insertReview((int) idClient, textReview, mark);
                 LOGGER.log(Level.INFO,"Adding new review");
+                request.getSession().setAttribute(PARAM_REVIEWS, receiver.findAllReviews());
+                page = PATH_PAGE_REVIEW;
+                return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
             }
             else{
                 request.getSession().setAttribute(PARAM_ERROR_MESSAGE,
-                        MessageManager.getMessage("message.reviewError"));
+                        MessageManager.getMessage("messages.reviewError"));
                 LOGGER.log(Level.INFO,"Incorrect review");
             }
-            request.getSession().setAttribute(PARAM_REVIEWS, receiver.findAllReviews());
             page = PATH_PAGE_REVIEW;
-            return page;
+            return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         } catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }

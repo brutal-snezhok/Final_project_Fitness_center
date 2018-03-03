@@ -13,7 +13,7 @@
     <%@ include file="/jsp/common/header.jsp" %>
 </head>
 <body>
-    <form action="/jsp/mailServlet" method="POST">
+    <form action="${pageContext.request.contextPath}/jsp/mailServlet" method="POST">
         <div class="centerTable">
         <table>
             <tr>

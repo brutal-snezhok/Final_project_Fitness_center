@@ -216,7 +216,7 @@
       <Position>3</Position>
       <Comment>текст отзыва
 </Comment>
-      <DataType>varchar(45)|0</DataType>
+      <DataType>varchar(200)|0</DataType>
     </column>
     <column id="55" parent="15" name="mark">
       <Position>4</Position>

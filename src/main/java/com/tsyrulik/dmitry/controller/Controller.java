@@ -3,6 +3,7 @@ package com.tsyrulik.dmitry.controller;
 
 import com.tsyrulik.dmitry.model.command.ActionFactory;
 import com.tsyrulik.dmitry.model.command.Command;
+import com.tsyrulik.dmitry.model.command.CommandPair;
 import com.tsyrulik.dmitry.model.command.EmptyCommand;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.PoolFitnessException;
@@ -42,15 +43,26 @@ public class Controller extends HttpServlet {
             Optional<Command> commandOptional = ActionFactory.defineCommand(request.getParameter("command"));
             Command command = commandOptional.orElse(new EmptyCommand());
 
-            String page = command.execute(request);
+            //String page = command.execute(request);
+            CommandPair commandPair = command.execute(request);
 
-            if (page != null) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+            if (commandPair.getDispatchType() == CommandPair.DispatchType.FORWARD) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher(commandPair.getPage());
                 dispatcher.forward(request, response);
             } else {
-                request.getSession().setAttribute("nullPage", MessageManager.getMessage("messages.nullpage"));
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                String defaultPage = "/index.jsp";
+                if (commandPair.getPage().isEmpty()) {
+                    request.getSession().setAttribute("nullPage", MessageManager.getMessage("messages.nullpage"));
+                    response.sendRedirect(request.getContextPath() + defaultPage);
+                    //response.sendRedirect(defaultPage);
+                }
+                String page = commandPair.getPage();
+
+                //request.getSession().setAttribute("pagePath", page);
+                System.out.println(request.getContextPath() + page);
+                response.sendRedirect(request.getContextPath() + page);
             }
+
         } catch (CommandFitnessException e) {
             LOGGER.log(Level.ERROR, e.getMessage());
         }

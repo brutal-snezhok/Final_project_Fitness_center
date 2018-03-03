@@ -16,7 +16,7 @@ public class MailServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF8");
+       // req.setCharacterEncoding("UTF8");
         Properties properties = new Properties();
         ServletContext context = getServletContext();
         String fileName = context.getInitParameter("mail");
@@ -24,6 +24,6 @@ public class MailServlet extends HttpServlet {
         MailThread mailOperator = new MailThread(req.getParameter("to"), req.getParameter("subject"),
                 req.getParameter("body"), properties);
         mailOperator.start();
-        req.getRequestDispatcher("/jsp/common/sendResult.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/admin/sendResult.jsp").forward(req, resp);
     }
 }

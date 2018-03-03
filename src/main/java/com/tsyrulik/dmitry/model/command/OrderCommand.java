@@ -25,7 +25,7 @@ public class OrderCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String page;
         String radioTrainer = request.getParameter(PARAM_RADIO_TRAINER);
         String selectMode = request.getParameter(PARAM_SELECT_MODE);
@@ -46,7 +46,7 @@ public class OrderCommand implements Command {
         catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
     }
 
 }

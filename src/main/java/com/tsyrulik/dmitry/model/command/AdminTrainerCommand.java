@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class AdminTrainerCommand implements Command {
     private static final String PARAM_TRAINERS = "trainers";
-    private static final String ADMIN_PAGE = "/jsp/admin/admin_page";
+    private static final String ADMIN_PAGE = "/jsp/admin/admin_page.jsp";
     private TrainerReceiver receiverTrainer;
 
     private static final String PARAM_ID_TRAINER = "idTrainer";
@@ -29,7 +29,7 @@ public class AdminTrainerCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandFitnessException {
+    public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String[] checkboxTrainer = request.getParameterValues(PARAM_CHECKBOX_TRAINER);
         ArrayList<Trainer> trainers = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class AdminTrainerCommand implements Command {
 
             request.getSession().setAttribute(PARAM_TRAINERS, receiverTrainer.findAllTrainers());
             page = ADMIN_PAGE;
-            return page;
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } catch (LogicFitnessException e) {
             throw new CommandFitnessException(e.getMessage(), e);
         }

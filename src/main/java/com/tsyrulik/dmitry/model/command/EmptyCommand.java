@@ -8,8 +8,8 @@ public class EmptyCommand implements Command{
     private DefaultReceiver receiver = new DefaultReceiver();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public CommandPair execute(HttpServletRequest request) {
 
-        return receiver.getPath();
+        return new CommandPair(CommandPair.DispatchType.FORWARD, receiver.getPath());
     }
 }

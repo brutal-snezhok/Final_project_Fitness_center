@@ -15,10 +15,10 @@
 
 <body>
 <h1>Admin page</h1>
-<a href="/jsp/admin/mail.jsp"><fmt:message key="label.sendMessageTo"  bundle="${var}"/></a><br/>
-<a href="/jsp/admin/adminReview.jsp"><fmt:message key="label.updateReview"  bundle="${var}"/></a>
+<a href="${pageContext.request.contextPath}/jsp/admin/mail.jsp"><fmt:message key="label.sendMessageTo"  bundle="${var}"/></a><br/>
+<a href="${pageContext.request.contextPath}/jsp/admin/adminReview.jsp"><fmt:message key="label.updateReview"  bundle="${var}"/></a>
 
-<form name="adminPageClients" method="POST" action="/jsp/controller">
+<form name="adminPageClients" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="update_client"/>
     <h3>List of clients: </h3>
     <table border="1" width="90%" cellpadding="5">
@@ -70,7 +70,7 @@
 </form>
 
 
-<form name="adminPageTrainers" method="POST" action="/jsp/controller">
+<form name="adminPageTrainers" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="update_trainer"/>
     <h3>List of trainers: </h3>
     <table border="1" width="90%" cellpadding="5">

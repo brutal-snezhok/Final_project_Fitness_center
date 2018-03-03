@@ -15,6 +15,7 @@ public enum CommandType {
     ORDER(new OrderCommand(new TrainerReceiver(), new OrderReceiver())),
     ADD_REVIEW(new AddReviewCommand(new ReviewReceiver())),
     DELETE_REVIEW(new DeleteReviewCommand(new ReviewReceiver())),
+    DELETE_REVIEW_ADMIN(new DeleteReviewAdminCommand(new ReviewReceiver())),
     LOCALE(new I18nCommand(new UserReceiver()));
 
 

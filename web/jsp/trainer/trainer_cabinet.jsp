@@ -11,7 +11,7 @@
     <%@ include file="/jsp/common/header.jsp" %>
 </head>
 <body>
-<form name="trainerCabinet" method="POST" action = "/jsp/controller">
+<form name="trainerCabinet" method="POST" action = "${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="trainer_cabinet"/>
     <h1>Trainer cabinet</h1>
     <table border="1" width="70%" cellpadding="5">

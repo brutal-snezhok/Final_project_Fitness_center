@@ -20,12 +20,12 @@ public class I18nCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public CommandPair execute(HttpServletRequest request) {
         String locale = (String) request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE);
         String page = request.getParameter(PARAM_PAGE_PATH);
         request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE, receiver.changeLanguage(locale));
         // router.setPagePath(request.getContextPath()+receiver.returnSamePage(page));
         LOGGER.log(Level.INFO, "Changing language");
-        return page;
+        return  new CommandPair(CommandPair.DispatchType.REDIRECT, page);
     }
 }
