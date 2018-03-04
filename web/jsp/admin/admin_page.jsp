@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmr" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="locale" var="var"/>
+<fmt:setLocale value="${changeLanguage}"/>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
@@ -45,7 +46,7 @@
             </tr>
         </c:forEach>
     </table>
-    <br/><input type="submit" value="Remove" name="RemoveClientButton"><br/><br/>
+    <br/><input type="submit" value=<fmt:message key="button.reomove" bundle="${var}"/> name="RemoveClientButton"><br/><br/>
     <strong><fmt:message key="jsp.id" bundle="${var}"/></strong>
     <label>
         <input type="number" name="idClient" value=""/>
@@ -66,7 +67,7 @@
     <label>
         <input type="text" name="sexClient" value=""/>
     </label>
-    <br/><input type="submit" value="Update" name="UpdateClientButton"/>
+    <br/><input type="submit" value=<fmt:message key="button.update" bundle="${var}"/> name="UpdateClientButton"/>
 </form>
 
 
@@ -100,7 +101,7 @@
             </tr>
         </c:forEach>
     </table>
-    <br/><input type="submit" value="Remove" name="RemoveTrainerButton"><br/><br/>
+    <br/><input type="submit" value=<fmt:message key="button.reomove" bundle="${var}"/> name="RemoveTrainerButton"><br/><br/>
 
     <strong><fmt:message key="jsp.id" bundle="${var}"/></strong>
     <label>
@@ -138,7 +139,7 @@
         <input type="text" name="costPerLesson" value="" /><br/>
     </label>
 
-    <br/><input type="submit" value="Update" name="UpdateTrainerButton">
+    <br/><input type="submit" value=<fmt:message key="button.update" bundle="${var}"/> name="UpdateTrainerButton">
 </form>
 
 </body>

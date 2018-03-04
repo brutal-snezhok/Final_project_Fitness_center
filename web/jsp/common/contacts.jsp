@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setBundle basename="locale" var="var"/>
+<fmt:setLocale value="${changeLanguage}"/>
 <html>
 <head>
     <title>Fitness center</title>

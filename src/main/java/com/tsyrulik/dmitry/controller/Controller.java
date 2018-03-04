@@ -7,6 +7,7 @@ import com.tsyrulik.dmitry.model.command.CommandPair;
 import com.tsyrulik.dmitry.model.command.EmptyCommand;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.PoolFitnessException;
+import com.tsyrulik.dmitry.model.manager.LocaleManager;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
 import com.tsyrulik.dmitry.model.pool.ConnectionPool;
 import org.apache.logging.log4j.Level;
@@ -39,12 +40,13 @@ public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-          //  request.setCharacterEncoding("UTF8");
             Optional<Command> commandOptional = ActionFactory.defineCommand(request.getParameter("command"));
             Command command = commandOptional.orElse(new EmptyCommand());
 
-            //String page = command.execute(request);
             CommandPair commandPair = command.execute(request);
+            String locale = (String) request.getSession().getAttribute("changeLanguage");
+            System.out.println(locale);
+            LocaleManager localeManager = LocaleManager.defineLocale(locale);
 
             if (commandPair.getDispatchType() == CommandPair.DispatchType.FORWARD) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(commandPair.getPage());
@@ -52,9 +54,8 @@ public class Controller extends HttpServlet {
             } else {
                 String defaultPage = "/index.jsp";
                 if (commandPair.getPage().isEmpty()) {
-                    request.getSession().setAttribute("nullPage", MessageManager.getMessage("messages.nullpage"));
+                    request.getSession().setAttribute("nullPage", localeManager.getMessage("messages.nullpage"));
                     response.sendRedirect(request.getContextPath() + defaultPage);
-                    //response.sendRedirect(defaultPage);
                 }
                 String page = commandPair.getPage();
 
@@ -64,7 +65,9 @@ public class Controller extends HttpServlet {
             }
 
         } catch (CommandFitnessException e) {
+            request.getSession().setAttribute("nullPage", MessageManager.getMessage("messages.nullpage"));
             LOGGER.log(Level.ERROR, e.getMessage());
+            request.getRequestDispatcher("/jsp/error/error.jsp").forward(request, response);
         }
 
     }

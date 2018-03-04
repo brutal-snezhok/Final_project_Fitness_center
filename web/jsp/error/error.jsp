@@ -1,9 +1,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <%@ page isELIgnored="false" %>
-<fmt:setBundle basename="locale"/>
+<fmt:setBundle basename="locale" var="var"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
+<fmt:setLocale value="${changeLanguage}"/>
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +21,7 @@
 <strong>Exception: ${pageContext.errorData.throwable}</strong>
 <br/>
 <lablel>
-    <a href="${pageContext.request.contextPath}/jsp/login.jsp"><fmt:message key = "jsp.login.submit" /></a>
+    <a href="${pageContext.request.contextPath}/jsp/login.jsp"><fmt:message key = "jsp.login.submit" bundle="${var}" /></a>
 </lablel>
 <h1>Page Not Found!</h1>
 <br/>

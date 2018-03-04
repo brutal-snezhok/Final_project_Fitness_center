@@ -3,7 +3,6 @@ package com.tsyrulik.dmitry.model.command;
 public class CommandPair {
 
     private DispatchType dispatchType;
-
     private String page;
 
     public CommandPair(DispatchType dispatchType, String page) {

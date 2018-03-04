@@ -73,6 +73,8 @@ public class LoginCommand implements Command {
                         else{
                             Client client = clientReceiver.findClientByEmail(loginValue);
                             request.getSession().setAttribute("client", client);
+//                            List<Order> orders = orderReceiver.findAllOrders(client.getEmail());
+//                            request.getSession().setAttribute("order", orders);
                             List<Food> foods = clientReceiver.findAllFoodForClients(client.getIdClient());
                             request.getSession().setAttribute("foods", foods);
                             List<Exercises> exercises = clientReceiver.findAllExercisesForClients(client.getIdClient());

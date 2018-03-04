@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="locale" var="var"/>
 <%@ page isELIgnored="false" %>
-
+<fmt:setLocale value="${changeLanguage}"/>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/review.css"/>">

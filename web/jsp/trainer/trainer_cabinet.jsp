@@ -127,13 +127,13 @@
         <input type="text" name="timeOfReceipt" value=""/>
     </label>
     <label>
-        <input type="submit" name="actionFood" value="Add Food">
+        <input type="submit" name="actionFood" value=<fmt:message key="button.addFood" bundle="${var}"/>>
     </label>
     <label>
-        <input type="submit" name="actionFood" value="Delete Food">
+        <input type="submit" name="actionFood" value=<fmt:message key="button.RemoveFood" bundle="${var}"/>>
     </label>
     <label>
-        <input type="submit" name="actionFood" value="Update Food">
+        <input type="submit" name="actionFood" value=<fmt:message key="button.UpdateFood" bundle="${var}"/>>
     </label>
     <br/><br/>
 
@@ -150,13 +150,13 @@
        <input type="text" name="equipment" value=""/>
     </label>
     <label>
-        <input type="submit" name="actionExercise" value="Add Exercise">
+        <input type="submit" name="actionExercise" value=<fmt:message key="button.addExercises" bundle="${var}"/>>
     </label>
     <label>
-        <input type="submit" name="actionExercise" value="Delete Exercise">
+        <input type="submit" name="actionExercise" value=<fmt:message key="button.RemoveExercises" bundle="${var}"/>>
     </label>
     <label>
-        <input type="submit" name="actionExercise" value="Update Exercise">
+        <input type="submit" name="actionExercise" value=<fmt:message key="button.UpdateExercises" bundle="${var}"/>>
     </label>
 </form>
 

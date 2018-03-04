@@ -4,6 +4,7 @@
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <%@ page isELIgnored="false" %>
 <fmt:setBundle basename="locale" var="var"/>
+<fmt:setLocale value="${changeLanguage}"/>
 <html>
 <head>
     <title>Welcome</title>

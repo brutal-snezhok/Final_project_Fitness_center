@@ -7,6 +7,7 @@ import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.OrderReceiver;
 import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
+import com.tsyrulik.dmitry.model.manager.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,6 +42,8 @@ public class OrderCommand implements Command {
             order.setIdTrainer(trainer.getIdTrainer());
             orderReceiver.createOrder(order);
 
+            request.setAttribute("successfullOrder", MessageManager.getMessage("messages.orderDone"));
+           // request.getSession().setAttribute("order", orderReceiver.findAllOrders(client.getEmail()));
             page = ORDER_PAGE;
         }
         catch (LogicFitnessException e) {

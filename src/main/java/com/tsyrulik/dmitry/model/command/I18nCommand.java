@@ -24,8 +24,11 @@ public class I18nCommand implements Command {
         String locale = (String) request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE);
         String page = request.getParameter(PARAM_PAGE_PATH);
         request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE, receiver.changeLanguage(locale));
-        // router.setPagePath(request.getContextPath()+receiver.returnSamePage(page));
+        CommandPair commandPair = new CommandPair(CommandPair.DispatchType.REDIRECT, page);
+        commandPair.setDispatchType(CommandPair.DispatchType.REDIRECT);
+
+        commandPair.setPage(request.getContextPath()+receiver.returnSamePage(page));
         LOGGER.log(Level.INFO, "Changing language");
-        return  new CommandPair(CommandPair.DispatchType.REDIRECT, page);
+        return commandPair;
     }
 }

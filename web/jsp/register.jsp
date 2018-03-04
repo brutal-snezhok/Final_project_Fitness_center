@@ -3,7 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <%@ page isELIgnored="false" %>
-<fmt:setBundle basename="locale"/>
+<fmt:setBundle basename="locale"  var="var"/>
+<fmt:setLocale value="${changeLanguage}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,25 +16,25 @@
 
 <hr/>
 <form name="signForm" method="POST" action = "<c:url value="/jsp/controller"/>">
-    <h4><b><fmt:message key="jsp.register.registration" /> </b></h4>
+    <h4><b><fmt:message key="jsp.register.registration" bundle="${var}"/> </b></h4>
     <div class="centerTable">
     <input type="hidden" name="command" value="sign_up"/>
-    <fmt:message key="jsp.register.firstname" /><br/>
+    <fmt:message key="jsp.register.firstname" bundle="${var}" /><br/>
     <label>
         <input type="text" name="first_name" value="" required pattern="^([A-Z][a-z]{0,15})|([А-Я][а-я]{0,20})$"/>
     </label>
 
-    <br/> <fmt:message key="jsp.register.secondname" /><br/>
+    <br/> <fmt:message key="jsp.register.secondname" bundle="${var}"/><br/>
     <label>
         <input type="text" name="second_name" value="" required pattern="^([A-Z][a-z]{0,15})|([А-Я][а-я]{0,15})$"/>
     </label>
 
-    <br/><fmt:message key="jsp.register.years_old"/><br/>
+    <br/><fmt:message key="jsp.register.years_old" bundle="${var}"/><br/>
     <label>
         <input type="text" name="years_old" value="" />
     </label>
 
-    <br/><fmt:message key="jsp.register.sex"/><br/>
+    <br/><fmt:message key="jsp.register.sex" bundle="${var}"/><br/>
     <label>
             <input type="radio" name="radio-sex" value="M" checked>
             M
@@ -41,12 +42,12 @@
             F
     </label>
 
-    <br/><fmt:message key="jsp.register.email"/><br/>
+    <br/><fmt:message key="jsp.register.email" bundle="${var}"/><br/>
     <label>
         <input type="text" name="email" value="" required pattern="^([a-z0-9_.-]+)@([a-z0-9_.-]+)\.([a-z.]{2,6})$"/>
     </label>
 
-    <br/><fmt:message key="jsp.register.password"/><br/>
+    <br/><fmt:message key="jsp.register.password" bundle="${var}"/><br/>
     <label>
         <input type="password" name="password" value="" />
     </label>
@@ -59,7 +60,7 @@
     </label>
     <br/>
     <lable>
-    <input type="submit" value="<fmt:message key = "jsp.login.submit" />">
+    <input type="submit" value="<fmt:message key = "jsp.login.submit" bundle="${var}"/>">
     </lable>
     <br/>
     ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} <br/>

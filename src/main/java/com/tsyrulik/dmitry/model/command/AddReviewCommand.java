@@ -4,7 +4,7 @@ import com.tsyrulik.dmitry.model.entity.Client;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.ReviewReceiver;
-import com.tsyrulik.dmitry.model.manager.MessageManager;
+import com.tsyrulik.dmitry.model.manager.LocaleManager;
 import com.tsyrulik.dmitry.model.validator.SignUpValdator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +21,7 @@ public class AddReviewCommand implements Command{
     private static final String PARAM_REVIEWS ="reviews";
     private static final String PARAM_ERROR_MESSAGE ="MessageReview";
     private static final String PATH_PAGE_REVIEW = "/jsp/client/review.jsp";
+    private static final String PARAM_LOCALE = "changeLanguage";
 
 
     private ReviewReceiver receiver;
@@ -32,6 +33,7 @@ public class AddReviewCommand implements Command{
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String page = null;
+        LocaleManager localeManager = LocaleManager.defineLocale((String) request.getSession().getAttribute(PARAM_LOCALE));
         long idClient = ((Client) request.getSession().getAttribute(PARAM_CLIENT)).getIdClient();
         int mark = Integer.valueOf(request.getParameter(PARAM_MARK));
         String textReview = request.getParameter(PARAM_COMMENT);
@@ -48,7 +50,7 @@ public class AddReviewCommand implements Command{
             }
             else{
                 request.getSession().setAttribute(PARAM_ERROR_MESSAGE,
-                        MessageManager.getMessage("messages.reviewError"));
+                        localeManager.getMessage("messages.reviewError"));
                 LOGGER.log(Level.INFO,"Incorrect review");
             }
             page = PATH_PAGE_REVIEW;

@@ -3,7 +3,7 @@
 <fmt:setBundle basename="locale" var="var"/>
 <%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${changeLanguage}"/>
-<html lang="en">
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type"/>
@@ -55,6 +55,12 @@
 
         <table align="right">
             <tr align="center">
+        <c:if test="${not empty user}">
+                <form name="localeFormOut" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
+                    <input type="hidden" name="command" id="logout"/>
+                    <td><a href="${pageContext.request.contextPath}/jsp/controller?command=logout"/><fmt:message key="label.logOut" bundle="${var}"/></td>
+                </form>
+        </c:if>
                 <form name="localeForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
                     <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
                     <input type="hidden" name="command" value="locale"/>

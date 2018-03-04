@@ -1,7 +1,7 @@
 package com.tsyrulik.dmitry.model.logic;
 
 public final class DefaultReceiver {
-    private String path = "index.jsp";
+    private String path = "/index.jsp";
 
     public String getPath() {
         return path;

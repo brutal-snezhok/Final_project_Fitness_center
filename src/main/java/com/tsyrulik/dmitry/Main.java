@@ -1,7 +1,7 @@
 package com.tsyrulik.dmitry;
 
 
-import com.tsyrulik.dmitry.model.entity.UserType;
+import com.tsyrulik.dmitry.model.manager.LocaleManager;
 
 import java.sql.SQLException;
 import java.time.LocalTime;
@@ -25,7 +25,10 @@ public class Main {
     public static void main(String[] args) {
 
        //user.getRole().equals(UserType.ADMIN.getTypeName()
-        System.out.println("trainer".equals(UserType.TRAINER.getTypeName()));
+        String locale = "en_US";
+        System.out.println(locale);
+        LocaleManager localeManager = LocaleManager.defineLocale(locale);
+        System.out.println(localeManager);
       //    MD5 encrypt = new MD5();
        // System.out.println("1: " + encrypt.encrypt("password1"));
 //        System.out.println("2: " + encrypt.encrypt("password2"));
