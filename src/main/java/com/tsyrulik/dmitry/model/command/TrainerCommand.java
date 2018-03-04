@@ -1,9 +1,6 @@
 package com.tsyrulik.dmitry.model.command;
 
-import com.tsyrulik.dmitry.model.entity.Appointment;
-import com.tsyrulik.dmitry.model.entity.Client;
-import com.tsyrulik.dmitry.model.entity.Exercises;
-import com.tsyrulik.dmitry.model.entity.Food;
+import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.ClientReceiver;
@@ -56,6 +53,7 @@ public class TrainerCommand implements Command {
         String nameOfExercises = request.getParameter(PARAM_NAME_OF_EXERCISES);
         String equipment = request.getParameter(PARAM_EQUIPMENT);
         String page;
+        List<ClientInf> clientInfList = new ArrayList<>();
         try {
             if(checkbox != null){
                 for (int i = 0; i < checkbox.length; i++){
@@ -82,18 +80,18 @@ public class TrainerCommand implements Command {
 
                 if (actionButtonFood != null) {
                     switch (actionButtonFood) {
-                        case "Add Food": {
+                        case "Add food": {
                             food = trainerReceiver.createFoodForClient(food);
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(), food.getIdFood(), clients.get(i).getIdClient()));
                             break;
                         }
-                        case "Delete Food": {
+                        case "Delete food": {
                             food = clientReceiver.findFoodForClient(clients.get(i).getIdClient());
                             trainerReceiver.deleteFoodById(food.getIdFood());
                             // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
                             break;
                         }
-                        case "Update Food": {
+                        case "Update food": {
                             food.setIdFood(appointment.get(0).getAppIdFood());
                             food = clientReceiver.findFoodForClient(clients.get(0).getIdClient());
                             trainerReceiver.updateFood(food);
@@ -104,28 +102,29 @@ public class TrainerCommand implements Command {
 
                 if (actionButtonExercise != null) {
                     switch (actionButtonExercise) {
-                        case "Add Exercise": {
+                        case "Add exercises": {
                             exercises = trainerReceiver.createExercisesForClient(exercises);
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(),
                                     food.getIdFood(), clients.get(i).getIdClient()));
                             break;
                         }
-                        case "Delete Exercise": {
+                        case "Delete exercises": {
                             trainerReceiver.deleteExercisesById(exercises.getIdExercises());
                            // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
                             break;
                         }
-                        case "Update Exercise": {
+                        case "Update exercises": {
                             exercises.setIdExercises(appointment.get(0).getAppIdExercises());
                             trainerReceiver.updateExercises(exercises);
                             break;
                         }
                     }
                 }
-                request.getSession().setAttribute(PARAM_EXERCISES, clientReceiver.findAllExercisesForClients(clients.get(i).getIdClient()));
-                request.getSession().setAttribute(PARAM_FOOD, clientReceiver.findAllFoodForClients(clients.get(i).getIdClient()));
-                request.getSession().setAttribute(PARAM_CLIENTS, clientReceiver.findAllClients());
+                List<Food> currentFoods = clientReceiver.findAllFoodForClients(clients.get(i).getIdClient());
+                List<Exercises> currentExercises = clientReceiver.findAllExercisesForClients(clients.get(i).getIdClient());
+                clientInfList.add(new ClientInf(clients.get(i), currentFoods, currentExercises));
             }
+            request.getSession().setAttribute("clientInfList", clientInfList);
             page = TRAINER_CABINET;
             return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } catch (LogicFitnessException e) {

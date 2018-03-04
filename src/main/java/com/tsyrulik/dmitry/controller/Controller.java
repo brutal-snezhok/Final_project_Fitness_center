@@ -45,7 +45,6 @@ public class Controller extends HttpServlet {
 
             CommandPair commandPair = command.execute(request);
             String locale = (String) request.getSession().getAttribute("changeLanguage");
-            System.out.println(locale);
             LocaleManager localeManager = LocaleManager.defineLocale(locale);
 
             if (commandPair.getDispatchType() == CommandPair.DispatchType.FORWARD) {

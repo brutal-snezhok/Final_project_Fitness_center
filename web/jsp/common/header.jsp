@@ -51,26 +51,36 @@
             </li>
             <li><a href="${pageContext.request.contextPath}/jsp/common/contacts.jsp"><fmt:message key="label.contact" bundle="${var}"/></a></li>
             <li><a href="${pageContext.request.contextPath}/jsp/common/about.jsp"><fmt:message key="label.about" bundle="${var}"/></a></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+           <li>
+               <%--<div align="center">--%>
+               <%--<c:if test="${not empty user}">--%>
+                    <%--<ctg:role user="${user}"/>--%>
+               <%--</c:if>--%>
+               <%--</div>--%>
+           </li>
         </ul>
+
 
         <table align="right">
             <tr align="center">
         <c:if test="${not empty user}">
+            <td rowspan="2" align="center"> <ctg:role user="${user}"/></td>
                 <form name="localeFormOut" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
                     <input type="hidden" name="command" id="logout"/>
-                    <td><a href="${pageContext.request.contextPath}/jsp/controller?command=logout"/><fmt:message key="label.logOut" bundle="${var}"/></td>
+                    <td align="center"><a href="${pageContext.request.contextPath}/jsp/controller?command=logout"/><fmt:message key="label.logOut" bundle="${var}"/></td>
                 </form>
         </c:if>
                 <form name="localeForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
                     <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
                     <input type="hidden" name="command" value="locale"/>
-                    <td><input type="image" src="<fmt:message key="label.pictureLocale" bundle="${var}"/>" height="30" width="40" alt="<fmt:message key="label.buttonLanguage" bundle="${var}"/>"> </td>
+                    <td align="center"><input type="image" src="<fmt:message key="label.pictureLocale" bundle="${var}"/>" height="30" width="40" alt="<fmt:message key="label.buttonLanguage" bundle="${var}"/>"> </td>
                 </form>
             </tr>
-            <tr><td><ctg:infoTimeTag/></td></tr>
-            <%--<tr>--%>
-            <%--<td align="center"><ctg:role user="${user}"/></td>--%>
-            <%--</tr>--%>
+            <tr><td align="center" colspan="3"><ctg:infoTimeTag/></td></tr>
         </table>
     </div>
 </nav>

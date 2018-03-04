@@ -11,7 +11,7 @@
 </head>
 <%@ include file="/jsp/common/header.jsp" %>
 <body>
-<strong><h1>Client Cabinet</h1></strong>
+<strong><h1><fmt:message key="label.clientCabinet" bundle="${var}"/></h1></strong>
 <a href="${pageContext.request.contextPath}/jsp/client/order.jsp"><fmt:message key="label.wantToMakeOrder"  bundle="${var}"/></a><br/>
 <a href="${pageContext.request.contextPath}/jsp/client/review.jsp"><fmt:message key="label.wantToLeaveFeedback"  bundle="${var}"/></a>
 <div class="container">

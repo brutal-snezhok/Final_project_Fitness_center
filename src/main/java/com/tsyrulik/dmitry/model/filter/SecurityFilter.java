@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebFilter( urlPatterns = { "/jsp/client/*", "/jsp/trainer/*"},
         initParams = { @WebInitParam(name = "INDEX_PATH", value = "/index.jsp") ,
                 @WebInitParam(name = "ADMIN_MENU", value = "/jsp/admin/admin_page.jsp")})
-public class SecurityFilterLoginUser implements Filter {
+public class SecurityFilter implements Filter {
     private static final String PARAM_USER = "user";
     private String indexPathGuest;
     private String indexPathAdminMenu;

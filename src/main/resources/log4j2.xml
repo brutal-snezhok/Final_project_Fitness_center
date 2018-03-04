@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
-    <Appenders>
-        <File name="file" fileName="./log/log.log">
-            <PatternLayout>
-                <Pattern>%d  %p [%t] %M %m %ex%n</Pattern>
-            </PatternLayout>
-        </File>
-
-    </Appenders>
-    <Loggers>
-        <Root level="trace">
-            <AppenderRef ref="file" level="DEBUG"/>
-        </Root>
-
-    </Loggers>
-</Configuration>
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration monitorinterval="300" status="DEBUG">
+    <appenders>
+        <console name="console" target="SYSTEM_OUT">
+            <patternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{2} - %msg%n"/>
+        </console>
+        <file name="file" fileName="/log/log.log">
+            <patternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{2} - %msg%n"/>
+        </file>
+    </appenders>
+    <loggers>
+        <root level="debug">
+            <!--<appenderRef ref="console" /> !-->
+            <appenderRef ref="file"/>
+        </root>
+    </loggers>
+</configuration>

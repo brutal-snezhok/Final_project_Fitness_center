@@ -6,7 +6,6 @@
 <fmt:setBundle basename="locale" var="var"/>
 <fmt:setLocale value="${changeLanguage}"/>
 <%@ page isELIgnored="false" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
     <%--<link rel="stylesheet" type="text/css" href="<c:url value="/css/admin_page.css"/>">--%>
@@ -15,7 +14,7 @@
 </head>
 
 <body>
-<h1>Admin page</h1>
+<h1><fmt:message key="label.adminPage" bundle="${var}"/></h1>
 <a href="${pageContext.request.contextPath}/jsp/admin/mail.jsp"><fmt:message key="label.sendMessageTo"  bundle="${var}"/></a><br/>
 <a href="${pageContext.request.contextPath}/jsp/admin/adminReview.jsp"><fmt:message key="label.updateReview"  bundle="${var}"/></a>
 

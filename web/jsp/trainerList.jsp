@@ -1,7 +1,3 @@
-<%@ page import="com.tsyrulik.dmitry.model.entity.Trainer" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -16,19 +12,19 @@
     <%@ include file="common/header.jsp" %>
 </head>
 <body>
-    <% Trainer trainer1 = new Trainer(3, "Kosty", "Pyshyk", 35, "M",
-            "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer", 1, "кмс", new BigDecimal(10), 3);
-    Trainer trainer2 = new Trainer(3, "KostyKosty", "PyshykPyshyk", 53, "F",
-                "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "2", 1, "кмс", new BigDecimal(10), 3);
-    Trainer trainer3 =  new Trainer(4, "Kirill", "Pavlov", 23, "M",
-            "vavl@gmail.com", "58bad6b697dff48f4927941962f23e90", "2", 2,"мс", new BigDecimal(20), 4);
-        List<Trainer> trainers = new ArrayList<>();
-        trainers.add(trainer1);
-        trainers.add(trainer2);
-        trainers.add(trainer3);
-        session.setAttribute("trainers", trainers);
-    %>
-    <h3>List of trainers: </h3>
+    <%--<% Trainer trainer1 = new Trainer(3, "Kosty", "Pyshyk", 35, "M",--%>
+            <%--"pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer", 1, "кмс", new BigDecimal(10), 3);--%>
+    <%--Trainer trainer2 = new Trainer(3, "KostyKosty", "PyshykPyshyk", 53, "F",--%>
+                <%--"pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "2", 1, "кмс", new BigDecimal(10), 3);--%>
+    <%--Trainer trainer3 =  new Trainer(4, "Kirill", "Pavlov", 23, "M",--%>
+            <%--"vavl@gmail.com", "58bad6b697dff48f4927941962f23e90", "2", 2,"мс", new BigDecimal(20), 4);--%>
+        <%--List<Trainer> trainers = new ArrayList<>();--%>
+        <%--trainers.add(trainer1);--%>
+        <%--trainers.add(trainer2);--%>
+        <%--trainers.add(trainer3);--%>
+        <%--session.setAttribute("trainers", trainers);--%>
+    <%--%>--%>
+    <h3><fmt:message key="jsp.listOfTrainers" bundle="${var}"/>: </h3>
     <table style="text-align: center" border="1" width="80%" cellpadding="6">
         <tr>
             <th text-align="center"><fmt:message key="jsp.name" bundle="${var}"/></th>

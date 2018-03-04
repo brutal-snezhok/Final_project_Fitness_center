@@ -21,8 +21,8 @@ public class UserDAOImpl implements UserDAO {
 
     private static final String CREATE_USER_SQL_WITH_ID = "INSERT INTO `user` (`name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?);";
-    private static final String FIND_USER_BY_ID_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user`\n" +
-            "  LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`iduser` = ?;";
+    private static final String FIND_USER_BY_ID_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user` " +
+            "LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`iduser` = ?;";
 
     private static final String FIND_USER_BY_EMAIL_SQL = "SELECT `user`.`iduser`, `user`.`name`, `user`.`surname`, `user`.`years_old`, `user`.`sex`, `user`.`email`, `user`.`password`, `role_name` AS `role` FROM `user` " +
             "LEFT JOIN `role` ON `role`.`idrole` = `user`.`role_idrole` WHERE `user`.`email` = ?;";

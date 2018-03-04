@@ -18,12 +18,13 @@ public class HelloUserTag extends TagSupport {
     public int doStartTag() throws JspException {
         String locale = (String) pageContext.getSession().getAttribute("changeLanguage");
         Locale current = ("en_US".equals(locale)) ? new Locale("en", "US") : new Locale("ru", "RU");
-        ResourceBundle rb = ResourceBundle.getBundle("resource.locale", current);
+        ResourceBundle rb = ResourceBundle.getBundle("locale", current);
 
         StringBuffer stringBufferResult = new StringBuffer();
         if(user != null) {
             try {
-                stringBufferResult.append("<b>").append(user.getName()).append(" ").append(user.getSurname()).append("</b>").append("<br>");
+                stringBufferResult.append("<b>").append(user.getName()).append(" ").append(user.getSurname()).append("</b>").append("<br/>");
+                System.out.println(user.getRole());
                 if (user.getRole().equals("admin")) {
                     stringBufferResult.append("<i>").append(rb.getString("label.userRoleAdmin")).append("</i>");
                 } else if (user.getRole().equals("trainer")){
@@ -32,7 +33,7 @@ public class HelloUserTag extends TagSupport {
                 else{
                     stringBufferResult.append("<i>").append(rb.getString("label.userRoleClient")).append("</i>");
                 }
-                pageContext.getOut().write("<hr/>" + stringBufferResult.toString() + "<hr/>");
+                pageContext.getOut().write(stringBufferResult.toString());
             } catch (IOException e) {
                 throw new JspException(e.getMessage());
             }

@@ -6,16 +6,19 @@ import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.*;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
 import com.tsyrulik.dmitry.model.validator.SignUpValdator;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String PARAM_LOGIN = "login";
     private static final String PARAM_PASSWORD = "password";
     private static final String PATH_PAGE_LOGIN = "/jsp/login.jsp";
-    //private static final String PATH_PAGE_MAIN = "/jsp/main.jsp";
     private static final String PATH_PAGE_MAIN_CLIENT = "/jsp/client/client_cabinet.jsp";
     private static final String PATH_PAGE_MAIN_TRAINER = "/jsp/trainer/trainer_cabinet.jsp";
     private static final String PATH_PAGE_MAIN_ADMIN = "/jsp/admin/admin_page.jsp";
@@ -42,10 +45,12 @@ public class LoginCommand implements Command {
 
         if (SignUpValdator.isUserPasswordCorrect(passValue) && SignUpValdator.isUserEmailCorrect(loginValue)){
             try {
+
                     User user = receiver.checkUser(loginValue, passValue);
+                    request.getSession().setAttribute("user", user);
                     if (user != null){
                         List<Trainer> trainers = trainerReceiver.findAllTrainers();
-                        request.getSession(true).setAttribute("user", user);
+
                         request.getSession().setAttribute("trainers", trainers);
                         request.getSession().setAttribute("reviews", reviewReceiver.findAllReviews());
 
@@ -53,6 +58,7 @@ public class LoginCommand implements Command {
                             List<Client> clients = clientReceiver.findAllClients();
                             request.getSession().setAttribute("clients", clients);
                             page = PATH_PAGE_MAIN_ADMIN;
+                            LOGGER.log(Level.INFO, user.getEmail()+" log in");
                         }
                         else if (user.getRole().equals(UserType.TRAINER.getTypeName())){
                             Trainer trainer = trainerReceiver.findTrainerByEmail(loginValue);
@@ -69,6 +75,7 @@ public class LoginCommand implements Command {
 
                            request.getSession().setAttribute("clientInfList", clientInfList);
                             page = PATH_PAGE_MAIN_TRAINER;
+                            LOGGER.log(Level.INFO, user.getEmail()+" log in");
                         }
                         else{
                             Client client = clientReceiver.findClientByEmail(loginValue);
@@ -80,6 +87,7 @@ public class LoginCommand implements Command {
                             List<Exercises> exercises = clientReceiver.findAllExercisesForClients(client.getIdClient());
                             request.getSession().setAttribute("exercises", exercises);
                             page = PATH_PAGE_MAIN_CLIENT;
+                            LOGGER.log(Level.INFO, user.getEmail()+" log in");
                         }
                     }
                 else{
