@@ -9,6 +9,9 @@ import com.tsyrulik.dmitry.model.util.MD5;
 
 import java.util.List;
 
+/**
+ * The Class ClientReceiver.
+ */
 public class ClientReceiver {
 
     public void addClient(Client client) throws LogicFitnessException{

@@ -57,11 +57,12 @@ public class Controller extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + defaultPage);
                     LOGGER.log(Level.INFO, "Null page");
                 }
-                String page = commandPair.getPage();
 
-                //request.getSession().setAttribute("pagePath", page);
-                System.out.println(request.getContextPath() + page);
-                response.sendRedirect(request.getContextPath() + page);
+                    String page = commandPair.getPage();
+
+                    request.getSession().setAttribute("pagePath", page);
+                    response.sendRedirect(request.getContextPath() + page);
+
             }
 
         } catch (CommandFitnessException e) {

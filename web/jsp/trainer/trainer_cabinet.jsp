@@ -101,9 +101,9 @@
     <label>
         <input type="submit" name="actionFood" value="Delete food">
     </label>
-    <label>
-        <input type="submit" name="actionFood" value="Update food">
-    </label>
+    <%--<label>--%>
+        <%--<input type="submit" name="actionFood" value="Update food">--%>
+    <%--</label>--%>
     <br/><br/>
 
     <strong> <fmt:message key="jsp.muscleGroup" bundle="${var}"/></strong>
@@ -124,9 +124,9 @@
     <label>
         <input type="submit" name="actionExercise" value="Delete exercises">
     </label>
-    <label>
-        <input type="submit" name="actionExercise" value="Update exercises">
-    </label>
+    <%--<label>--%>
+        <%--<input type="submit" name="actionExercise" value="Update exercises">--%>
+    <%--</label>--%>
 </form>
 
 </body>

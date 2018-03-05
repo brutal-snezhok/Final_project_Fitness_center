@@ -72,7 +72,7 @@
                 <td>${exercise.muscleGroup}</td>
                 <td>${exercise.nameOfExercises}</td>
                 <td>${exercise.equipment}</td>
-                <td><input type="submit" value= "<fmt:message key="jsp.refusing" bundle="${var}"/>" ></td>
+                <td><input type="submit" value= "<fmt:message key="jsp.refusing" bundle="${var}"/>" name="Refuse"></td>
                </tr>
                 </c:forEach>
             </c:forEach>

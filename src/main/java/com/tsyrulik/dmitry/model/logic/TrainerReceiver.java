@@ -9,6 +9,9 @@ import com.tsyrulik.dmitry.model.util.MD5;
 
 import java.util.List;
 
+/**
+ * The Class TrainerReceiver.
+ */
 public class TrainerReceiver {
 
     public void addTrainer(Trainer trainer) throws LogicFitnessException{

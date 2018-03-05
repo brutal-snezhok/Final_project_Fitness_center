@@ -24,6 +24,13 @@ public class FoodExercisesCommand implements Command {
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         Client client = (Client) request.getSession(true).getAttribute("client");
+        String actionButton = request.getParameter("Refuse");
+        if(actionButton.equals("Отказ")){
+            actionButton = "Refuse";
+        }
+        if(actionButton.equals("Refuse")){
+            //удаляем
+        }
         String page;
         try {
             request.getSession().setAttribute(PARAM_EXERCISES,receiver.findAllExercisesForClients(client.getIdClient()));

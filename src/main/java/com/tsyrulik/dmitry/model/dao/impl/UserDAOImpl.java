@@ -204,28 +204,6 @@ public class UserDAOImpl implements UserDAO {
         }
         return string;
     }
-    @Override
-    public boolean updateByAdmin(User user) throws DAOFitnessException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BY_ADMIN_SQL);
-             PreparedStatement userRolePreparedStatement = connection.prepareStatement(FIND_ROLE_SQL)) {
-            userRolePreparedStatement.setString(1, user.getRole());
-            ResultSet userRoleResultSet = userRolePreparedStatement.executeQuery();
-
-            if (userRoleResultSet.next()) {
-                if (!userRoleResultSet.getString(DAOConstant.ROLE_ID_ROLE).equals(user.getRole())) {
-                   //TODO
-                }
-                //TODO
-
-                preparedStatement.executeUpdate();
-                return true;
-            }
-            return false;
-        } catch (SQLException | PoolFitnessException e) {
-            throw new DAOFitnessException(e);
-        }
-    }
 
     @Override
     public void deleteUser(long id) throws DAOFitnessException {

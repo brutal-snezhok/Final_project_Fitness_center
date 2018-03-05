@@ -8,6 +8,9 @@ import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 
 import java.util.List;
 
+/**
+ * The Class ReviewReceiver.
+ */
 public class ReviewReceiver {
 
     public List<Review> findAllReviews() throws LogicFitnessException {

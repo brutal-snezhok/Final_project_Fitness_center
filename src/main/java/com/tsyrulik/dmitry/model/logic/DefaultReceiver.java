@@ -1,5 +1,8 @@
 package com.tsyrulik.dmitry.model.logic;
 
+/**
+ * The Class DefaultReceiver.
+ */
 public final class DefaultReceiver {
     private String path = "/index.jsp";
 

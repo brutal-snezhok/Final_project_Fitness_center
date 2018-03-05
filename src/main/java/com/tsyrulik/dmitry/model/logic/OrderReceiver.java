@@ -8,6 +8,9 @@ import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 
 import java.util.List;
 
+/**
+ * The Class OrderReceiver.
+ */
 public class OrderReceiver {
 
     public void createOrder(Order order) throws LogicFitnessException {

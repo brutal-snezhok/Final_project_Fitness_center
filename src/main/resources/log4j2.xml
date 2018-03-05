@@ -4,7 +4,7 @@
         <console name="console" target="SYSTEM_OUT">
             <patternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{2} - %msg%n"/>
         </console>
-        <file name="file" fileName="/log/log.log">
+        <file name="file" fileName="/java tasks/Final_project_Fitness_center_Tsyrulik/log/log.log">
             <patternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{2} - %msg%n"/>
         </file>
     </appenders>

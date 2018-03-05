@@ -11,7 +11,7 @@
 </head>
 <%@ include file="/jsp/common/header.jsp" %>
 <body>
-<h1>Order page</h1>
+<h1><fmt:message key="label.orderPage" bundle="${var}"/></h1>
 <form name="orderPage" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="order"/>
     <h3><fmt:message key="jsp.listOfTrainers"  bundle="${var}"/></h3>

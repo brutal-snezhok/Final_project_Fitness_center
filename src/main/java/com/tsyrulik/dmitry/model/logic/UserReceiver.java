@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class UserReceiver.
+ */
 public class UserReceiver {
     private static final String ENGLISH_LOCALE = "en_US";
     private static final String RUSSIAN_LOCALE = "ru_RU";
