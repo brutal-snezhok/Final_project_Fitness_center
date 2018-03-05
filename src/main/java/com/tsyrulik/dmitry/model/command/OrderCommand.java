@@ -8,11 +8,14 @@ import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.OrderReceiver;
 import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
 import com.tsyrulik.dmitry.model.manager.MessageManager;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class OrderCommand implements Command {
-
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String ORDER_PAGE = "/jsp/client/order.jsp";
     private static final String PARAM_RADIO_TRAINER = "selectTrainer";
     private static final String PARAM_SELECT_MODE = "listOfModes";
@@ -41,9 +44,10 @@ public class OrderCommand implements Command {
             order.setIdClient(client.getIdClient());
             order.setIdTrainer(trainer.getIdTrainer());
             orderReceiver.createOrder(order);
+            LOGGER.log(Level.INFO,"Create order by " + client.getEmail());
 
             request.setAttribute("successfullOrder", MessageManager.getMessage("messages.orderDone"));
-           // request.getSession().setAttribute("order", orderReceiver.findAllOrders(client.getEmail()));
+
             page = ORDER_PAGE;
         }
         catch (LogicFitnessException e) {

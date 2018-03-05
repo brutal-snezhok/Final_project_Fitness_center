@@ -4,7 +4,6 @@
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <%@ page isELIgnored="false" %>
 <fmt:setBundle basename="locale" var="var"/>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${changeLanguage}"/>
 <html>
 <head>
@@ -39,6 +38,14 @@
                 <td>${clientInfList.client.yearOld}</td>
                 <td>${clientInfList.client.sex}</td>
                 <td>${clientInfList.client.email}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
                 <c:forEach items="${clientInfList.food}" var="food" varStatus="loop">
                     <tr>
                     <td></td>
@@ -71,7 +78,7 @@
                     <td>${exercises.equipment}</td>
                  </tr>
                 </c:forEach>
-               </tr>
+
             </c:forEach>
     </table>
 
@@ -89,13 +96,13 @@
         <input type="text" name="timeOfReceipt" value=""/>
     </label>
     <label>
-        <input type="submit" name="actionFood" value="<fmt:message key="button.addFood" bundle="${var}"/>">
+        <input type="submit" name="actionFood" value="Add food">
     </label>
     <label>
-        <input type="submit" name="actionFood" value="<fmt:message key="button.RemoveFood" bundle="${var}"/>">
+        <input type="submit" name="actionFood" value="Delete food">
     </label>
     <label>
-        <input type="submit" name="actionFood" value="<fmt:message key="button.UpdateFood" bundle="${var}"/>">
+        <input type="submit" name="actionFood" value="Update food">
     </label>
     <br/><br/>
 
@@ -112,13 +119,13 @@
        <input type="text" name="equipment" value=""/>
     </label>
     <label>
-        <input type="submit" name="actionExercise" value="<fmt:message key="button.addExercises" bundle="${var}"/>">
+        <input type="submit" name="actionExercise" value="Add exercises">
     </label>
     <label>
-        <input type="submit" name="actionExercise" value="<fmt:message key="button.RemoveExercises" bundle="${var}"/>">
+        <input type="submit" name="actionExercise" value="Delete exercises">
     </label>
     <label>
-        <input type="submit" name="actionExercise" value="<fmt:message key="button.UpdateExercises" bundle="${var}"/>">
+        <input type="submit" name="actionExercise" value="Update exercises">
     </label>
 </form>
 

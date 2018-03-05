@@ -55,6 +55,7 @@ public class Controller extends HttpServlet {
                 if (commandPair.getPage().isEmpty()) {
                     request.getSession().setAttribute("nullPage", localeManager.getMessage("messages.nullpage"));
                     response.sendRedirect(request.getContextPath() + defaultPage);
+                    LOGGER.log(Level.INFO, "Null page");
                 }
                 String page = commandPair.getPage();
 

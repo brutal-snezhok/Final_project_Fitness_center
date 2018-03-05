@@ -6,6 +6,9 @@ import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.ClientReceiver;
 import com.tsyrulik.dmitry.model.logic.TrainerReceiver;
 import com.tsyrulik.dmitry.model.util.ParserToLocalTime;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrainerCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String PARAM_FOOD = "food";
     private static final String PARAM_EXERCISES = "exercises";
     private static final String PARAM_CLIENTS = "clients";
@@ -82,12 +86,14 @@ public class TrainerCommand implements Command {
                     switch (actionButtonFood) {
                         case "Add food": {
                             food = trainerReceiver.createFoodForClient(food);
+                            LOGGER.log(Level.INFO,"Create food for client" + clients.get(i).getEmail());
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(), food.getIdFood(), clients.get(i).getIdClient()));
                             break;
                         }
                         case "Delete food": {
                             food = clientReceiver.findFoodForClient(clients.get(i).getIdClient());
                             trainerReceiver.deleteFoodById(food.getIdFood());
+                            LOGGER.log(Level.INFO,"Delete food for client" + clients.get(i).getEmail());
                             // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
                             break;
                         }
@@ -95,6 +101,7 @@ public class TrainerCommand implements Command {
                             food.setIdFood(appointment.get(0).getAppIdFood());
                             food = clientReceiver.findFoodForClient(clients.get(0).getIdClient());
                             trainerReceiver.updateFood(food);
+                            LOGGER.log(Level.INFO,"Update food for client" + clients.get(i).getEmail());
                             break;
                         }
                     }
@@ -104,18 +111,21 @@ public class TrainerCommand implements Command {
                     switch (actionButtonExercise) {
                         case "Add exercises": {
                             exercises = trainerReceiver.createExercisesForClient(exercises);
+                            LOGGER.log(Level.INFO,"Create exercises for client" + clients.get(i).getEmail());
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(),
                                     food.getIdFood(), clients.get(i).getIdClient()));
                             break;
                         }
                         case "Delete exercises": {
                             trainerReceiver.deleteExercisesById(exercises.getIdExercises());
+                            LOGGER.log(Level.INFO,"Delete exercises for client" + clients.get(i).getEmail());
                            // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
                             break;
                         }
                         case "Update exercises": {
                             exercises.setIdExercises(appointment.get(0).getAppIdExercises());
                             trainerReceiver.updateExercises(exercises);
+                            LOGGER.log(Level.INFO,"Update exercises for client" + clients.get(i).getEmail());
                             break;
                         }
                     }

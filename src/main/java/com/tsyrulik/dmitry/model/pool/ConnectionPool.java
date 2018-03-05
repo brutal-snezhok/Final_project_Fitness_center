@@ -120,6 +120,7 @@ public class ConnectionPool {
         try {
             connection = pool.take();
         } catch ( InterruptedException exc) {
+            LOGGER.log(Level.INFO, exc.getMessage());
             throw new PoolFitnessException(exc);
         }
         return connection;
@@ -129,6 +130,7 @@ public class ConnectionPool {
         try {
             pool.put(connection);
         } catch (InterruptedException exc) {
+            LOGGER.log(Level.INFO, exc.getMessage());
             throw new PoolFitnessException(exc);
         }
     }
@@ -138,6 +140,7 @@ public class ConnectionPool {
         try {
             connection.closeConnection();
         }catch (SQLException exc){
+            LOGGER.log(Level.INFO, exc.getMessage());
             throw new PoolFitnessException(exc);
         }
     }
@@ -150,6 +153,7 @@ public class ConnectionPool {
             }
             pool = new ArrayBlockingQueue<>(POOL_SIZE);
         } catch (SQLException e) {
+            LOGGER.log(Level.INFO, e.getMessage());
             throw new PoolFitnessException(e);
         }
     }

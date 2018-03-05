@@ -1,7 +1,6 @@
 package com.tsyrulik.dmitry.model.command;
 
 import com.tsyrulik.dmitry.model.entity.Client;
-import com.tsyrulik.dmitry.model.entity.User;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.ReviewReceiver;
@@ -20,7 +19,6 @@ public class DeleteReviewCommand implements Command{
     private static final String PARAM_USER = "user";
     private static final String PARAM_ERROR_MESSAGE = "MessageReview";
     private static final String PATH_PAGE_REVIEW = "/jsp/client/review.jsp";
-    private static final String PATH_ADMIN_REVIEW = "/jsp/admin/adminReview.jsp";
 
     private ReviewReceiver receiver;
 
@@ -31,7 +29,6 @@ public class DeleteReviewCommand implements Command{
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandFitnessException {
         String page;
-        User user = (User)request.getSession().getAttribute(PARAM_USER);
         Client client = (Client) request.getSession().getAttribute(PARAM_CLIENT);
         int reviewId = Integer.valueOf(request.getParameter(PARAM_REVIEW_ID));
         request.getSession().setAttribute(PARAM_ERROR_MESSAGE, null);

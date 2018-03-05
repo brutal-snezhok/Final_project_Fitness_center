@@ -4,11 +4,15 @@ import com.tsyrulik.dmitry.model.entity.Client;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.ClientReceiver;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 public class AdminClientCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String PARAM_CLIENTS = "clients";
     private static final String ADMIN_PAGE = "/jsp/admin/admin_page.jsp";
     private ClientReceiver receiverClient;
@@ -38,6 +42,7 @@ public class AdminClientCommand implements Command {
             if(checkboxClient != null){
                 for (int i = 0; i < checkboxClient.length; i++){
                     Client currentClient = receiverClient.findClientByEmail(checkboxClient[i]);
+                    LOGGER.log(Level.INFO,"Find client" + currentClient);
                     clients.add(currentClient);
                 }
             }
@@ -45,6 +50,7 @@ public class AdminClientCommand implements Command {
             for(int i = 0; i < clients.size(); i++) {
                 if (actionButtonRemoveClient != null) {
                     receiverClient.deleteClient(clients.get(i).getIdClient());
+                    LOGGER.log(Level.INFO,"Delete client");
                 }
 
                 if (actionButtonUpdateClient!= null){
@@ -59,6 +65,7 @@ public class AdminClientCommand implements Command {
                     client.setYearOld(Integer.parseInt(yearsOld));
                     client.setSex(sex);
                     receiverClient.updateClient(client);
+                    LOGGER.log(Level.INFO,"Update client");
                 }
             }
 
