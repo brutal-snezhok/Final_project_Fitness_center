@@ -199,10 +199,21 @@ public class TrainerDAOImpl implements TrainerDAO {
     public void createAppointmentForClient(Appointment appointment) throws DAOFitnessException {
         try(Connection connection = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_APPOINTMET_FOR_CLIENT)){
-            preparedStatement.setLong(1, appointment.getAppIdExercises());
-            preparedStatement.setLong(2, appointment.getAppIdFood());
-            preparedStatement.setLong(3, appointment.getAppIdClient());
-            preparedStatement.executeUpdate();
+            if(appointment.getAppIdExercises().equals(new Long(-1))){
+                preparedStatement.setString(1, null);
+            }
+            else {
+                preparedStatement.setLong(1, appointment.getAppIdExercises());
+            }
+            if (appointment.getAppIdFood().equals(new Long(-1))){
+                preparedStatement.setString(2, null);
+            }
+            else{
+                preparedStatement.setLong(2, appointment.getAppIdFood());
+            }
+                preparedStatement.setLong(3, appointment.getAppIdClient());
+                preparedStatement.executeUpdate();
+
 
         } catch (SQLException e) {
             throw new DAOFitnessException(e);

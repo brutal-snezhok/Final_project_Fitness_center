@@ -72,17 +72,14 @@
     <column id="28" parent="10" name="exercises_idexercises">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="29" parent="10" name="food_idfood">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="30" parent="10" name="client_idclient">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <key id="31" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>

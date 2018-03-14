@@ -59,7 +59,6 @@ public class Controller extends HttpServlet {
                 }
 
                     String page = commandPair.getPage();
-
                     request.getSession().setAttribute("pagePath", page);
                     response.sendRedirect(request.getContextPath() + page);
 

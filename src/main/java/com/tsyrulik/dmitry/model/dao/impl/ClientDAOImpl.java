@@ -44,6 +44,10 @@ public class ClientDAOImpl implements ClientDAO {
             "LEFT JOIN `exercises` ON `exercises`.`idexercises`=`appointments`.`exercises_idexercises` WHERE `client`.`idclient`=?;";
     private static final String FIND_APPOINTMENT_FOR_CLIENT = "SELECT `idappointments`, `exercises_idexercises`, `food_idfood`, `client_idclient` " +
             "FROM `appointments` WHERE client_idclient=?;";
+    private static final String FIND_APPOINTMENT_FOR_CLIENT_BY_ID_EXERCISES = "SELECT `idappointments`, `exercises_idexercises`, `food_idfood`, `client_idclient` " +
+            "FROM `appointments` WHERE `exercises_idexercises`=?;";
+    private static final String FIND_APPOINTMENT_FOR_CLIENT_BY_ID_FOOD = "SELECT `idappointments`, `exercises_idexercises`, `food_idfood`, `client_idclient` " +
+            "FROM `appointments` WHERE `food_idfood`=?;";
     private static final String FIND_EXERCISE_BY_NAME_EXERCISE = "SELECT `idexercises`, `muscle_group`, `names_of_exercises`, `equipment` " +
             "FROM `exercises` WHERE `names_of_exercises`=?;";
 

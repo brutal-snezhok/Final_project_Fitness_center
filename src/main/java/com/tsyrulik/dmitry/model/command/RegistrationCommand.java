@@ -1,9 +1,6 @@
 package com.tsyrulik.dmitry.model.command;
 
-import com.tsyrulik.dmitry.model.entity.Client;
-import com.tsyrulik.dmitry.model.entity.Trainer;
-import com.tsyrulik.dmitry.model.entity.User;
-import com.tsyrulik.dmitry.model.entity.UserType;
+import com.tsyrulik.dmitry.model.entity.*;
 import com.tsyrulik.dmitry.model.exception.CommandFitnessException;
 import com.tsyrulik.dmitry.model.exception.LogicFitnessException;
 import com.tsyrulik.dmitry.model.logic.ClientReceiver;
@@ -54,6 +51,7 @@ public class RegistrationCommand implements Command {
                 request.getSession(true).setAttribute("client", client);
                 try {
                     clientReceiver.addClient(client);
+                    trainerReceiver.createAppointmentsForClient(new Appointment(clientReceiver.findClientByEmail(emailValue).getIdClient()));
                 } catch (LogicFitnessException e) {
                     throw new CommandFitnessException(e);
                 }

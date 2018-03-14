@@ -12,9 +12,7 @@
     <%@ include file="/jsp/common/header.jsp" %>
 </head>
 <body>
-<%--<header>--%>
-    <%--<c:import url="/jsp/common/header.jsp" />--%>
-<%--</header>--%>
+
 <form name="loginForm" method="POST" action="${pageContext.request.contextPath}/jsp/controller">
     <input type="hidden" name="command" value="login"/>
     <fmt:message key = "jsp.login.login" bundle="${var}"/><br/>
@@ -27,7 +25,7 @@
     </label>
     <br/><input type="submit" value="<fmt:message key = "jsp.login.submit" bundle="${var}"/>">
     <lablel>
-    <a href="/jsp/register.jsp"><fmt:message key = "jsp.login.signup" bundle="${var}"/></a>
+    <a href="${pageContext.request.contextPath}/jsp/register.jsp"><fmt:message key = "jsp.login.signup" bundle="${var}"/></a>
     </lablel>
 
     <br/> ${successMessage} <br/> ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} <br/>
