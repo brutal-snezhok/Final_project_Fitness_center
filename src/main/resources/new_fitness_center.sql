@@ -90,13 +90,16 @@ CREATE TABLE IF NOT EXISTS `new_fitness_center`.`trainer` (
 DROP TABLE IF EXISTS `new_fitness_center`.`order_client` ;
 
 CREATE TABLE IF NOT EXISTS `new_fitness_center`.`order_client` (
-  `idorder` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `idorder` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `type_of_training` VARCHAR(45) NOT NULL COMMENT 'тип тренировки',
-  `cost_of_lessons` DECIMAL NULL COMMENT 'итоговая сумма,сколько клиент должен заплатить фитнесс-центру.высчитывается автоматически',
-  `client_idclient` INT NOT NULL,
-  `trainer_idtrainer` INT NOT NULL,
+  `cost_of_lessons` DECIMAL(10,0) NULL DEFAULT NULL COMMENT 'итоговая сумма,сколько клиент должен заплатить фитнесс-центру.высчитывается автоматически',
+  `client_idclient` INT(11) NOT NULL,
+  `trainer_idtrainer` INT(11) NOT NULL,
+  `number_of_lessons` INT(11) NULL DEFAULT '1',
   PRIMARY KEY (`idorder`))
   ENGINE = InnoDB
+  AUTO_INCREMENT = 40
+  DEFAULT CHARACTER SET = utf8
   COMMENT = 'таблица заказа клиента';
 
 
