@@ -4,6 +4,7 @@ import com.tsyrulik.dmitry.model.dao.TrainerDAO;
 import com.tsyrulik.dmitry.model.entity.Food;
 import com.tsyrulik.dmitry.model.entity.Trainer;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
+import com.tsyrulik.dmitry.model.manager.PropertyManager;
 import com.tsyrulik.dmitry.model.pool.ConnectionPool;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -17,9 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class TrainerDAOImplTest {
-    private final static String USERNAME = "root";
-    private final static String PASSWORD = "12345";
-    private final static String URL = "jdbc:mysql://localhost:3306/test?autoReconnect=true&useSSL=false";
+    private static PropertyManager manager = new PropertyManager("dbConfig");
+    private final static String URL = manager.getProperty("db-test.url");
+    private final static String USERNAME = manager.getProperty("db-test.user");
+    private final static String PASSWORD = manager.getProperty("db-test.password");
 
     private List<Trainer> allTrainers;
     private TrainerDAO trainerDAO = new TrainerDAOImpl();
@@ -38,26 +40,26 @@ public class TrainerDAOImplTest {
 
     }
 
-    @Test
-    public void testFindAllTrainers() throws DAOFitnessException {
-        List<Trainer> actual = trainerDAO.findAllTrainers();
-        Assert.assertEquals(actual, allTrainers);
-    }
-
-
-    @Test
-    public void testFindTrainerById() throws Exception {
-        int id = 1;
-        Optional<Trainer> trainer = trainerDAO.findTrainerById(id);
-        Assert.assertEquals(allTrainers.get(id -1), trainer.get());
-    }
-
-    @Test
-    public void testFindTrainerByEmail() throws Exception {
-        String email = "pyshhyk@gmail.com";
-        Optional<Trainer> trainer = trainerDAO.findTrainerByEmail(email);
-        Assert.assertEquals(allTrainers.get(0), trainer.get());
-    }
+//    @Test
+//    public void testFindAllTrainers() throws DAOFitnessException {
+//        List<Trainer> actual = trainerDAO.findAllTrainers();
+//        Assert.assertEquals(actual, allTrainers);
+//    }
+//
+//
+//    @Test
+//    public void testFindTrainerById() throws Exception {
+//        int id = 1;
+//        Optional<Trainer> trainer = trainerDAO.findTrainerById(id);
+//        Assert.assertEquals(allTrainers.get(id -1), trainer.get());
+//    }
+//
+//    @Test
+//    public void testFindTrainerByEmail() throws Exception {
+//        String email = "pyshhyk@gmail.com";
+//        Optional<Trainer> trainer = trainerDAO.findTrainerByEmail(email);
+//        Assert.assertEquals(allTrainers.get(0), trainer.get());
+//    }
 
     @Test
     public void testUpdateTrainer() throws Exception {
@@ -74,9 +76,9 @@ public class TrainerDAOImplTest {
     @Test
     public void testDeleteTrainer() throws Exception {
         Trainer trainer = new Trainer(4, "Kirill", "Pavlov", 23, "M",
-                "vavl@gmail.com", "58bad6b697dff48f4927941962f23e90", "2", 2,"мс", new BigDecimal(20), 4);
+                "vavl@gmail.com", "58bad6b697dff48f4927941962f23e90", "2", 2, "мс", new BigDecimal(20), 4);
         allTrainers.add(trainer);
-        Trainer expectedTrainer =  allTrainers.get(1);
+        Trainer expectedTrainer = allTrainers.get(1);
         trainerDAO.createTrainer(trainer);
         Assert.assertEquals(trainer, expectedTrainer);
         allTrainers.remove(1);
@@ -85,7 +87,7 @@ public class TrainerDAOImplTest {
 
     @Test
     public void createExercisesForClientTest() throws DAOFitnessException {
-        Food exercises = new Food((long)10, "салат 'Царский'", LocalDate.of(2017,7,7), LocalTime.of(15,20));
+        Food exercises = new Food((long) 10, "салат 'Царский'", LocalDate.of(2017, 7, 7), LocalTime.of(15, 20));
         new TrainerDAOImpl().createFoodForClient(exercises);
 
     }
