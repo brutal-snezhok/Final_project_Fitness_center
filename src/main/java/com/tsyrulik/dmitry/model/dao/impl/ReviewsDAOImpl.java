@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReviewsDAOImpl implements ReviewsDAO{
+public class ReviewsDAOImpl implements ReviewsDAO {
     private static final String SQL_SELECT_REVIEWS =
             "SELECT `idreviews`, `client_idclient`, `text_review`, `mark` FROM `reviews`;";
 
@@ -20,6 +20,8 @@ public class ReviewsDAOImpl implements ReviewsDAO{
 
     private static final String SQL_DELETE_REVIEW =
             "DELETE FROM `reviews` WHERE `idreviews`=?;";
+
+    private static final String DELETE_ALL = "DELETE FROM reviews where reviews.idreviews > 0;";
 
 
     @Override
@@ -39,9 +41,8 @@ public class ReviewsDAOImpl implements ReviewsDAO{
     }
 
     private Review createReviewFromResult(ResultSet resultSet) throws SQLException {
-        Review review = new Review(resultSet.getInt(1),resultSet.getInt(2),
+        return new Review(resultSet.getInt(1), resultSet.getInt(2),
                 resultSet.getString(3), resultSet.getInt(4));
-        return review;
     }
 
     @Override
@@ -70,5 +71,15 @@ public class ReviewsDAOImpl implements ReviewsDAO{
             throw new DAOFitnessException(e);
         }
 
+    }
+
+    @Override
+    public void deleteAll() throws DAOFitnessException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
     }
 }

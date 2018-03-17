@@ -35,4 +35,6 @@ public interface ReviewsDAO {
      * @throws DAOFitnessException the dao fitness exception
      */
     void deleteReview(int reviewId) throws DAOFitnessException;
+
+    void deleteAll()  throws DAOFitnessException;
 }

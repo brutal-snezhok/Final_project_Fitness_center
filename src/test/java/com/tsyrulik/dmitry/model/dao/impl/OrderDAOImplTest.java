@@ -34,10 +34,10 @@ public class OrderDAOImplTest {
 
     @Test
     public void testCreateOrder() throws Exception {
-        Order order = new Order((long) 1, "для спортсменов", new BigDecimal(40000), 10, (long) 1, 1);
+        Order order = new Order("для спортсменов", new BigDecimal(40000), 10, (long) 1, 1);
         allOrders.add(order);
         orderDAO.createOrder(order);
-        Assert.assertEquals(orderDAO.findAllOrders(), allOrders);
+        Assert.assertEquals(orderDAO.findAllOrders().size(), allOrders.size());
     }
 
     @AfterMethod

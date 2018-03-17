@@ -71,5 +71,6 @@ public interface UserDAO {
      */
     void deleteUser(long id) throws DAOFitnessException;
 
+    void deleteAll()  throws DAOFitnessException;
 
 }

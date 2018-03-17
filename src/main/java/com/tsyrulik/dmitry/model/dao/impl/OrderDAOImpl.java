@@ -22,6 +22,7 @@ public class OrderDAOImpl implements OrderDAO {
             "INNER JOIN client ON `client`.`idclient`=`order_client`.`client_idclient` INNER JOIN `user` ON `client`.`user_iduser`=`user`.`iduser` WHERE `user`.`email` = ?;";
     private static final String UPDATE_ORDER = "UPDATE `order_client` SET `idorder`=?, `type_of_training`=?,`number_of_lessons`=?,`client_idclient`=?,`trainer_idtrainer`=? WHERE `idorder`=?;";
     private static final String DELETE_ORDER_BY_ID = "DELETE FROM `order_client` WHERE `idorder`=?;";
+    private static final String DELETE_ALL = "DELETE FROM order_client where idorder > 0;";
 
     @Override
     public void createOrder(Order order) throws DAOFitnessException {
@@ -31,7 +32,7 @@ public class OrderDAOImpl implements OrderDAO {
             preparedStatement.setString(1, order.getTypeOfTraining());
             preparedStatement.setLong(2, order.getIdClient());
             preparedStatement.setInt(3, order.getIdTrainer());
-            preparedStatement.setInt(4,order.getNumber_of_lessons());
+            preparedStatement.setInt(4, order.getNumber_of_lessons());
 
             preparedStatement.executeUpdate();
 
@@ -128,6 +129,16 @@ public class OrderDAOImpl implements OrderDAO {
 
             preparedStatement.executeUpdate();
 
+        } catch (SQLException | PoolFitnessException e) {
+            throw new DAOFitnessException(e);
+        }
+    }
+
+    @Override
+    public void deleteAll() throws DAOFitnessException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL)) {
+            preparedStatement.executeUpdate();
         } catch (SQLException | PoolFitnessException e) {
             throw new DAOFitnessException(e);
         }
