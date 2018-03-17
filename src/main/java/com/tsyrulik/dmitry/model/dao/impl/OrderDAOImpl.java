@@ -45,7 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
     private Order createOrderFromResult(ResultSet resultSet) throws SQLException {
         return new Order(resultSet.getInt(DAOConstant.ID_ORDER), resultSet.getString(DAOConstant.TYPE_OF_TRAINING),
                 resultSet.getBigDecimal(DAOConstant.COST_OF_LESSONS), resultSet.getInt(DAOConstant.NUMBER_OF_LESSONS),
-                resultSet.getInt(DAOConstant.CLIENT_ID_CLIENT), resultSet.getInt(DAOConstant.TRAINER_ID_TRAINER));
+                resultSet.getInt("order_client_idclient"), resultSet.getInt("order_trainer_idtrainer"));
     }
 
     @Override

@@ -88,7 +88,7 @@ public class TrainerDAOImplTest {
 
     @Test
     public void createExercisesForClientTest() throws DAOFitnessException {
-        Food exercises = new Food((long) 10, "салат 'Царский'", LocalDate.of(2017, 7, 7), LocalTime.of(15, 20));
+        Food exercises = new Food( 10, "салат 'Царский'", LocalDate.of(2017, 7, 7), LocalTime.of(15, 20));
         new TrainerDAOImpl().createFoodForClient(exercises);
 
     }

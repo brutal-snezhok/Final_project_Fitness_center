@@ -1,6 +1,7 @@
 package com.tsyrulik.dmitry.model.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable, Cloneable {
     private int idUser;
@@ -106,30 +107,21 @@ public class User implements Serializable, Cloneable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-
-        if (idUser != user.idUser) return false;
-        if (yearOld != user.yearOld) return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
-        if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return role != null ? role.equals(user.role) : user.role == null;
+        return idUser == user.idUser &&
+                yearOld == user.yearOld &&
+                role == user.role &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname) &&
+                Objects.equals(sex, user.sex) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (idUser ^ (idUser >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + yearOld;
-        result = 31 * result + (sex != null ? sex.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        return result;
+
+        return Objects.hash(idUser, name, surname, yearOld, sex, email, password, role);
     }
 
     @Override

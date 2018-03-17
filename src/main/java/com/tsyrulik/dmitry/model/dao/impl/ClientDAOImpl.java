@@ -59,11 +59,13 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     public void createClient(Client client) throws DAOFitnessException {
         User user = createUserFromClient(client);
-        user = new UserDAOImpl().createWithMaxId(user);
+        UserDAOImpl userDAO = new UserDAOImpl();
+        userDAO.create(user);
+
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_CLIENT_SQL)) {
             preparedStatement.setDouble(1, client.getDiscount());
-            preparedStatement.setLong(2, user.getIdUser());
+            preparedStatement.setInt(2, user.getIdUser());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

@@ -56,7 +56,21 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(4, user.getSex());
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setString(6, user.getPassword());
-            preparedStatement.setString(7, user.getRole());
+            int role = 3;
+            switch (user.getRole()) {
+                case "client":
+                    role = 3;
+                    break;
+                case "trainer":
+                    role = 2;
+                    break;
+                case "admin":
+                    role = 1;
+                    break;
+                default:
+                    role = 3;
+            }
+            preparedStatement.setInt(7, role);
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = prestatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -81,7 +95,21 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(4, user.getSex());
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setString(6, user.getPassword());
-            preparedStatement.setString(7, user.getRole());
+            int role = 3;
+            switch (user.getRole()) {
+                case "client":
+                    role = 3;
+                    break;
+                case "trainer":
+                    role = 2;
+                    break;
+                case "admin":
+                    role = 1;
+                    break;
+                default:
+                    role = 3;
+            }
+            preparedStatement.setInt(7, role);
 
             preparedStatement.executeUpdate();
         } catch (SQLException | PoolFitnessException e) {
@@ -237,5 +265,4 @@ public class UserDAOImpl implements UserDAO {
             throw new DAOFitnessException(e);
         }
     }
-
 }

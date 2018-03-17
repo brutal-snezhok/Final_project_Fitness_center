@@ -3,6 +3,7 @@ package com.tsyrulik.dmitry.model.dao.impl;
 import com.tsyrulik.dmitry.model.dao.ClientDAO;
 import com.tsyrulik.dmitry.model.dao.OrderDAO;
 import com.tsyrulik.dmitry.model.dao.TrainerDAO;
+import com.tsyrulik.dmitry.model.dao.UserDAO;
 import com.tsyrulik.dmitry.model.entity.Client;
 import com.tsyrulik.dmitry.model.entity.Order;
 import com.tsyrulik.dmitry.model.entity.Trainer;
@@ -31,6 +32,7 @@ public class OrderDAOImplTest {
     private OrderDAO orderDAO = new OrderDAOImpl();
     private ClientDAO clientDAO = new ClientDAOImpl();
     private TrainerDAO trainerDAO = new TrainerDAOImpl();
+    private UserDAO userDAO = new UserDAOImpl();
 
     @BeforeClass
     public void setUp() throws Exception {
@@ -39,19 +41,22 @@ public class OrderDAOImplTest {
         ConnectionPool.getInstance(1);
     }
 
-    @BeforeMethod
-    public void testCreateOrderSetUp() throws DAOFitnessException {
-        clientDAO.createClient(new Client(1, "Pety", "Saplov", 23, "M",
-                "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long) 1,
-                (double) 15, (long) 2));
-        trainerDAO.createTrainer(new Trainer(3, "Kosty", "Pyshyk", 35, "M",
-                "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer", 1,
-                "кмс", new BigDecimal(10), 3));
-    }
+//    @BeforeMethod
+//    public void testCreateOrderSetUp() throws DAOFitnessException {
+//
+//
+//        clientDAO.createClient(new Client(100, "Pety", "Saplov", 23, "M",
+//                "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", 100,
+//                (double) 15, 1));
+//
+//        trainerDAO.createTrainer(new Trainer(100, "Kosty", "Pyshyk", 35, "M",
+//                "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer", 100,
+//                "кмс", new BigDecimal(10), 100));
+//    }
 
     @Test
     public void testCreateOrder() throws DAOFitnessException {
-        Order order = new Order("для спортсменов", new BigDecimal(40000), 10, (long) 1, 1);
+        Order order = new Order("для спортсменов", new BigDecimal(40000), 10, 1, 1);
         allOrders.add(order);
         orderDAO.createOrder(order);
         Assert.assertEquals(orderDAO.findAllOrders().size(), allOrders.size());
@@ -61,8 +66,9 @@ public class OrderDAOImplTest {
     public void afterCreateOrder() throws DAOFitnessException {
         allOrders.clear();
         orderDAO.deleteAll();
-        clientDAO.deleteAll();
-        trainerDAO.deleteAll();
+//        clientDAO.deleteAll();
+//        trainerDAO.deleteAll();
+//        userDAO.deleteAll();
     }
 
 //    @Test
