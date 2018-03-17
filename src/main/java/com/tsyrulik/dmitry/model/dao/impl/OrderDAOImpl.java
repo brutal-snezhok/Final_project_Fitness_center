@@ -19,7 +19,7 @@ public class OrderDAOImpl implements OrderDAO {
     private static final String FIND_ALL_ORDERS_SQL = "SELECT `idorder`,`type_of_training`, `cost_of_lessons`, `number_of_lessons`,`order_client_idclient`,`order_trainer_idtrainer` FROM `order_client` ORDER BY `idorder`;";
     private static final String FIND_ORDER_BY_ID_SQL = "SELECT `idorder`, `type_of_training`,`number_of_lessons`,`order_client_idclient`,`order_trainer_idtrainer` FROM `order_client` WHERE `idorder` = ?;";
     private static final String FIND_ORDER_BY_EMAIL_SQL = "SELECT `idorder`, `type_of_training`, `number_of_lessons`,`order_client_idclient`,`order_trainer_idtrainer` FROM `order_client` " +
-            "INNER JOIN client ON `client`.`idclient`=`order_client`.`order_client_idclient` INNER JOIN `user` ON `client`.`user_iduser`=`user`.`iduser` WHERE `user`.`email` = ?;";
+            "INNER JOIN client ON `client`.`idclient`=`order_client`.`order_client_idclient` INNER JOIN `user` ON `client`.`client_user_iduser`=`user`.`iduser` WHERE `user`.`email` = ?;";
     private static final String UPDATE_ORDER = "UPDATE `order_client` SET `idorder`=?, `type_of_training`=?,`number_of_lessons`=?,`order_client_idclient`=?,`order_trainer_idtrainer`=? WHERE `idorder`=?;";
     private static final String DELETE_ORDER_BY_ID = "DELETE FROM `order_client` WHERE `idorder`=?;";
     private static final String DELETE_ALL = "DELETE FROM order_client WHERE idorder > 0;";
@@ -30,7 +30,7 @@ public class OrderDAOImpl implements OrderDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_ORDER_SQL)) {
 
             preparedStatement.setString(1, order.getTypeOfTraining());
-            preparedStatement.setBigDecimal(2,order.getCostOfLessons());
+            preparedStatement.setBigDecimal(2, order.getCostOfLessons());
             preparedStatement.setLong(3, order.getIdClient());
             preparedStatement.setInt(4, order.getIdTrainer());
             preparedStatement.setInt(5, order.getNumber_of_lessons());
@@ -43,9 +43,9 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     private Order createOrderFromResult(ResultSet resultSet) throws SQLException {
-        return new Order(resultSet.getLong(DAOConstant.ID_ORDER), resultSet.getString(DAOConstant.TYPE_OF_TRAINING),
+        return new Order(resultSet.getInt(DAOConstant.ID_ORDER), resultSet.getString(DAOConstant.TYPE_OF_TRAINING),
                 resultSet.getBigDecimal(DAOConstant.COST_OF_LESSONS), resultSet.getInt(DAOConstant.NUMBER_OF_LESSONS),
-                resultSet.getLong(DAOConstant.CLIENT_ID_CLIENT), resultSet.getInt(DAOConstant.TRAINER_ID_TRAINER));
+                resultSet.getInt(DAOConstant.CLIENT_ID_CLIENT), resultSet.getInt(DAOConstant.TRAINER_ID_TRAINER));
     }
 
     @Override

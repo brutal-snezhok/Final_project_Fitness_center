@@ -13,15 +13,15 @@ import java.util.List;
 
 public class ReviewsDAOImpl implements ReviewsDAO {
     private static final String SQL_SELECT_REVIEWS =
-            "SELECT `idreviews`, `client_idclient`, `text_review`, `mark` FROM `reviews`;";
+            "SELECT `idreviews`, `reviews_client_idclient`, `text_review`, `mark` FROM `reviews`;";
 
     private static final String SQL_INSERT_REVIEW =
-            "INSERT INTO `reviews` (`client_idclient`, `text_review`, `mark`) VALUES (?, ?, ?);";
+            "INSERT INTO `reviews` (`reviews_client_idclient`, `text_review`, `mark`) VALUES (?, ?, ?);";
 
     private static final String SQL_DELETE_REVIEW =
             "DELETE FROM `reviews` WHERE `idreviews`=?;";
 
-    private static final String DELETE_ALL = "DELETE FROM reviews where reviews.idreviews > 0;";
+    private static final String DELETE_ALL = "DELETE FROM reviews WHERE reviews.idreviews > 0;";
 
 
     @Override
@@ -29,10 +29,12 @@ public class ReviewsDAOImpl implements ReviewsDAO {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeQuery(SQL_SELECT_REVIEWS);
-            ResultSet resultSet = statement.getResultSet();
-            List<Review> reviewsList = new ArrayList<>();
-            while (resultSet.next()) {
-                reviewsList.add(createReviewFromResult(resultSet));
+            List<Review> reviewsList;
+            try (ResultSet resultSet = statement.getResultSet()) {
+                reviewsList = new ArrayList<>();
+                while (resultSet.next()) {
+                    reviewsList.add(createReviewFromResult(resultSet));
+                }
             }
             return reviewsList;
         } catch (SQLException | PoolFitnessException e) {

@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class TrainerDAOImpl implements TrainerDAO {
-    private static final String CREATE_TRAINER_SQL = "INSERT INTO `trainer` (`education_or_level`, `cost_per_lesson`, `user_iduser`)  VALUES (?, ?, ?);";
-    private static final String FIND_ALL_TRAINERS_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.user_iduser=user.iduser";
-    private static final String FIND_TRAINER_BY_ID_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.user_iduser=user.iduser WHERE `trainer`.`idtrainer` = ?;";
-    private static final String FIND_TRAINER_BY_EMAIL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.user_iduser=user.iduser WHERE `user`.`email`=?;";
-    private static final String UPDATE_TRAINER_SQL = "UPDATE `trainer` SET `trainer`.`idtrainer`=?, `education_or_level`=?, `cost_per_lesson`=?  WHERE `user_iduser`=?;";
-    private static final String SELECT_USER_FROM_TRAINER_TABLE = "SELECT `user_iduser` FROM `trainer` WHERE idtrainer=?;";
+    private static final String CREATE_TRAINER_SQL = "INSERT INTO `trainer` (`education_or_level`, `cost_per_lesson`, `trainer_user_iduser`)  VALUES (?, ?, ?);";
+    private static final String FIND_ALL_TRAINERS_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.trainer_user_iduser=user.iduser";
+    private static final String FIND_TRAINER_BY_ID_SQL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.trainer_user_iduser=user.iduser WHERE `trainer`.`idtrainer` = ?;";
+    private static final String FIND_TRAINER_BY_EMAIL = "SELECT `user`.`iduser`, `name`, `surname`, `years_old`, `sex`, `email`, `password`, `role_idrole`, `idtrainer`, `education_or_level`,`cost_per_lesson`,`user_iduser` FROM `user` INNER JOIN `trainer` ON trainer.trainer_user_iduser=user.iduser WHERE `user`.`email`=?;";
+    private static final String UPDATE_TRAINER_SQL = "UPDATE `trainer` SET `trainer`.`idtrainer`=?, `education_or_level`=?, `cost_per_lesson`=?  WHERE `trainer_user_iduser`=?;";
+    private static final String SELECT_USER_FROM_TRAINER_TABLE = "SELECT `trainer_user_iduser` FROM `trainer` WHERE idtrainer=?;";
     private static final String DELETE_TRAINER_BY_ID = "DELETE FROM `trainer` WHERE `idtrainer`=?;";
     private static final String CREATE_FOOD_FOR_CLIENT = "INSERT INTO `food` (`name_of_dish`, `data_receipt`, `time_of_receipt`) VALUES (?, ?, ?);";
     private static final String CREATE_EXERCISES_FOR_CLIENT = "INSERT INTO `exercises` (`muscle_group`,`names_of_exercises`,`equipment`) VALUES (?, ?, ?);";
@@ -33,7 +33,7 @@ public class TrainerDAOImpl implements TrainerDAO {
     private static final String SELECT_MAX_ID_EXERCISE = "SELECT max(`idexercises`) FROM `exercises`;";
     private static final String SELECT_MAX_ID_FOOD = "SELECT max(`idfood`) FROM `food`;";
     private static final String SELECT_MAX_ID_TRAINER = "SELECT max(`idtrainer`) FROM `trainer`;";
-    private static final String DELETE_ALL = "DELETE FROM trainer where trainer.idtrainer > 0;";
+    private static final String DELETE_ALL = "DELETE FROM trainer WHERE trainer.idtrainer > 0;";
 
     @Override
     public void createTrainer(Trainer trainer) throws DAOFitnessException {
@@ -176,7 +176,7 @@ public class TrainerDAOImpl implements TrainerDAO {
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = prestatement.executeQuery()) {
                 if (resultSet.next()) {
-                    food.setIdFood(resultSet.getLong(1));
+                    food.setIdFood(resultSet.getInt(1));
                 }
             }
             return food;
@@ -196,7 +196,7 @@ public class TrainerDAOImpl implements TrainerDAO {
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = prestatement.executeQuery()) {
                 if (resultSet.next()) {
-                    exercises.setIdExercises(resultSet.getLong(1));
+                    exercises.setIdExercises(resultSet.getInt(1));
                 }
             }
             return exercises;
@@ -209,12 +209,12 @@ public class TrainerDAOImpl implements TrainerDAO {
     public void createAppointmentForClient(Appointment appointment) throws DAOFitnessException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_APPOINTMET_FOR_CLIENT)) {
-            if (appointment.getAppIdExercises().equals((long) -1)) {
+            if (appointment.getAppIdExercises() == -1) {
                 preparedStatement.setString(1, null);
             } else {
                 preparedStatement.setLong(1, appointment.getAppIdExercises());
             }
-            if (appointment.getAppIdFood().equals((long) -1)) {
+            if (appointment.getAppIdFood() == -1) {
                 preparedStatement.setString(2, null);
             } else {
                 preparedStatement.setLong(2, appointment.getAppIdFood());

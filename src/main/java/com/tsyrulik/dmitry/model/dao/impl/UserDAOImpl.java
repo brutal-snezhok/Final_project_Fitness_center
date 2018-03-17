@@ -42,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
 
     private static final String SELECT_MAX_ID_USER = "SELECT max(`iduser`) FROM `user`;";
 
-    private static final String DELETE_ALL = "DELETE FROM user where user.iduser > 0;";
+    private static final String DELETE_ALL = "DELETE FROM user WHERE user.iduser > 0;";
 
 
     public User createWithMaxId(User user) throws DAOFitnessException {
@@ -60,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = prestatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user.setIdUser(resultSet.getLong(1));
+                    user.setIdUser(resultSet.getInt(1));
                 }
             }
             return user;
@@ -127,7 +127,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     private User createUserFromResult(ResultSet resultSet) throws SQLException {
-        return new User(resultSet.getLong(DAOConstant.ID_USER), resultSet.getString(DAOConstant.NAME), resultSet.getString(DAOConstant.SURNAME),
+        return new User(resultSet.getInt(DAOConstant.ID_USER), resultSet.getString(DAOConstant.NAME), resultSet.getString(DAOConstant.SURNAME),
                 resultSet.getInt(DAOConstant.YEARS_OLD), resultSet.getString(DAOConstant.SEX), resultSet.getString(DAOConstant.EMAIL),
                 resultSet.getString(DAOConstant.PASSWORD), resultSet.getString(DAOConstant.ROLE_ID_ROLE));
     }
@@ -171,7 +171,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException {
-        user.setIdUser(resultSet.getLong("iduser"));
+        user.setIdUser(resultSet.getInt("iduser"));
         user.setName(resultSet.getString("name"));
         user.setSurname(resultSet.getString("surname"));
         user.setYearOld(resultSet.getInt("years_old"));
