@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>TestNG Report</title>
+<style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}.invisible {display:none}</style>
+</head>
+<body>
+<table>
+<tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
+<tr><th colspan="7">Command line suite</th></tr>
+<tr><td><a href="#t0">Command line test</a></td><td class="num">9</td><td class="num">0</td><td class="num attn">1</td><td class="num">1 496</td><td></td><td></td></tr>
+</table>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Command line suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Command line test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.tsyrulik.dmitry.model.dao.impl.OrderDAOImplTest</td><td><a href="#m0">testCreateDeleteOrder</a></td><td rowspan="1">1521284276193</td><td rowspan="1">7</td></tr><tr><th colspan="4">Command line test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="2">com.tsyrulik.dmitry.model.dao.impl.ClientDAOImplTest</td><td><a href="#m1">CreateAndDeleteClientTest</a></td><td rowspan="1">1521284276158</td><td rowspan="1">29</td></tr><tr class="passedeven"><td><a href="#m2">updateClientTest</a></td><td rowspan="1">1521284276189</td><td rowspan="1">2</td></tr><tr class="passedodd"><td rowspan="3">com.tsyrulik.dmitry.model.dao.impl.TrainerDAOImplTest</td><td><a href="#m3">createExercisesForClientTest</a></td><td rowspan="1">1521284276203</td><td rowspan="1">5</td></tr><tr class="passedodd"><td><a href="#m4">testDeleteTrainer</a></td><td rowspan="1">1521284276209</td><td rowspan="1">23</td></tr><tr class="passedodd"><td><a href="#m5">testUpdateTrainer</a></td><td rowspan="1">1521284276232</td><td rowspan="1">2</td></tr><tr class="passedeven"><td rowspan="3">com.tsyrulik.dmitry.model.dao.impl.UserDAOImplTest</td><td><a href="#m6">createUser</a></td><td rowspan="1">1521284276235</td><td rowspan="1">4</td></tr><tr class="passedeven"><td><a href="#m7">findUserByWrongUsernameOrPassword</a></td><td rowspan="1">1521284276239</td><td rowspan="1">2</td></tr><tr class="passedeven"><td><a href="#m8">updateUserByUser</a></td><td rowspan="1">1521284276241</td><td rowspan="1">1</td></tr><tr class="passedodd"><td rowspan="1">com.tsyrulik.dmitry.model.util.MD5Test</td><td><a href="#m9">shouldEncryptString</a></td><td rowspan="1">1521284276243</td><td rowspan="1">0</td></tr></tbody>
+</table>
+<h2>Command line test</h2><h3 id="m0">com.tsyrulik.dmitry.model.dao.impl.OrderDAOImplTest#testCreateDeleteOrder</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">com.tsyrulik.dmitry.model.exception.DAOFitnessException: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;number_of_lessons&apos; in &apos;field list&apos;
+	at com.tsyrulik.dmitry.model.dao.impl.OrderDAOImpl.createOrder(OrderDAOImpl.java:39)
+	at com.tsyrulik.dmitry.model.dao.impl.OrderDAOImplTest.testCreateDeleteOrder(OrderDAOImplTest.java:73)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;number_of_lessons&apos; in &apos;field list&apos;
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.Util.getInstance(Util.java:408)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:944)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3973)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3909)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2527)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2680)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1858)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2079)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2013)
+	at com.mysql.jdbc.PreparedStatement.executeLargeUpdate(PreparedStatement.java:5104)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1998)
+	at com.tsyrulik.dmitry.model.dao.impl.OrderDAOImpl.createOrder(OrderDAOImpl.java:36)
+	... 36 more
+... Removed 39 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">com.tsyrulik.dmitry.model.dao.impl.ClientDAOImplTest#CreateAndDeleteClientTest</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">com.tsyrulik.dmitry.model.dao.impl.ClientDAOImplTest#updateClientTest</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">com.tsyrulik.dmitry.model.dao.impl.TrainerDAOImplTest#createExercisesForClientTest</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">com.tsyrulik.dmitry.model.dao.impl.TrainerDAOImplTest#testDeleteTrainer</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m5">com.tsyrulik.dmitry.model.dao.impl.TrainerDAOImplTest#testUpdateTrainer</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m6">com.tsyrulik.dmitry.model.dao.impl.UserDAOImplTest#createUser</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m7">com.tsyrulik.dmitry.model.dao.impl.UserDAOImplTest#findUserByWrongUsernameOrPassword</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m8">com.tsyrulik.dmitry.model.dao.impl.UserDAOImplTest#updateUserByUser</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m9">com.tsyrulik.dmitry.model.util.MD5Test#shouldEncryptString</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+</body>
+</html>

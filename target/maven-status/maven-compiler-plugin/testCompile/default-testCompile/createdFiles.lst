@@ -1,0 +1,5 @@
+com\tsyrulik\dmitry\model\dao\impl\ClientDAOImplTest.class
+com\tsyrulik\dmitry\model\dao\impl\UserDAOImplTest.class
+com\tsyrulik\dmitry\model\dao\impl\TrainerDAOImplTest.class
+com\tsyrulik\dmitry\model\util\MD5Test.class
+com\tsyrulik\dmitry\model\dao\impl\OrderDAOImplTest.class

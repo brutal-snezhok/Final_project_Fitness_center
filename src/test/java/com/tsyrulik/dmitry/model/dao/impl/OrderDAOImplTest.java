@@ -5,6 +5,7 @@ import com.tsyrulik.dmitry.model.entity.Order;
 import com.tsyrulik.dmitry.model.manager.PropertyManager;
 import com.tsyrulik.dmitry.model.pool.ConnectionPool;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -19,6 +20,7 @@ public class OrderDAOImplTest {
     private final static String URL = manager.getProperty("db-test.url");
     private final static String USERNAME = manager.getProperty("db-test.user");
     private final static String PASSWORD = manager.getProperty("db-test.password");
+    private final static int POOL_SIZE = Integer.parseInt(manager.getProperty("db-test.pool_size"));
 
     private List<Order> allOrders;
     private OrderDAO orderDAO = new OrderDAOImpl();
@@ -26,13 +28,22 @@ public class OrderDAOImplTest {
     @BeforeMethod
     public void setUp() throws Exception {
         allOrders = new ArrayList<>();
-
-        int poolSize = 5;
-        ConnectionPool.getInstance(URL, USERNAME, PASSWORD, poolSize);
-
+        ConnectionPool.getInstance(URL, USERNAME, PASSWORD, POOL_SIZE);
         ConnectionPool.getInstance(1);
-        allOrders.add(new Order((long) 1, "щадящий", new BigDecimal(160), 5, (long) 1, 1));
+    }
 
+    @Test
+    public void testCreateOrder() throws Exception {
+        Order order = new Order((long) 1, "для спортсменов", new BigDecimal(40000), 10, (long) 1, 1);
+        allOrders.add(order);
+        orderDAO.createOrder(order);
+        Assert.assertEquals(orderDAO.findAllOrders(), allOrders);
+    }
+
+    @AfterMethod
+    public void afterCreateOrder() throws Exception {
+        allOrders.clear();
+        orderDAO.deleteAll();
     }
 
 //    @Test
@@ -65,15 +76,15 @@ public class OrderDAOImplTest {
 //        Assert.assertEquals(actualOrderTwo, expectedOrderTwo);
 //    }
 
-    @Test
-    public void testCreateDeleteOrder() throws Exception {
-        Order order = new Order((long) 2, "для спортсменов", new BigDecimal(40000), 10, (long) 1, 1);
-        allOrders.add(order);
-        Order expectedOrder = allOrders.get(1);
-        orderDAO.createOrder(order);
-        Assert.assertEquals(order, expectedOrder);
-        allOrders.remove(1);
-        orderDAO.deleteOrder(2);
-    }
+//    @Test
+//    public void testCreateDeleteOrder() throws Exception {
+//        Order order = new Order((long) 2, "для спортсменов", new BigDecimal(40000), 10, (long) 1, 1);
+//        allOrders.add(order);
+//        Order expectedOrder = allOrders.get(1);
+//        orderDAO.createOrder(order);
+//        Assert.assertEquals(order, expectedOrder);
+//        allOrders.remove(1);
+//        orderDAO.deleteOrder(2);
+//    }
 
 }
