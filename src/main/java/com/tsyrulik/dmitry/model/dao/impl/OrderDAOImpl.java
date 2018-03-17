@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderDAOImpl implements OrderDAO {
-    private static final String CREATE_ORDER_SQL = "INSERT INTO `order_client` (`type_of_training`,`client_idclient`, `trainer_idtrainer` , `number_of_lessons`)" +
-            " VALUES (?, ?, ?, ?);";
-    private static final String FIND_ALL_ORDERS_SQL = "SELECT `idorder`,`type_of_training`, `cost_of_lessons`, `number_of_lessons`,`client_idclient`,`trainer_idtrainer` FROM `order_client` ORDER BY `idorder`;";
-    private static final String FIND_ORDER_BY_ID_SQL = "SELECT `idorder`, `type_of_training`,`number_of_lessons`,`client_idclient`,`trainer_idtrainer` FROM `order_client` WHERE `idorder` = ?;";
-    private static final String FIND_ORDER_BY_EMAIL_SQL = "SELECT `idorder`, `type_of_training`, `number_of_lessons`,`client_idclient`,`trainer_idtrainer` FROM `order_client` " +
-            "INNER JOIN client ON `client`.`idclient`=`order_client`.`client_idclient` INNER JOIN `user` ON `client`.`user_iduser`=`user`.`iduser` WHERE `user`.`email` = ?;";
-    private static final String UPDATE_ORDER = "UPDATE `order_client` SET `idorder`=?, `type_of_training`=?,`number_of_lessons`=?,`client_idclient`=?,`trainer_idtrainer`=? WHERE `idorder`=?;";
+    private static final String CREATE_ORDER_SQL = "INSERT INTO `order_client` (`type_of_training`,`cost_of_lessons`,`order_client_idclient`, `order_trainer_idtrainer` , `number_of_lessons`)" +
+            " VALUES (?, ?, ?, ?, ?);";
+    private static final String FIND_ALL_ORDERS_SQL = "SELECT `idorder`,`type_of_training`, `cost_of_lessons`, `number_of_lessons`,`order_client_idclient`,`order_trainer_idtrainer` FROM `order_client` ORDER BY `idorder`;";
+    private static final String FIND_ORDER_BY_ID_SQL = "SELECT `idorder`, `type_of_training`,`number_of_lessons`,`order_client_idclient`,`order_trainer_idtrainer` FROM `order_client` WHERE `idorder` = ?;";
+    private static final String FIND_ORDER_BY_EMAIL_SQL = "SELECT `idorder`, `type_of_training`, `number_of_lessons`,`order_client_idclient`,`order_trainer_idtrainer` FROM `order_client` " +
+            "INNER JOIN client ON `client`.`idclient`=`order_client`.`order_client_idclient` INNER JOIN `user` ON `client`.`user_iduser`=`user`.`iduser` WHERE `user`.`email` = ?;";
+    private static final String UPDATE_ORDER = "UPDATE `order_client` SET `idorder`=?, `type_of_training`=?,`number_of_lessons`=?,`order_client_idclient`=?,`order_trainer_idtrainer`=? WHERE `idorder`=?;";
     private static final String DELETE_ORDER_BY_ID = "DELETE FROM `order_client` WHERE `idorder`=?;";
-    private static final String DELETE_ALL = "DELETE FROM order_client where idorder > 0;";
+    private static final String DELETE_ALL = "DELETE FROM order_client WHERE idorder > 0;";
 
     @Override
     public void createOrder(Order order) throws DAOFitnessException {
@@ -30,9 +30,10 @@ public class OrderDAOImpl implements OrderDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_ORDER_SQL)) {
 
             preparedStatement.setString(1, order.getTypeOfTraining());
-            preparedStatement.setLong(2, order.getIdClient());
-            preparedStatement.setInt(3, order.getIdTrainer());
-            preparedStatement.setInt(4, order.getNumber_of_lessons());
+            preparedStatement.setBigDecimal(2,order.getCostOfLessons());
+            preparedStatement.setLong(3, order.getIdClient());
+            preparedStatement.setInt(4, order.getIdTrainer());
+            preparedStatement.setInt(5, order.getNumber_of_lessons());
 
             preparedStatement.executeUpdate();
 

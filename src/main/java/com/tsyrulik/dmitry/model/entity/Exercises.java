@@ -1,13 +1,15 @@
 package com.tsyrulik.dmitry.model.entity;
 
+import java.util.Objects;
+
 public class Exercises {
-    private Long idExercises;
+    private int idExercises;
     private String muscleGroup;
     private String nameOfExercises;
     private String equipment;
 
     public Exercises() {
-        idExercises = (long)1;
+        idExercises = 1;
     }
 
     public Exercises(String muscleGroup, String nameOfExercises, String equipment) {
@@ -16,18 +18,18 @@ public class Exercises {
         this.equipment = equipment;
     }
 
-    public Exercises(Long idExercises, String muscleGroup, String nameOfExercises, String equipment) {
+    public Exercises(int idExercises, String muscleGroup, String nameOfExercises, String equipment) {
         this.idExercises = idExercises;
         this.muscleGroup = muscleGroup;
         this.nameOfExercises = nameOfExercises;
         this.equipment = equipment;
     }
 
-    public Long getIdExercises() {
+    public int getIdExercises() {
         return idExercises;
     }
 
-    public void setIdExercises(Long idExercises) {
+    public void setIdExercises(int idExercises) {
         this.idExercises = idExercises;
     }
 
@@ -59,25 +61,17 @@ public class Exercises {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Exercises exercises = (Exercises) o;
-
-        if (idExercises != null ? !idExercises.equals(exercises.idExercises) : exercises.idExercises != null)
-            return false;
-        if (muscleGroup != null ? !muscleGroup.equals(exercises.muscleGroup) : exercises.muscleGroup != null)
-            return false;
-        if (nameOfExercises != null ? !nameOfExercises.equals(exercises.nameOfExercises) : exercises.nameOfExercises != null)
-            return false;
-        return equipment != null ? equipment.equals(exercises.equipment) : exercises.equipment == null;
+        return idExercises == exercises.idExercises &&
+                Objects.equals(muscleGroup, exercises.muscleGroup) &&
+                Objects.equals(nameOfExercises, exercises.nameOfExercises) &&
+                Objects.equals(equipment, exercises.equipment);
     }
 
     @Override
     public int hashCode() {
-        int result = idExercises != null ? idExercises.hashCode() : 0;
-        result = 31 * result + (muscleGroup != null ? muscleGroup.hashCode() : 0);
-        result = 31 * result + (nameOfExercises != null ? nameOfExercises.hashCode() : 0);
-        result = 31 * result + (equipment != null ? equipment.hashCode() : 0);
-        return result;
+
+        return Objects.hash(idExercises, muscleGroup, nameOfExercises, equipment);
     }
 
     @Override

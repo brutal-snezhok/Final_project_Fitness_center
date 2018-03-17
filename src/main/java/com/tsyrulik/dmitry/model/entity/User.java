@@ -2,8 +2,8 @@ package com.tsyrulik.dmitry.model.entity;
 
 import java.io.Serializable;
 
-public class User implements Serializable,Cloneable{
-    private long idUser;
+public class User implements Serializable, Cloneable {
+    private int idUser;
     private String name;
     private String surname;
     private int yearOld;
@@ -12,7 +12,7 @@ public class User implements Serializable,Cloneable{
     private String password;
     private String role;
 
-    public User(){
+    public User() {
 
     }
 
@@ -26,7 +26,7 @@ public class User implements Serializable,Cloneable{
         this.role = role;
     }
 
-    public User(long idUser, String name, String surname, int yearOld, String sex, String email, String password, String role) {
+    public User(int idUser, String name, String surname, int yearOld, String sex, String email, String password, String role) {
         this.idUser = idUser;
         this.name = name;
         this.surname = surname;
@@ -38,11 +38,11 @@ public class User implements Serializable,Cloneable{
     }
 
 
-    public long getIdUser() {
+    public int getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(long idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 

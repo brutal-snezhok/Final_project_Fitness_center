@@ -36,7 +36,8 @@ public class TrainerDAOImplTest {
 
         ConnectionPool.getInstance(1);
         allTrainers.add(new Trainer(3, "Kosty", "Pyshyk", 35, "M",
-                "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer", 1, "кмс", new BigDecimal(10), 3));
+                "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer", 1,
+                "кмс", new BigDecimal(10), 3));
 
     }
 

@@ -36,15 +36,18 @@ public class ClientDAOImplTest {
         ConnectionPool.getInstance(URL, USERNAME, PASSWORD, poolSize);
 
         ConnectionPool.getInstance(1);
-        examplefood = new Food((long) 7, "Шоколад 100 гр", LocalDate.of(2017, 9, 20), LocalTime.of(15, 0, 0));
+        examplefood = new Food((long) 7, "Шоколад 100 гр", LocalDate.of(2017, 9, 20),
+                LocalTime.of(15, 0, 0));
         exampleExercises = new Exercises((long) 6, "широчайшие мышцы спины",
                 "тяга верхнего блока перед собой; тяга гантели одной рукой; тяга гантели к поясу; отжимания стоя на руках; подтягивания широким хватом",
                 "гантели, турник, тренажер");
 
         allClients.add(new Client(2, "Pety", "Saplov", 23, "M",
-                "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long) 1, (double) 15, (long) 2));
+                "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client", (long) 1,
+                (double) 15, (long) 2));
         allClients.add(new Client(4, "Danila", "Letov", 21, "M",
-                "letov@gmail.com", "6982e45352af5526754d83df2d1635", "client", (long) 2, (double) 0.65, (long) 4));
+                "letov@gmail.com", "6982e45352af5526754d83df2d1635", "client", (long) 2,
+                (double) 0.65, (long) 4));
     }
 
 //    @Test
