@@ -60,6 +60,4 @@ public interface OrderDAO {
      * @throws DAOFitnessException the dao fitness exception
      */
     void deleteOrder(long id) throws DAOFitnessException;
-
-    void deleteAll()  throws DAOFitnessException;
 }
