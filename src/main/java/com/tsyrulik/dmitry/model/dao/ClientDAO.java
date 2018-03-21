@@ -126,4 +126,6 @@ public interface ClientDAO {
      * @throws DAOFitnessException the dao fitness exception
      */
     List<Client> findAllClientsOfThisTrainer(int idTrainer) throws DAOFitnessException;
+
+    void deleteAll()  throws DAOFitnessException;
 }

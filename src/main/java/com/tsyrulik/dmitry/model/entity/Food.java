@@ -2,15 +2,16 @@ package com.tsyrulik.dmitry.model.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Food {
-    private Long idFood;
+    private int idFood;
     private String nameOfDish;
     private LocalDate dateReceipt;
     private LocalTime timeOfReceipt;
 
-    public Food(){
-        idFood = (long) 1;
+    public Food() {
+        idFood = 1;
     }
 
     public Food(String nameOfDish, LocalDate dateReceipt, LocalTime timeOfReceipt) {
@@ -18,18 +19,19 @@ public class Food {
         this.dateReceipt = dateReceipt;
         this.timeOfReceipt = timeOfReceipt;
     }
-    public Food(Long idFood, String nameOfDish, LocalDate dateReceipt, LocalTime timeOfReceipt) {
+
+    public Food(int idFood, String nameOfDish, LocalDate dateReceipt, LocalTime timeOfReceipt) {
         this.idFood = idFood;
         this.nameOfDish = nameOfDish;
         this.dateReceipt = dateReceipt;
         this.timeOfReceipt = timeOfReceipt;
     }
 
-    public Long getIdFood() {
+    public int getIdFood() {
         return idFood;
     }
 
-    public void setIdFood(Long idFood) {
+    public void setIdFood(int idFood) {
         this.idFood = idFood;
     }
 
@@ -61,22 +63,17 @@ public class Food {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Food food = (Food) o;
-
-        if (idFood != null ? !idFood.equals(food.idFood) : food.idFood != null) return false;
-        if (nameOfDish != null ? !nameOfDish.equals(food.nameOfDish) : food.nameOfDish != null) return false;
-        if (dateReceipt != null ? !dateReceipt.equals(food.dateReceipt) : food.dateReceipt != null) return false;
-        return timeOfReceipt != null ? timeOfReceipt.equals(food.timeOfReceipt) : food.timeOfReceipt == null;
+        return idFood == food.idFood &&
+                Objects.equals(nameOfDish, food.nameOfDish) &&
+                Objects.equals(dateReceipt, food.dateReceipt) &&
+                Objects.equals(timeOfReceipt, food.timeOfReceipt);
     }
 
     @Override
     public int hashCode() {
-        int result = idFood != null ? idFood.hashCode() : 0;
-        result = 31 * result + (nameOfDish != null ? nameOfDish.hashCode() : 0);
-        result = 31 * result + (dateReceipt != null ? dateReceipt.hashCode() : 0);
-        result = 31 * result + (timeOfReceipt != null ? timeOfReceipt.hashCode() : 0);
-        return result;
+
+        return Objects.hash(idFood, nameOfDish, dateReceipt, timeOfReceipt);
     }
 
     @Override

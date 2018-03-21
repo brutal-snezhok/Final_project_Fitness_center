@@ -2,27 +2,27 @@ package com.tsyrulik.dmitry.model.entity;
 
 import java.math.BigDecimal;
 
-public class Trainer extends User{
+public class Trainer extends User {
     private int idTrainer;
     private String education;
     private BigDecimal costPerHour;
     private int trainerIdUser;
 
 
-    public Trainer(User user){
-        super(user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
+    public Trainer(User user) {
+        super(user.getName(), user.getSurname(), user.getYearOld(), user.getSex(), user.getEmail(), user.getPassword(), user.getRole());
         education = "кмс";
         costPerHour = new BigDecimal(0);
     }
-    public Trainer(User user, String education, BigDecimal costPerHour){
-        super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
-        this.idTrainer = idTrainer;
+
+    public Trainer(User user, String education, BigDecimal costPerHour) {
+        super(user.getIdUser(), user.getName(), user.getSurname(), user.getYearOld(), user.getSex(), user.getEmail(), user.getPassword(), user.getRole());
         this.education = education;
         this.costPerHour = costPerHour;
-        this.trainerIdUser = trainerIdUser;
     }
-    public Trainer(User user,int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser){
-        super(user.getIdUser(),user.getName(),user.getSurname(),user.getYearOld(), user.getSex(),user.getEmail(),user.getPassword(),user.getRole());
+
+    public Trainer(User user, int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser) {
+        super(user.getIdUser(), user.getName(), user.getSurname(), user.getYearOld(), user.getSex(), user.getEmail(), user.getPassword(), user.getRole());
         this.idTrainer = idTrainer;
         this.education = education;
         this.costPerHour = costPerHour;
@@ -30,7 +30,7 @@ public class Trainer extends User{
     }
 
 
-    public Trainer(long idUser, String name, String surname, int yearOld, String sex, String email, String password, String role, int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser) {
+    public Trainer(int idUser, String name, String surname, int yearOld, String sex, String email, String password, String role, int idTrainer, String education, BigDecimal costPerHour, int trainerIdUser) {
         super(idUser, name, surname, yearOld, sex, email, password, role);
         this.idTrainer = idTrainer;
         this.education = education;

@@ -1,57 +1,59 @@
 package com.tsyrulik.dmitry.model.entity;
 
-public class Appointment {
-    private Long appIdAppointment;
-    private Long appIdExercises;
-    private Long appIdFood;
-    private Long appIdClient;
+import java.util.Objects;
 
-    public Appointment(Long appIdClient){
+public class Appointment {
+    private int appIdAppointment;
+    private int appIdExercises;
+    private int appIdFood;
+    private int appIdClient;
+
+    public Appointment(int appIdClient) {
         this.appIdClient = appIdClient;
     }
 
-    public Appointment(Long appIdExercises, Long appIdFood, Long appIdClient) {
+    public Appointment(int appIdExercises, int appIdFood, int appIdClient) {
         this.appIdExercises = appIdExercises;
         this.appIdFood = appIdFood;
         this.appIdClient = appIdClient;
     }
 
-    public Appointment(Long appIdAppointment, Long appIdExercises, Long appIdFood, Long appIdClient) {
+    public Appointment(int appIdAppointment, int appIdExercises, int appIdFood, int appIdClient) {
         this.appIdAppointment = appIdAppointment;
         this.appIdExercises = appIdExercises;
         this.appIdFood = appIdFood;
         this.appIdClient = appIdClient;
     }
 
-    public Long getAppIdAppointment() {
+    public int getAppIdAppointment() {
         return appIdAppointment;
     }
 
-    public void setAppIdAppointment(Long appIdAppointment) {
+    public void setAppIdAppointment(int appIdAppointment) {
         this.appIdAppointment = appIdAppointment;
     }
 
-    public Long getAppIdExercises() {
+    public int getAppIdExercises() {
         return appIdExercises;
     }
 
-    public void setAppIdExercises(Long appIdExercises) {
+    public void setAppIdExercises(int appIdExercises) {
         this.appIdExercises = appIdExercises;
     }
 
-    public Long getAppIdFood() {
+    public int getAppIdFood() {
         return appIdFood;
     }
 
-    public void setAppIdFood(Long appIdFood) {
+    public void setAppIdFood(int appIdFood) {
         this.appIdFood = appIdFood;
     }
 
-    public Long getAppIdClient() {
+    public int getAppIdClient() {
         return appIdClient;
     }
 
-    public void setAppIdClient(Long appIdClient) {
+    public void setAppIdClient(int appIdClient) {
         this.appIdClient = appIdClient;
     }
 
@@ -59,24 +61,17 @@ public class Appointment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Appointment that = (Appointment) o;
-
-        if (appIdAppointment != null ? !appIdAppointment.equals(that.appIdAppointment) : that.appIdAppointment != null)
-            return false;
-        if (appIdExercises != null ? !appIdExercises.equals(that.appIdExercises) : that.appIdExercises != null)
-            return false;
-        if (appIdFood != null ? !appIdFood.equals(that.appIdFood) : that.appIdFood != null) return false;
-        return appIdClient != null ? appIdClient.equals(that.appIdClient) : that.appIdClient == null;
+        return appIdAppointment == that.appIdAppointment &&
+                appIdExercises == that.appIdExercises &&
+                appIdFood == that.appIdFood &&
+                appIdClient == that.appIdClient;
     }
 
     @Override
     public int hashCode() {
-        int result = appIdAppointment != null ? appIdAppointment.hashCode() : 0;
-        result = 31 * result + (appIdExercises != null ? appIdExercises.hashCode() : 0);
-        result = 31 * result + (appIdFood != null ? appIdFood.hashCode() : 0);
-        result = 31 * result + (appIdClient != null ? appIdClient.hashCode() : 0);
-        return result;
+
+        return Objects.hash(appIdAppointment, appIdExercises, appIdFood, appIdClient);
     }
 
     @Override

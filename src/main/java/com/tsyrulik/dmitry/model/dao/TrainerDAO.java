@@ -138,4 +138,6 @@ public interface TrainerDAO {
      * @throws DAOFitnessException the dao fitness exception
      */
     void deleteAppointmentsById(long idAppointments) throws DAOFitnessException;
+
+    void deleteAll()  throws DAOFitnessException;
 }

@@ -13,7 +13,7 @@ public class DAOConstant {
 
     public static final String ID_CLIENT = "idclient";
     public static final String DISCOUNT = "discount";
-    public static final String USER_ID_USER = "user_iduser";
+    public static final String USER_ID_USER = "client_user_iduser";
 
     public static final String ID_TRAINER = "idtrainer";
     public static final String EDUCATION_OR_LEVEL = "education_or_level";

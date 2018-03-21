@@ -35,7 +35,6 @@ public class TrainerCommand implements Command {
     private static final String PARAM_CHECKBOX = "selectClient";
 
 
-
     public TrainerCommand(ClientReceiver clientReceiver, TrainerReceiver trainerReceiver) {
         this.clientReceiver = clientReceiver;
         this.trainerReceiver = trainerReceiver;
@@ -59,44 +58,44 @@ public class TrainerCommand implements Command {
         String page;
         List<ClientInf> clientInfList = new ArrayList<>();
         try {
-            if(checkbox != null){
-                for (int i = 0; i < checkbox.length; i++){
+            if (checkbox != null) {
+                for (int i = 0; i < checkbox.length; i++) {
                     System.out.println(checkbox[i]);
                     Client currentClient = clientReceiver.findClientByEmail(checkbox[i]);
                     clients.add(currentClient);
                 }
             }
 
-            for(int i = 0; i < clients.size(); i++) {
+            for (int i = 0; i < clients.size(); i++) {
                 Food food = new Food();
                 Exercises exercises = new Exercises();
-                if (!nameOfDish.isEmpty() && !dataOfReceipt.isEmpty() && !timeOfReceipt.isEmpty()){
+                if (!nameOfDish.isEmpty() && !dataOfReceipt.isEmpty() && !timeOfReceipt.isEmpty()) {
                     food = new Food(nameOfDish, Date.valueOf(dataOfReceipt).toLocalDate(), ParserToLocalTime.parse(timeOfReceipt));
                 }
-               if (!muscleGroup.isEmpty() && !nameOfExercises.isEmpty() && !equipment.isEmpty()){
-                   exercises = new Exercises(muscleGroup, nameOfExercises, equipment);
-               }
+                if (!muscleGroup.isEmpty() && !nameOfExercises.isEmpty() && !equipment.isEmpty()) {
+                    exercises = new Exercises(muscleGroup, nameOfExercises, equipment);
+                }
 
                 List<Appointment> appointment = clientReceiver.findAllAppointmentForClient(clients.get(i).getIdClient());
-                        //new Appointment(exercises.getIdExercises(), food.getIdFood(), clients.get(i).getIdClient());
+                //new Appointment(exercises.getIdExercises(), food.getIdFood(), clients.get(i).getIdClient());
 
                 if (actionButtonFood != null) {
                     switch (actionButtonFood) {
                         case "Add food": {
                             food = trainerReceiver.createFoodForClient(food);
-                            LOGGER.log(Level.INFO,"Create food for client" + clients.get(i).getEmail());
-                            trainerReceiver.createAppointmentsForClient(new Appointment(new Long(-1), food.getIdFood(), clients.get(i).getIdClient()));
+                            LOGGER.log(Level.INFO, "Create food for client" + clients.get(i).getEmail());
+                            trainerReceiver.createAppointmentsForClient(new Appointment(-1, food.getIdFood(), clients.get(i).getIdClient()));
                             break;
                         }
                         case "Delete food": {
                             food = clientReceiver.findFoodForClient(clients.get(i).getIdClient());
-                            for (int ap = 0; ap < appointment.size(); ap++){
-                                if (appointment.get(ap).getAppIdFood() == food.getIdFood()){
-                                    appointment.get(ap).setAppIdFood(null);
+                            for (int ap = 0; ap < appointment.size(); ap++) {
+                                if (appointment.get(ap).getAppIdFood() == food.getIdFood()) {
+                                    appointment.get(ap).setAppIdFood(-1);
                                 }
                             }
                             trainerReceiver.deleteFoodById(food.getIdFood());
-                            LOGGER.log(Level.INFO,"Delete food for client" + clients.get(i).getEmail());
+                            LOGGER.log(Level.INFO, "Delete food for client" + clients.get(i).getEmail());
                             // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
                             break;
                         }
@@ -104,7 +103,7 @@ public class TrainerCommand implements Command {
                             //food.setIdFood(appointment.get(0).getAppIdFood());
                             food = clientReceiver.findFoodForClient(clients.get(0).getIdClient());
                             trainerReceiver.updateFood(food);
-                            LOGGER.log(Level.INFO,"Update food for client" + clients.get(i).getEmail());
+                            LOGGER.log(Level.INFO, "Update food for client" + clients.get(i).getEmail());
                             break;
                         }
                     }
@@ -114,21 +113,21 @@ public class TrainerCommand implements Command {
                     switch (actionButtonExercise) {
                         case "Add exercises": {
                             exercises = trainerReceiver.createExercisesForClient(exercises);
-                            LOGGER.log(Level.INFO,"Create exercises for client" + clients.get(i).getEmail());
+                            LOGGER.log(Level.INFO, "Create exercises for client" + clients.get(i).getEmail());
                             trainerReceiver.createAppointmentsForClient(new Appointment(exercises.getIdExercises(),
-                                    new Long(-1), clients.get(i).getIdClient()));
+                                    -1, clients.get(i).getIdClient()));
                             break;
                         }
                         case "Delete exercises": {
                             trainerReceiver.deleteExercisesById(exercises.getIdExercises());
-                            LOGGER.log(Level.INFO,"Delete exercises for client" + clients.get(i).getEmail());
-                           // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
+                            LOGGER.log(Level.INFO, "Delete exercises for client" + clients.get(i).getEmail());
+                            // trainerReceiver.deleteAppointmentsById(appointment.getAppIdAppointment());//???
                             break;
                         }
                         case "Update exercises": {
                             exercises.setIdExercises(appointment.get(0).getAppIdExercises());
                             trainerReceiver.updateExercises(exercises);
-                            LOGGER.log(Level.INFO,"Update exercises for client" + clients.get(i).getEmail());
+                            LOGGER.log(Level.INFO, "Update exercises for client" + clients.get(i).getEmail());
                             break;
                         }
                     }
