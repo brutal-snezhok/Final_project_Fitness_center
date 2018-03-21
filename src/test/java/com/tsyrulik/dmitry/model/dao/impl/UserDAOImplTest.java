@@ -3,7 +3,6 @@ package com.tsyrulik.dmitry.model.dao.impl;
 import com.tsyrulik.dmitry.model.dao.UserDAO;
 import com.tsyrulik.dmitry.model.entity.User;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
-import com.tsyrulik.dmitry.model.manager.PropertyManager;
 import com.tsyrulik.dmitry.model.pool.ConnectionPool;
 import com.tsyrulik.dmitry.model.util.MD5;
 import org.testng.Assert;
@@ -16,10 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDAOImplTest {
-    private static PropertyManager manager = new PropertyManager("dbConfig");
-    private final static String URL = manager.getProperty("db-test.url");
-    private final static String USERNAME = manager.getProperty("db-test.user");
-    private final static String PASSWORD = manager.getProperty("db-test.password");
+    private final static String USERNAME = "root";
+    private final static String PASSWORD = "12345";
+    private final static String URL = "jdbc:mysql://localhost:3306/test?autoReconnect=true&useSSL=false";
 
     private List<User> allUsers;
     private UserDAO userDAO = new UserDAOImpl();
@@ -38,32 +36,32 @@ public class UserDAOImplTest {
         allUsers.add(new User(2, "Pety", "Saplov", 23, "M",
                 "goodmail@gmail.com", "58bad6b697dff48f4927941962f23e90", "client"));
         allUsers.add(new User(3, "Kosty", "Pyshyk", 35, "M",
-                "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer"));
+                "pyshhyk@gmail.com", "6982e82c0b21af5526754d83df2d1635", "trainer" ));
     }
 
-//    @Test
-//    public void findAllUsers() throws DAOFitnessException {
-//        List<User> actual = userDAO.findAllUsers();
-//        Assert.assertEquals(actual, allUsers);
-//    }
-//
-//    @Test
-//    public void findUserById() throws DAOFitnessException  {
-//        int id = 2;
-//        Optional<User> user = userDAO.findUserById(id);
-//        Assert.assertEquals(allUsers.get(id -1), user.get());
-//    }
-//
-//    @Test
-//    public void findUserByEmailAndPassword() throws DAOFitnessException, NoSuchAlgorithmException {
-//        String email = "goodmail@gmail.com";
-//        String password = "password24";
-//        MD5 encryptor = new MD5();
-//        String encryptPassword = encryptor.encrypt(password);
-//        User expectedUser = allUsers.get(1);
-//        User actualUser = userDAO.findUserByEmailAndPassword(email, encryptPassword);
-//        Assert.assertEquals(expectedUser, actualUser);
-//    }
+    @Test
+    public void findAllUsers() throws DAOFitnessException {
+        List<User> actual = userDAO.findAllUsers();
+        Assert.assertEquals(actual, allUsers);
+    }
+
+    @Test
+    public void findUserById() throws DAOFitnessException  {
+        int id = 2;
+        Optional<User> user = userDAO.findUserById(id);
+        Assert.assertEquals(allUsers.get(id -1), user.get());
+    }
+
+    @Test
+    public void findUserByEmailAndPassword() throws DAOFitnessException, NoSuchAlgorithmException {
+        String email = "goodmail@gmail.com";
+        String password = "password24";
+        MD5 encryptor = new MD5();
+        String encryptPassword = encryptor.encrypt(password);
+        User expectedUser = allUsers.get(1);
+        User actualUser = userDAO.findUserByEmailAndPassword(email, encryptPassword);
+        Assert.assertEquals(expectedUser, actualUser);
+    }
 
     @Test
     public void findUserByWrongUsernameOrPassword() throws DAOFitnessException, NoSuchAlgorithmException {
@@ -75,13 +73,13 @@ public class UserDAOImplTest {
         Assert.assertEquals(actualUser, null);
     }
 
-    //    @Test
-////    public void findUserByEmail() throws DAOFitnessException {
-////        String email = "pyshhyk@gmail.com";
-////        User expectedUser = allUsers.get(2);
-////        Optional<User> actualUser = userDAO.findUserByEmail(email);
-////        Assert.assertEquals(actualUser.get(), expectedUser);
-////    }
+    @Test
+    public void findUserByEmail() throws DAOFitnessException {
+        String email = "pyshhyk@gmail.com";
+        User expectedUser = allUsers.get(2);
+        Optional<User> actualUser = userDAO.findUserByEmail(email);
+        Assert.assertEquals(actualUser.get(), expectedUser);
+    }
     @Test
     public void createUser() throws DAOFitnessException {
         User user = new User(4, "Finel", "Finel", 21, "F",

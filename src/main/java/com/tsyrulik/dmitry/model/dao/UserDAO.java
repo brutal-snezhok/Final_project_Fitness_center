@@ -3,7 +3,6 @@ package com.tsyrulik.dmitry.model.dao;
 import com.tsyrulik.dmitry.model.entity.User;
 import com.tsyrulik.dmitry.model.exception.DAOFitnessException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +71,5 @@ public interface UserDAO {
      */
     void deleteUser(long id) throws DAOFitnessException;
 
-    void deleteAll()  throws DAOFitnessException;
 
 }

@@ -1,6 +1,0 @@
-INSERT INTO haltura_fitness_test.`role` (`idrole`, `role_name`) VALUES (1, 'admin');
-INSERT INTO haltura_fitness_test.`role` (`idrole`, `role_name`) VALUES (2, 'trainer');
-INSERT INTO haltura_fitness_test.`role` (`idrole`, `role_name`) VALUES (3, 'client');
-
-
-

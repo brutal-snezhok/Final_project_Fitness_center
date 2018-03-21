@@ -11,17 +11,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReviewsDAOImpl implements ReviewsDAO {
+public class ReviewsDAOImpl implements ReviewsDAO{
     private static final String SQL_SELECT_REVIEWS =
-            "SELECT `idreviews`, `reviews_client_idclient`, `text_review`, `mark` FROM `reviews`;";
+            "SELECT `idreviews`, `client_idclient`, `text_review`, `mark` FROM `reviews`;";
 
     private static final String SQL_INSERT_REVIEW =
-            "INSERT INTO `reviews` (`reviews_client_idclient`, `text_review`, `mark`) VALUES (?, ?, ?);";
+            "INSERT INTO `reviews` (`client_idclient`, `text_review`, `mark`) VALUES (?, ?, ?);";
 
     private static final String SQL_DELETE_REVIEW =
             "DELETE FROM `reviews` WHERE `idreviews`=?;";
-
-    private static final String DELETE_ALL = "DELETE FROM reviews WHERE reviews.idreviews > 0;";
 
 
     @Override
@@ -29,12 +27,10 @@ public class ReviewsDAOImpl implements ReviewsDAO {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeQuery(SQL_SELECT_REVIEWS);
-            List<Review> reviewsList;
-            try (ResultSet resultSet = statement.getResultSet()) {
-                reviewsList = new ArrayList<>();
-                while (resultSet.next()) {
-                    reviewsList.add(createReviewFromResult(resultSet));
-                }
+            ResultSet resultSet = statement.getResultSet();
+            List<Review> reviewsList = new ArrayList<>();
+            while (resultSet.next()) {
+                reviewsList.add(createReviewFromResult(resultSet));
             }
             return reviewsList;
         } catch (SQLException | PoolFitnessException e) {
@@ -43,8 +39,9 @@ public class ReviewsDAOImpl implements ReviewsDAO {
     }
 
     private Review createReviewFromResult(ResultSet resultSet) throws SQLException {
-        return new Review(resultSet.getInt(1), resultSet.getInt(2),
+        Review review = new Review(resultSet.getInt(1),resultSet.getInt(2),
                 resultSet.getString(3), resultSet.getInt(4));
+        return review;
     }
 
     @Override
@@ -73,15 +70,5 @@ public class ReviewsDAOImpl implements ReviewsDAO {
             throw new DAOFitnessException(e);
         }
 
-    }
-
-    @Override
-    public void deleteAll() throws DAOFitnessException {
-        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL)) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException | PoolFitnessException e) {
-            throw new DAOFitnessException(e);
-        }
     }
 }
